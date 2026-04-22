@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who We Serve — Private Markets Technology for Every Firm Type | daappa</title>
+<meta name="description" content="daappa serves fund administrators, general partners, VCs, LPs, fund of funds, development banks, AIFMs, and family offices across private markets. See which product fits your firm type.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3A;--navy-mid:#142D52;--orange:#E8602A;--orange-light:#F07848;--orange-pale:#FDF0EA;--orange-dark:#C04E20;--teal:#1D9E75;--teal-light:#E1F5EE;--teal-mid:#5DCAA5;--white:#fff;--off:#F7F8FA;--stone:#EEF0F4;--border:#DDE2EB;--ts:#4A5568;--tm:#718096;--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--navy);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none}.nl-t{font-weight:600;font-size:20px;color:#fff;letter-spacing:-.3px}
+.nlinks{display:flex;align-items:center;gap:28px;list-style:none}.nlinks a{font-size:14px;color:rgba(255,255,255,.7);text-decoration:none;transition:color .2s}.nlinks a:hover,.nlinks a.active{color:#fff}
+.ncta{display:flex;align-items:center;gap:12px}
+.btn-gn{font-family:var(--sans);font-size:14px;font-weight:500;color:rgba(255,255,255,.8);background:transparent;border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:4px;text-decoration:none;transition:all .2s}.btn-gn:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.btn-pn{font-family:var(--sans);font-size:14px;font-weight:500;color:#fff;background:var(--orange);border:none;padding:9px 20px;border-radius:4px;text-decoration:none;transition:background .2s}.btn-pn:hover{background:var(--orange-light)}
+.bc{background:var(--off);border-bottom:1px solid var(--border);padding:10px 48px}.bci{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tm)}.bci a{color:var(--tm);text-decoration:none}.bci a:hover{color:var(--navy)}
+
+/* HERO */
+.hero{background:var(--navy);padding:80px 48px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,96,42,.1) 0%,transparent 65%);pointer-events:none}
+.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.hi{max-width:1200px;margin:0 auto;position:relative;z-index:2;text-align:center}
+.ey{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:inline-flex;align-items:center;gap:8px}.ey::before{content:'';width:20px;height:1px;background:var(--orange)}
+h1{font-family:var(--serif);font-size:52px;line-height:1.08;color:#fff;letter-spacing:-.5px;margin-bottom:20px}h1 em{font-style:italic;color:rgba(255,255,255,.5)}
+.hs{font-size:18px;line-height:1.65;color:rgba(255,255,255,.6);font-weight:300;max-width:620px;margin:0 auto 40px}
+
+/* FIRM TYPE GRID */
+.s{padding:88px 48px}.si{max-width:1200px;margin:0 auto}.sa{background:var(--off)}
+.se{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}.se::before{content:'';width:20px;height:1px;background:var(--orange)}
+h2{font-family:var(--serif);font-size:40px;line-height:1.15;color:var(--navy);letter-spacing:-.3px;margin-bottom:14px}
+.intro{font-size:17px;color:var(--ts);line-height:1.65;font-weight:300;max-width:640px;margin-bottom:48px}
+
+/* AUDIENCE CARDS -- the Allvue-style directory */
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.aud-card{background:var(--white);padding:36px 32px;display:flex;flex-direction:column;position:relative;transition:background .15s}
+.aud-card:hover{background:var(--off)}
+.aud-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--stone);transition:background .15s}
+.aud-card:hover::before{background:var(--orange)}
+.aud-icon{width:48px;height:48px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex-shrink:0}
+.aud-icon svg{width:24px;height:24px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.aud-label{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--tm);margin-bottom:8px}
+.aud-name{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:10px;line-height:1.2}
+.aud-desc{font-size:14px;color:var(--ts);line-height:1.6;font-weight:300;flex:1;margin-bottom:20px}
+.aud-products{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.aud-product{font-size:11px;font-weight:500;padding:3px 9px;border-radius:3px;background:var(--stone);color:var(--navy)}
+.aud-product.featured{background:var(--orange-pale);color:var(--orange-dark)}
+.aud-link{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:color .15s;margin-top:auto}.aud-link:hover{color:var(--orange)}.aud-link::after{content:'→'}
+
+/* ASSET CLASS BAND */
+.asset-band{background:var(--navy);border-radius:8px;padding:36px 40px;margin-top:32px}
+.asset-band-title{font-size:13px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px}
+.asset-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.asset-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:14px 14px;text-align:center}
+.asset-name{font-size:13px;font-weight:500;color:#fff;margin-bottom:4px}
+.asset-desc{font-size:11px;color:rgba(255,255,255,.35);font-weight:300;line-height:1.4}
+
+/* EXPLORER CTA */
+.explorer-cta{background:var(--off);border:1px solid var(--border);border-radius:8px;padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;margin-top:32px}
+.explorer-cta h3{font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:8px}
+.explorer-cta p{font-size:15px;color:var(--ts);font-weight:300;line-height:1.6}
+.btn-explore{font-family:var(--sans);font-size:14px;font-weight:500;color:#fff;background:var(--navy);border:none;padding:12px 24px;border-radius:4px;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:background .2s}.btn-explore::after{content:'→'}.btn-explore:hover{background:var(--navy-mid)}
+
+.cta{background:var(--orange);padding:80px 48px}
+.cta-i{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.cta-i h2{font-family:var(--serif);font-size:36px;color:#fff;line-height:1.2;margin-bottom:8px}
+.cta-i p{font-size:16px;color:rgba(255,255,255,.75);font-weight:300;max-width:560px}
+.cta-b{display:flex;flex-direction:column;gap:12px;align-items:flex-end;flex-shrink:0}
+.bcw{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--orange);background:#fff;border:none;padding:13px 28px;border-radius:4px;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}.bcw::after{content:'→'}.bcw:hover{opacity:.92}
+.bcg{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap}.bcg::after{content:'→'}
+footer{background:#091929;padding:64px 48px 40px;border-top:1px solid rgba(255,255,255,.05)}
+.fi{max-width:1200px;margin:0 auto}.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fp p{font-size:14px;color:rgba(255,255,255,.35);line-height:1.65;font-weight:300;margin-top:14px;max-width:240px}
+.fct{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:10px}.fl a{font-size:14px;color:rgba(255,255,255,.45);text-decoration:none;font-weight:300}.fl a:hover{color:rgba(255,255,255,.8)}
+.fb{padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+.fleg{font-size:12px;color:rgba(255,255,255,.2)}.fcerts{display:flex;gap:12px}.fcert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
+@media(max-width:960px){nav{padding:0 20px}.bc,.hero,.s{padding-left:20px;padding-right:20px}.hero{padding-top:56px;padding-bottom:56px}.s{padding-top:64px;padding-bottom:64px}.audience-grid{grid-template-columns:1fr}.asset-grid{grid-template-columns:repeat(3,1fr)}.explorer-cta{grid-template-columns:1fr}.cta-i{grid-template-columns:1fr}.cta-b{align-items:flex-start}.ft{grid-template-columns:1fr 1fr}footer{padding:40px 20px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nl"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/><path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><circle cx="16" cy="16" r="3" fill="#E8602A"/></svg><span class="nl-t">daappa</span></a>
+  <ul class="nlinks"><li><a href="daappa-studio-plus.html">Platform</a></li><li><a href="daappa-who-we-serve.html" class="active">Who we serve</a></li><li><a href="daappa-clients.html">Clients</a></li><li><a href="daappa-insights.html">Insights</a></li><li><a href="daappa-about.html">About</a></li></ul>
+  <div class="ncta"><a href="daappa-contact.html" class="btn-gn">Contact</a><a href="daappa-book-demo.html" class="btn-pn">Book a demo</a></div>
+</nav>
+<div class="bc"><div class="bci"><a href="index.html">daappa</a><span style="color:var(--border)">/</span><span>Who we serve</span></div></div>
+
+<section class="hero">
+  <div class="hg"></div>
+  <div class="hi">
+    <div class="ey">Who we serve</div>
+    <h1>Built for every firm in<br><em>private markets.</em></h1>
+    <p class="hs">daappa serves fund administrators, GPs, VCs, LPs, fund of funds, development banks, AIFMs, and family offices. The platform is the same. The entry point depends on your firm type.</p>
+  </div>
+</section>
+
+<section class="s">
+  <div class="si">
+    <div class="se">By firm type</div>
+    <h2>Find your firm type</h2>
+    <p class="intro">Each firm type has its own challenges, its own regulatory obligations, and its own starting point with daappa. Select yours to see what fits.</p>
+
+    <div class="audience-grid">
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+        <div class="aud-label">Back-office operations</div>
+        <div class="aud-name">Fund Administrators</div>
+        <div class="aud-desc">Boutique and mid-sized fund administrators managing fund accounting, investor servicing, and regulatory reporting for multiple clients across PE, debt, real assets, and hybrid structures.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">daappa Core</span>
+          <span class="aud-product featured">Studio+</span>
+          <span class="aud-product">Investor Portal</span>
+          <span class="aud-product">Extractor AI</span>
+        </div>
+        <a href="daappa-fund-administrators.html" class="aud-link">See how daappa serves fund admins</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+        <div class="aud-label">Investment management</div>
+        <div class="aud-name">General Partners</div>
+        <div class="aud-desc">PE and private debt GPs who need the intelligence layer above their fund accounting -- portfolio monitoring, document extraction, LP reporting, and NAV oversight without changing their fund admin arrangements.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">Studio+</span>
+          <span class="aud-product">Extractor AI</span>
+          <span class="aud-product">NAV Oversight</span>
+          <span class="aud-product">Analytics</span>
+        </div>
+        <a href="daappa-general-partners.html" class="aud-link">See how daappa serves GPs</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+        <div class="aud-label">Early stage and growth</div>
+        <div class="aud-name">Venture Capital</div>
+        <div class="aud-desc">VC firms managing portfolio company reporting, cap table data, and LP reporting across multiple vintage funds. Extractor AI processes incoming portco reports automatically. IRR calculated at fund, GP, and portfolio company level.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">Studio+</span>
+          <span class="aud-product">Extractor AI</span>
+          <span class="aud-product">Analytics</span>
+          <span class="aud-product">Investor Portal</span>
+        </div>
+        <a href="daappa-general-partners.html" class="aud-link">See how daappa serves VCs</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg></div>
+        <div class="aud-label">Institutional investors</div>
+        <div class="aud-name">LPs and Fund of Funds</div>
+        <div class="aud-desc">Institutional LPs and FoF managers receiving quarterly reports from dozens or hundreds of GPs. Extractor AI processes them automatically into consistent schemas. DataHub delivers one governed view across the entire portfolio.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">Extractor AI</span>
+          <span class="aud-product featured">DataHub</span>
+          <span class="aud-product">Analytics</span>
+          <span class="aud-product">Look Through</span>
+        </div>
+        <a href="daappa-lps-fof.html" class="aud-link">See how daappa serves LPs and FoF</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="aud-label">Development finance</div>
+        <div class="aud-name">Development Banks and DFIs</div>
+        <div class="aud-desc">Development finance institutions managing complex investment mandates, impact reporting obligations, multi-jurisdictional regulatory requirements, and ESG/SFDR reporting across diverse asset classes.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">daappa Core</span>
+          <span class="aud-product">Studio+</span>
+          <span class="aud-product">Analytics</span>
+          <span class="aud-product">Compliance</span>
+        </div>
+        <a href="daappa-development-banks.html" class="aud-link">See how daappa serves DFIs</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <div class="aud-label">Regulatory compliance</div>
+        <div class="aud-name">AIFMs and ManCos</div>
+        <div class="aud-desc">Management companies with AIFMD oversight obligations and NAV validation requirements under CSSF Circular 24/856 and FCA governance expectations. NAV Oversight can be live in 14 days from £199/month.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">NAV Oversight</span>
+          <span class="aud-product">Compliance</span>
+          <span class="aud-product">DataHub</span>
+        </div>
+        <a href="daappa-aifms.html" class="aud-link">See how daappa serves AIFMs</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
+        <div class="aud-label">Family wealth</div>
+        <div class="aud-name">Family Offices</div>
+        <div class="aud-desc">Single and multi-family offices managing direct investment portfolios across PE, real assets, and private credit. daappa Core handles the fund accounting. Studio+ delivers the portfolio visibility and reporting layer above it.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">daappa Core</span>
+          <span class="aud-product">Analytics</span>
+          <span class="aud-product">Look Through</span>
+          <span class="aud-product">Portal</span>
+        </div>
+        <a href="daappa-general-partners.html" class="aud-link">See how daappa serves family offices</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+        <div class="aud-label">Fixed income and alternatives</div>
+        <div class="aud-name">Private Credit and Debt Managers</div>
+        <div class="aud-desc">Private debt and credit managers running loan accounting, CLO structures, direct lending, and credit facilities. daappa Core handles loan accounting, interest accruals, PIK instruments, and credit facility tracking.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">daappa Core</span>
+          <span class="aud-product">Studio+</span>
+          <span class="aud-product">Analytics</span>
+        </div>
+        <a href="daappa-general-partners.html" class="aud-link">See how daappa serves credit managers</a>
+      </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg viewBox="0 0 24 24"><path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg></div>
+        <div class="aud-label">Real assets</div>
+        <div class="aud-name">Real Estate and Infrastructure</div>
+        <div class="aud-desc">Real estate and infrastructure managers with asset-level accounting, income tracking, multi-currency revaluation, and complex SPV and co-investment structures. INREV reporting built in.</div>
+        <div class="aud-products">
+          <span class="aud-product featured">daappa Core</span>
+          <span class="aud-product">Studio+</span>
+          <span class="aud-product">Compliance</span>
+        </div>
+        <a href="daappa-general-partners.html" class="aud-link">See how daappa serves real asset managers</a>
+      </div>
+
+    </div>
+
+    <!-- ASSET CLASS BAND -->
+    <div class="asset-band">
+      <div class="asset-band-title">Asset classes daappa supports</div>
+      <div class="asset-grid">
+        <div class="asset-item"><div class="asset-name">Private Equity</div><div class="asset-desc">LP structures, co-investments, carried interest</div></div>
+        <div class="asset-item"><div class="asset-name">Venture Capital</div><div class="asset-desc">Cap tables, portco reporting, multi-vintage</div></div>
+        <div class="asset-item"><div class="asset-name">Private Debt</div><div class="asset-desc">Loans, CLOs, direct lending, PIK instruments</div></div>
+        <div class="asset-item"><div class="asset-name">Real Assets</div><div class="asset-desc">Real estate, infrastructure, natural resources</div></div>
+        <div class="asset-item"><div class="asset-name">Fund of Funds</div><div class="asset-desc">Multi-level ownership, shadow investments</div></div>
+        <div class="asset-item"><div class="asset-name">Hybrid Funds</div><div class="asset-desc">Multi-instrument, mezzanine, SPVs</div></div>
+      </div>
+    </div>
+
+    <!-- EXPLORER CTA -->
+    <div class="explorer-cta">
+      <div>
+        <h3>Not sure where to start?</h3>
+        <p>The Persona and Challenge Explorer maps your role and specific challenges to the daappa components that address them directly. Takes two minutes and gives you a personalised starting point.</p>
+      </div>
+      <a href="daappa-explorer.html" class="btn-explore">Use the Explorer</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-i">
+    <div><h2>Talk to us about your firm</h2><p>Tell us your firm type, your current setup, and the specific gap you want to close. We'll show you the right starting point without a generic demo.</p></div>
+    <div class="cta-b"><a href="daappa-book-demo.html" class="bcw">Book a discovery call</a><a href="daappa-explorer.html" class="bcg">Try the Explorer first</a></div>
+  </div>
+</section>
+
+<footer><div class="fi">
+  <div class="ft">
+    <div class="fp"><a href="index.html" class="nl"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/><path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><circle cx="16" cy="16" r="3" fill="#E8602A"/></svg><span class="nl-t">daappa</span></a><p>The data, accounting and administration platform for private assets.</p></div>
+    <div><div class="fct">Platform</div><ul class="fl"><li><a href="daappa-studio-plus.html">Studio+</a></li><li><a href="daappa-extractor-ai.html">Extractor AI</a></li><li><a href="daappa-nav-oversight.html">NAV Oversight</a></li><li><a href="daappa-core-page.html">daappa Core</a></li></ul></div>
+    <div><div class="fct">Who we serve</div><ul class="fl"><li><a href="daappa-fund-administrators.html">Fund Administrators</a></li><li><a href="daappa-general-partners.html">General Partners</a></li><li><a href="daappa-lps-fof.html">LPs and FoF</a></li><li><a href="daappa-development-banks.html">Development Banks</a></li><li><a href="daappa-aifms.html">AIFMs</a></li></ul></div>
+    <div><div class="fct">Company</div><ul class="fl"><li><a href="daappa-about.html">About us</a></li><li><a href="daappa-clients.html">Clients</a></li><li><a href="daappa-insights.html">Insights</a></li><li><a href="daappa-contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="fb"><div class="fleg">© daappa Limited 2025. All rights reserved.</div><div class="fcerts"><span class="fcert">ISO 27001</span><span class="fcert">ISO 9001</span><span class="fcert">Azure hosted</span></div></div>
+</div></footer>
+</body>
+</html>

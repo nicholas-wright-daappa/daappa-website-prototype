@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact daappa — Private Markets Technology | daappa</title>
+<meta name="description" content="Get in touch with the daappa team. Offices in the UK and Luxembourg. hello@daappa.com · +44 333 335 5259">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3A;--navy-mid:#142D52;--orange:#E8602A;--orange-light:#F07848;--orange-pale:#FDF0EA;--orange-dark:#C04E20;--teal:#1D9E75;--teal-light:#E1F5EE;--white:#fff;--off:#F7F8FA;--stone:#EEF0F4;--border:#DDE2EB;--ts:#4A5568;--tm:#718096;--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+body{font-family:var(--sans);color:var(--navy);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none}.nl-t{font-weight:600;font-size:20px;color:#fff;letter-spacing:-.3px}
+.nlinks{display:flex;align-items:center;gap:28px;list-style:none}.nlinks a{font-size:14px;color:rgba(255,255,255,.7);text-decoration:none}.nlinks a:hover{color:#fff}
+.ncta{display:flex;align-items:center;gap:12px}
+.btn-gn{font-family:var(--sans);font-size:14px;font-weight:500;color:rgba(255,255,255,.8);background:transparent;border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:4px;text-decoration:none}
+.btn-pn{font-family:var(--sans);font-size:14px;font-weight:500;color:#fff;background:var(--orange);border:none;padding:9px 20px;border-radius:4px;text-decoration:none}.btn-pn:hover{background:var(--orange-light)}
+.bc{background:var(--off);border-bottom:1px solid var(--border);padding:10px 48px}.bci{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tm)}.bci a{color:var(--tm);text-decoration:none}
+
+/* MAIN LAYOUT */
+.page{max-width:1200px;margin:0 auto;padding:80px 48px;display:grid;grid-template-columns:1fr 480px;gap:80px;align-items:start}
+
+/* LEFT */
+.ey{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:flex;align-items:center;gap:8px}.ey::before{content:'';width:20px;height:1px;background:var(--orange)}
+h1{font-family:var(--serif);font-size:48px;line-height:1.1;color:var(--navy);letter-spacing:-.5px;margin-bottom:20px}h1 em{font-style:italic;color:var(--tm)}
+.intro{font-size:16px;color:var(--ts);line-height:1.7;font-weight:300;margin-bottom:40px;max-width:480px}
+
+/* CONTACT METHODS */
+.contact-methods{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.contact-method{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--off);border:1px solid var(--border);border-radius:6px;text-decoration:none;transition:all .15s}.contact-method:hover{border-color:var(--navy);background:var(--stone)}
+.contact-method-icon{width:40px;height:40px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-method-icon svg{width:20px;height:20px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.contact-method-label{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);margin-bottom:3px}
+.contact-method-value{font-size:15px;font-weight:500;color:var(--navy)}
+
+/* OFFICES */
+.offices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+.office-card{padding:20px 18px;background:var(--off);border:1px solid var(--border);border-radius:6px}
+.office-flag{font-size:20px;margin-bottom:8px;display:block}
+.office-name{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.office-addr{font-size:13px;color:var(--ts);font-weight:300;line-height:1.55}
+
+/* ROUTING CARDS */
+.routing-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.routing-card{padding:16px 18px;border:1px solid var(--border);border-radius:6px;text-decoration:none;transition:all .15s;display:block}.routing-card:hover{border-color:var(--orange);background:var(--orange-pale)}
+.routing-card-label{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);margin-bottom:5px}
+.routing-card-title{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.routing-card-desc{font-size:12px;color:var(--ts);font-weight:300;line-height:1.4}
+
+/* FORM */
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:36px 32px;position:sticky;top:88px}
+.form-title{font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:6px}
+.form-sub{font-size:14px;color:var(--ts);font-weight:300;margin-bottom:28px;line-height:1.5}
+.form-group{margin-bottom:18px}
+.form-label{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:6px;display:block}
+.form-input{width:100%;font-family:var(--sans);font-size:14px;padding:11px 14px;border:1px solid var(--border);border-radius:4px;color:var(--navy);background:var(--white);transition:border-color .15s}.form-input:focus{outline:none;border-color:var(--navy)}
+.form-select{width:100%;font-family:var(--sans);font-size:14px;padding:11px 14px;border:1px solid var(--border);border-radius:4px;color:var(--navy);background:var(--white);cursor:pointer}.form-select:focus{outline:none;border-color:var(--navy)}
+.form-textarea{width:100%;font-family:var(--sans);font-size:14px;padding:11px 14px;border:1px solid var(--border);border-radius:4px;color:var(--navy);background:var(--white);resize:vertical;min-height:100px;transition:border-color .15s}.form-textarea:focus{outline:none;border-color:var(--navy)}
+.form-submit{width:100%;font-family:var(--sans);font-size:15px;font-weight:500;color:#fff;background:var(--orange);border:none;padding:13px 24px;border-radius:4px;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:6px}.form-submit:hover{background:var(--orange-light)}.form-submit::after{content:'→'}
+.form-note{font-size:12px;color:var(--tm);text-align:center;margin-top:12px;font-weight:300}
+
+footer{background:#091929;padding:64px 48px 40px;border-top:1px solid rgba(255,255,255,.05)}
+.fi{max-width:1200px;margin:0 auto}.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fp p{font-size:14px;color:rgba(255,255,255,.35);line-height:1.65;font-weight:300;margin-top:14px;max-width:240px}
+.fct{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:10px}.fl a{font-size:14px;color:rgba(255,255,255,.45);text-decoration:none;font-weight:300}.fl a:hover{color:rgba(255,255,255,.8)}
+.fb{padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+.fleg{font-size:12px;color:rgba(255,255,255,.2)}.fcerts{display:flex;gap:12px}.fcert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
+@media(max-width:960px){nav{padding:0 20px}.bc{padding:10px 20px}.page{grid-template-columns:1fr;gap:40px;padding:48px 20px}.form-card{position:static}.routing-grid{grid-template-columns:1fr}.offices{grid-template-columns:1fr}.ft{grid-template-columns:1fr 1fr}footer{padding:40px 20px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nl"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/><path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><circle cx="16" cy="16" r="3" fill="#E8602A"/></svg><span class="nl-t">daappa</span></a>
+  <ul class="nlinks"><li><a href="daappa-studio-plus.html">Platform</a></li><li><a href="daappa-who-we-serve.html">Who we serve</a></li><li><a href="daappa-clients.html">Clients</a></li><li><a href="daappa-insights.html">Insights</a></li><li><a href="daappa-about.html">About</a></li></ul>
+  <div class="ncta"><a href="daappa-contact.html" class="btn-gn">Contact</a><a href="daappa-book-demo.html" class="btn-pn">Book a demo</a></div>
+</nav>
+<div class="bc"><div class="bci"><a href="index.html">daappa</a><span style="color:var(--border)">/</span><span>Contact</span></div></div>
+
+<div class="page">
+
+  <!-- LEFT -->
+  <div>
+    <div class="ey">Get in touch</div>
+    <h1>Talk to the <em>right person.</em></h1>
+    <p class="intro">We don't route every enquiry through a generic sales process. Tell us what you're working on and we'll connect you with the right person -- whether that's a commercial conversation, a technical discussion, or an implementation question.</p>
+
+    <div class="contact-methods">
+      <a href="mailto:hello@daappa.com" class="contact-method">
+        <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+        <div><div class="contact-method-label">Email</div><div class="contact-method-value">hello@daappa.com</div></div>
+      </a>
+      <a href="tel:+443333355259" class="contact-method">
+        <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+        <div><div class="contact-method-label">Phone</div><div class="contact-method-value">+44 333 335 5259</div></div>
+      </a>
+      <a href="https://linkedin.com/company/daappa" class="contact-method">
+        <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <div><div class="contact-method-label">LinkedIn</div><div class="contact-method-value">linkedin.com/company/daappa</div></div>
+      </a>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--tm);margin-bottom:14px">Offices</div>
+    <div class="offices">
+      <div class="office-card">
+        <span class="office-flag">🇬🇧</span>
+        <div class="office-name">United Kingdom</div>
+        <div class="office-addr">London<br>Primary HQ and development team<br>hello@daappa.com</div>
+      </div>
+      <div class="office-card">
+        <span class="office-flag">🇱🇺</span>
+        <div class="office-name">Luxembourg</div>
+        <div class="office-addr">Luxembourg City<br>Local French-speaking client team<br>For Luxembourg enquiries</div>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--tm);margin-bottom:14px">Route your enquiry</div>
+    <div class="routing-grid">
+      <a href="daappa-book-demo.html" class="routing-card">
+        <div class="routing-card-label">Sales</div>
+        <div class="routing-card-title">Product demo or trial</div>
+        <div class="routing-card-desc">You want to see daappa working against your specific requirements</div>
+      </a>
+      <a href="daappa-contact.html" class="routing-card">
+        <div class="routing-card-label">Implementation</div>
+        <div class="routing-card-title">Technical or implementation</div>
+        <div class="routing-card-desc">Questions about how daappa integrates with your existing systems</div>
+      </a>
+      <a href="daappa-contact.html" class="routing-card">
+        <div class="routing-card-label">Support</div>
+        <div class="routing-card-title">Existing client support</div>
+        <div class="routing-card-desc">You're already a daappa client and need to speak with your account team</div>
+      </a>
+      <a href="daappa-contact.html" class="routing-card">
+        <div class="routing-card-label">Partnerships</div>
+        <div class="routing-card-title">Partner or integration</div>
+        <div class="routing-card-desc">You're a technology or services firm interested in partnering with daappa</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-card">
+    <div class="form-title">Send us a message</div>
+    <div class="form-sub">We'll respond within one business day. For urgent matters, call us directly or email hello@daappa.com.</div>
+
+    <div class="form-group">
+      <label class="form-label">Your name</label>
+      <input type="text" class="form-input" placeholder="First and last name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Work email</label>
+      <input type="email" class="form-input" placeholder="you@yourfirm.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Firm name</label>
+      <input type="text" class="form-input" placeholder="Your firm or organisation">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Firm type</label>
+      <select class="form-select">
+        <option value="">Select your firm type</option>
+        <option>Fund Administrator</option>
+        <option>General Partner / PE firm</option>
+        <option>Venture Capital</option>
+        <option>LP or Fund of Funds</option>
+        <option>Development Bank or DFI</option>
+        <option>AIFM or ManCo</option>
+        <option>Family Office</option>
+        <option>Private Credit or Debt Manager</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">What are you looking to discuss?</label>
+      <select class="form-select">
+        <option value="">Select a topic</option>
+        <option>Product demo or trial</option>
+        <option>daappa Core (fund accounting)</option>
+        <option>Studio+ platform</option>
+        <option>Extractor AI</option>
+        <option>NAV Oversight</option>
+        <option>Implementation or migration</option>
+        <option>Existing client support</option>
+        <option>Partnership enquiry</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Anything you'd like to add</label>
+      <textarea class="form-textarea" placeholder="Tell us a bit about your current setup and what you're trying to solve. The more context you give us, the better the conversation."></textarea>
+    </div>
+    <button class="form-submit">Send message</button>
+    <div class="form-note">We'll be in touch within one business day.</div>
+  </div>
+
+</div>
+
+<footer><div class="fi">
+  <div class="ft">
+    <div class="fp"><a href="index.html" class="nl"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/><path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><circle cx="16" cy="16" r="3" fill="#E8602A"/></svg><span class="nl-t">daappa</span></a><p>The data, accounting and administration platform for private assets.</p></div>
+    <div><div class="fct">Platform</div><ul class="fl"><li><a href="daappa-studio-plus.html">Studio+</a></li><li><a href="daappa-extractor-ai.html">Extractor AI</a></li><li><a href="daappa-nav-oversight.html">NAV Oversight</a></li><li><a href="daappa-core-page.html">daappa Core</a></li></ul></div>
+    <div><div class="fct">Who we serve</div><ul class="fl"><li><a href="daappa-fund-administrators.html">Fund Administrators</a></li><li><a href="daappa-general-partners.html">General Partners</a></li><li><a href="daappa-lps-fof.html">LPs and FoF</a></li><li><a href="daappa-aifms.html">AIFMs</a></li></ul></div>
+    <div><div class="fct">Company</div><ul class="fl"><li><a href="daappa-about.html">About us</a></li><li><a href="daappa-team.html">Meet the team</a></li><li><a href="daappa-clients.html">Clients</a></li><li><a href="daappa-insights.html">Insights</a></li></ul></div>
+  </div>
+  <div class="fb"><div class="fleg">© daappa Limited 2025. All rights reserved.</div><div class="fcerts"><span class="fcert">ISO 27001</span><span class="fcert">ISO 9001</span><span class="fcert">Azure hosted</span></div></div>
+</div></footer>
+</body>
+</html>
