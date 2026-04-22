@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>daappa — Find what's relevant to you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3A;--navy-mid:#142D52;--navy-light:#1E3F6F;
+  --orange:#E8602A;--orange-light:#F07848;--orange-pale:#FDF0EA;
+  --white:#FFFFFF;--off-white:#F7F8FA;--stone:#EEF0F4;
+  --text-primary:#0B1F3A;--text-secondary:#4A5568;--text-muted:#718096;
+  --border:#DDE2EB;--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text-primary);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-weight:600;font-size:20px;color:var(--white);letter-spacing:-0.3px}
+.nav-back{font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--white)}
+.nav-back::before{content:'←'}
+.btn-primary{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s}
+.btn-primary:hover{background:var(--orange-light)}
+
+/* PAGE HEADER */
+.page-header{background:var(--navy);padding:64px 48px 56px;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;top:-80px;right:-60px;width:480px;height:480px;background:radial-gradient(circle,rgba(232,96,42,0.1) 0%,transparent 65%);pointer-events:none}
+.page-header-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.page-header-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.page-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.page-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.page-header h1{font-family:var(--serif);font-size:44px;line-height:1.1;color:var(--white);letter-spacing:-0.5px;margin-bottom:14px}
+.page-header p{font-size:17px;color:rgba(255,255,255,0.55);font-weight:300;max-width:520px}
+
+/* EXPLORER WRAPPER */
+.explorer{max-width:1200px;margin:0 auto;padding:56px 48px 96px}
+
+/* STEP HEADER */
+.step-header{margin-bottom:24px}
+.step-label{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.step-q{font-family:var(--serif);font-size:28px;color:var(--navy);line-height:1.2}
+
+/* ROLE SELECTOR */
+.roles-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:48px}
+.role-btn{font-family:var(--sans);font-size:14px;font-weight:400;color:var(--text-secondary);background:var(--white);border:1px solid var(--border);padding:11px 22px;border-radius:4px;cursor:pointer;transition:all .15s;user-select:none}
+.role-btn:hover{border-color:var(--navy);color:var(--navy)}
+.role-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy);font-weight:500}
+
+/* DIVIDER */
+.step-divider{height:1px;background:var(--border);margin:0 0 40px}
+
+/* CHALLENGE SELECTOR */
+.challenge-section{margin-bottom:48px;animation:fadeIn .25s ease}
+.challenges-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.challenge-btn{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--text-secondary);background:var(--off-white);border:1px solid var(--border);padding:8px 16px;border-radius:3px;cursor:pointer;transition:all .15s;user-select:none}
+.challenge-btn:hover{border-color:var(--orange);color:var(--orange)}
+.challenge-btn.active{background:var(--orange-pale);color:var(--orange);border-color:var(--orange);font-weight:500}
+.challenge-btn.show-all{color:var(--text-muted);font-style:italic}
+.challenge-btn.show-all.active{background:var(--stone);color:var(--navy);border-color:var(--border);font-style:normal}
+
+/* RESULTS AREA */
+.results{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* PERSONA INTRO */
+.persona-intro{background:var(--navy);border-radius:8px;padding:40px 48px;margin-bottom:40px;position:relative;overflow:hidden}
+.persona-intro::before{content:'';position:absolute;top:0;left:40px;right:40px;height:1px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:.5}
+.persona-intro-eyebrow{font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+.persona-intro h2{font-family:var(--serif);font-size:32px;color:var(--white);line-height:1.2;margin-bottom:12px}
+.persona-intro p{font-size:16px;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.65;max-width:680px}
+
+/* CAPABILITIES */
+.section-title{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.caps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:40px}
+.cap-card{background:var(--white);padding:28px 28px 24px;transition:background .15s;position:relative}
+.cap-card:hover{background:var(--off-white)}
+.cap-card.primary::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--orange)}
+.cap-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.cap-tag{font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--orange);background:var(--orange-pale);padding:3px 8px;border-radius:3px}
+.cap-tag.secondary{color:var(--text-muted);background:var(--stone)}
+.cap-name{font-size:16px;font-weight:500;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.cap-desc{font-size:14px;color:var(--text-secondary);line-height:1.6;font-weight:300;margin-bottom:14px}
+.cap-link{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:3px;transition:color .15s}
+.cap-link:hover{color:var(--orange)}
+.cap-link::after{content:'→'}
+
+/* TESTIMONIAL */
+.testimonial-section{margin-bottom:40px}
+.testimonial-card{background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start}
+.testimonial-mark{font-family:var(--serif);font-size:56px;color:var(--orange);line-height:.7;opacity:.5;margin-bottom:12px}
+.testimonial-body{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;font-style:italic;margin-bottom:20px}
+.testimonial-source{font-size:12px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding-top:16px;border-top:1px solid var(--border)}
+.testimonial-metric{text-align:right;flex-shrink:0}
+.t-metric-num{font-family:var(--serif);font-size:48px;color:var(--orange);line-height:1}
+.t-metric-label{font-size:12px;color:var(--text-muted);line-height:1.4;max-width:120px;text-align:right}
+
+/* CTA */
+.cta-card{background:var(--orange);border-radius:8px;padding:40px 48px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.cta-card h3{font-family:var(--serif);font-size:28px;color:var(--white);line-height:1.2;margin-bottom:8px}
+.cta-card p{font-size:15px;color:rgba(255,255,255,0.75);font-weight:300;line-height:1.55}
+.cta-btns{display:flex;flex-direction:column;gap:10px;align-items:flex-end;flex-shrink:0}
+.btn-white{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--orange);background:var(--white);border:none;padding:12px 24px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-white::after{content:'→'}
+.btn-white:hover{opacity:.92}
+.btn-ghost-white{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s;white-space:nowrap}
+.btn-ghost-white:hover{color:var(--white)}
+.btn-ghost-white::after{content:'→'}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:80px 48px;color:var(--text-muted)}
+.empty-state-icon{width:48px;height:48px;margin:0 auto 20px;opacity:.3}
+.empty-state p{font-size:16px;color:var(--text-muted);font-weight:300}
+
+/* FOOTER */
+footer{background:#091929;padding:40px 48px;border-top:1px solid rgba(255,255,255,.05)}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-legal{font-size:12px;color:rgba(255,255,255,.2)}
+.footer-certs{display:flex;gap:12px}
+.footer-cert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
+
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .page-header{padding:40px 20px}
+  .explorer{padding:40px 20px 64px}
+  .caps-grid{grid-template-columns:1fr}
+  .cta-card{grid-template-columns:1fr}
+  .cta-btns{align-items:flex-start}
+  .testimonial-card{grid-template-columns:1fr}
+  .testimonial-metric{text-align:left}
+  footer{padding:32px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/>
+      <path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+      <circle cx="16" cy="16" r="3" fill="#E8602A"/>
+    </svg>
+    <span class="nav-logo-text">daappa</span>
+  </a>
+  <a href="#" class="nav-back">Back to daappa.com</a>
+  <a href="#" class="btn-primary">Book a demo</a>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-grid"></div>
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Find what's relevant to you</div>
+    <h1>What does daappa look like for you?</h1>
+    <p>Select your role and the challenge that's most top-of-mind. The page will show you exactly what's relevant — no noise.</p>
+  </div>
+</div>
+
+<div class="explorer">
+
+  <!-- STEP 1: ROLE -->
+  <div class="step-header">
+    <div class="step-label">Step 1</div>
+    <div class="step-q">Who are you?</div>
+  </div>
+
+  <div class="roles-grid" id="rolesGrid"></div>
+  <div class="step-divider"></div>
+
+  <!-- STEP 2: CHALLENGE (shown after role selected) -->
+  <div class="challenge-section" id="challengeSection" style="display:none">
+    <div class="step-label">Step 2 — optional</div>
+    <div class="step-q">What's most top-of-mind right now?</div>
+    <div class="challenges-grid" id="challengesGrid"></div>
+    <div class="step-divider" style="margin-top:40px"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results"></div>
+
+  <!-- EMPTY STATE -->
+  <div class="empty-state" id="emptyState">
+    <svg class="empty-state-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="24" cy="24" r="20"/>
+      <path d="M24 14v12M24 34h.01" stroke-linecap="round"/>
+    </svg>
+    <p>Select your role above to see content tailored to you.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-legal">© daappa Limited 2025. All rights reserved.</div>
+    <div class="footer-certs">
+      <span class="footer-cert">ISO 27001</span>
+      <span class="footer-cert">ISO 9001</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const DATA = {
+  roles: [
+    {id:'gp', label:'GP'},
+    {id:'fund-admin', label:'Fund Administrator'},
+    {id:'lp-fof', label:'Fund of Funds'},
+    {id:'asset-owner', label:'Asset Owner'},
+    {id:'aifm', label:'AIFM'},
+    {id:'dev-bank', label:'Development Bank'},
+    {id:'vc', label:'VC'}
+  ],
+
+  personas: {
+    'gp': {
+      intro: 'For General Partners',
+      headline: 'Better data above your fund accounting means better decisions, faster.',
+      summary: 'You have fund accounting covered. The challenge is the intelligence layer above it — portfolio monitoring, NAV oversight, investor reporting, and compliance — still running on spreadsheets and manual processes.',
+      challenges: [
+        'Data Fragmentation',
+        'Insufficient Business Intelligence',
+        'Data Management Inefficiency',
+        'Valuation & Oversight Complexity',
+        'Lack of Transparency',
+        'Regulatory & Compliance Pressure'
+      ],
+      testimonial: {
+        body: 'With increasingly complex client needs including mandate management, and evolving regulatory pressure on administration, governance and risk management, we found in daappa a powerful yet flexible solution that allows us to scale our operations on demand while maintaining a high level of control and transparency.',
+        source: 'Managing Director · European General Partner',
+        metric: null
+      },
+      cta: {
+        headline: 'See how Studio+ works for GPs',
+        sub: 'Book a demo and we\'ll show you how daappa sits above your existing fund accounting to deliver portfolio intelligence and investor reporting without replacing what\'s working.',
+        btn: 'Book a GP demo',
+        ghost: 'Download our fund admin guide'
+      }
+    },
+    'fund-admin': {
+      intro: 'For Fund Administrators',
+      headline: 'Gain control, reduce manual effort, and meet rising transparency demands.',
+      summary: 'Your clients expect more — faster reporting, real-time data access, and investor portals that actually work. Meeting those expectations without increasing operational risk requires a different kind of platform.',
+      challenges: [
+        'Transparency & Data Demands',
+        'SLA Pressure & Client Satisfaction',
+        'Process Optimisation & Cost Pressure',
+        'Hybrid / Corporate Fund Complexity'
+      ],
+      testimonial: {
+        body: 'With increasingly complex client needs including mandate management, and evolving regulatory pressure on administration, governance and risk management, we found in daappa a powerful yet flexible solution that allows us to scale our operations on demand while maintaining a high level of control and transparency.',
+        source: 'Managing Director · European Fund Administrator',
+        metric: {num:'c.£50bn', label:'assets on platform across our fund admin clients'}
+      },
+      cta: {
+        headline: 'See how Studio+ works for Fund Administrators',
+        sub: 'Talk to us about your current operating model. We\'ll show you exactly where Studio+ fits — and how our Luxembourg and Channel Islands clients are using it today.',
+        btn: 'Book a Fund Admin demo',
+        ghost: 'Talk to our Luxembourg team'
+      }
+    },
+    'lp-fof': {
+      intro: 'For Fund of Funds Managers',
+      headline: 'Turn quarterly document processing from a bottleneck into a governed workflow.',
+      summary: 'You receive hundreds of quarterly reports, capital account statements, and financial documents every cycle. Extracting, normalising, and acting on that data manually is the biggest operational constraint you face.',
+      challenges: [
+        'Document Volume & Manual Processing',
+        'Portfolio Monitoring at Scale',
+        'Data Normalisation Across GPs',
+        'Investor Reporting Efficiency',
+        'Regulatory & Compliance Demands',
+        'Look Through & Exposure Visibility'
+      ],
+      testimonial: {
+        body: 'We use daappa to capture, store, consolidate, analyse and extract data. With daappa we are capable of calculating IRR on FoF, GP and portfolio company levels, and we are able to deliver high quality reports to our investors with more transparency compared to our competitors.',
+        source: 'Director of Investor Relations · Global VC',
+        metric: {num:'98%', label:'post-extraction accuracy on complex PE documents'}
+      },
+      cta: {
+        headline: 'See Extractor AI working on your documents',
+        sub: 'We\'ll run a proof of concept on a defined set of your GP reports and capital account statements — five weeks from first conversation to live results.',
+        btn: 'Start an Extractor AI PoC',
+        ghost: 'See how the five-week PoC works'
+      }
+    },
+    'asset-owner': {
+      intro: 'For Asset Owners',
+      headline: 'One governed view of your private markets portfolio.',
+      summary: 'Managing private markets allocations across multiple fund managers, administrators, and asset classes means data arrives in different formats, at different times, with no consistent structure. Studio+ solves that aggregation problem.',
+      challenges: [
+        'Portfolio Visibility Across Managers',
+        'Inconsistent Reporting Formats',
+        'NAV Oversight & Validation',
+        'Regulatory Reporting',
+        'ESG & Impact Reporting',
+        'Look Through Exposure'
+      ],
+      testimonial: {
+        body: 'As our investment portfolios have grown, our business found that its infrastructure was a series of tools with minimal integration. Working with the daappa team has provided us a means to continue developing our investment portfolio and grow.',
+        source: 'CEO · European General Partner',
+        metric: null
+      },
+      cta: {
+        headline: 'Get a single view of your private markets portfolio',
+        sub: 'Tell us about your current setup — the fund managers you work with, the documents you receive, and the reporting you need to deliver. We\'ll show you how Studio+ connects it.',
+        btn: 'Book a discovery call',
+        ghost: 'Learn about NAV Oversight'
+      }
+    },
+    'aifm': {
+      intro: 'For AIFMs',
+      headline: 'Automate NAV oversight and stay ahead of regulatory pressure.',
+      summary: 'Regulatory obligations around NAV validation, AIFMD reporting, and investor transparency are intensifying. Manual processes and spreadsheet-based oversight are no longer adequate — and regulators know it.',
+      challenges: [
+        'NAV Oversight & Validation',
+        'AIFMD Reporting Obligations',
+        'Investor Transparency Demands',
+        'Data Governance & Audit Trail',
+        'Operational Risk Reduction',
+        'Regulatory Change Management'
+      ],
+      testimonial: {
+        body: 'With increasingly complex client needs including mandate management, and evolving regulatory pressure on administration, governance and risk management, we found in daappa a powerful yet flexible solution that allows us to scale our operations on demand while maintaining a high level of control and transparency.',
+        source: 'Managing Director · European Fund Administrator',
+        metric: {num:'14', label:'days to go live with NAV Oversight'}
+      },
+      cta: {
+        headline: 'Replace your NAV oversight spreadsheet in 14 days',
+        sub: 'daappa NAV Oversight is a purpose-built SaaS solution for the 0.5bp NAV movement check. Auditable, regulator-ready, and live faster than any enterprise implementation.',
+        btn: 'Learn about NAV Oversight',
+        ghost: 'Book a discovery call'
+      }
+    },
+    'dev-bank': {
+      intro: 'For Development Banks',
+      headline: 'A single platform for complex mandates, impact reporting, and portfolio transparency.',
+      summary: 'Development finance requires more than commercial fund management software provides. Complex stakeholder structures, impact measurement obligations, and multi-jurisdictional regulatory demands require a platform built for that reality.',
+      challenges: [
+        'Centralised Investment Management',
+        'Real-Time Reporting & Portfolio Visibility',
+        'Enhanced Stakeholder Collaboration',
+        'System Integration & Operational Efficiency',
+        'Impact & ESG Reporting',
+        'Governance & Compliance'
+      ],
+      testimonial: {
+        body: 'As our investment portfolios have grown, our business found that its infrastructure was a series of tools with minimal integration. Working with the daappa team has provided us a means to continue developing our investment portfolio and grow.',
+        source: 'CEO · Development Finance Institution',
+        metric: null
+      },
+      cta: {
+        headline: 'Talk to us about development finance',
+        sub: 'daappa has active development bank clients across Europe and the Middle East. We understand the mandate structures, reporting obligations, and stakeholder complexity that standard PE software doesn\'t handle well.',
+        btn: 'Book a development bank demo',
+        ghost: 'See our development bank clients'
+      }
+    },
+    'vc': {
+      intro: 'For Venture Capital Firms',
+      headline: 'Portfolio intelligence that keeps pace with your portfolio companies.',
+      summary: 'As your portfolio grows, tracking performance, reporting to LPs, and maintaining a clear view of valuations and exposure across dozens of companies becomes a serious operational challenge. Studio+ is designed for that scale.',
+      challenges: [
+        'Portfolio Company Data Management',
+        'LP Reporting & Transparency',
+        'Valuation & Performance Tracking',
+        'Document Processing at Scale',
+        'IRR & Metrics Calculation',
+        'Regulatory & Compliance Demands'
+      ],
+      testimonial: {
+        body: 'We use daappa to capture, store, consolidate, analyse and extract data. With daappa we are capable of calculating IRR on FoF, GP and portfolio company levels, and we are able to deliver high quality reports to our investors with more transparency compared to our competitors.',
+        source: 'Director of Investor Relations · Global VC',
+        metric: {num:'75%', label:'reduction in document processing time with Extractor AI'}
+      },
+      cta: {
+        headline: 'See Studio+ working for a VC portfolio',
+        sub: 'From IRR calculations at FoF, GP, and portfolio company level to high-quality LP reports — we\'ll show you exactly what daappa delivers for firms at your stage.',
+        btn: 'Book a VC demo',
+        ghost: 'See our VC client results'
+      }
+    }
+  },
+
+  capabilities: {
+    'extractor-ai': {
+      name: 'Extractor AI',
+      desc: 'Automatically extracts structured data from quarterly portco reports, LP documents, financial statements, and capital account statements. 98% accuracy with full audit trail to source document.',
+      tags: ['AI-powered', 'Data'],
+      roles: ['gp','fund-admin','lp-fof','asset-owner','aifm','vc'],
+      challenges: ['Data Fragmentation','Data Management Inefficiency','Document Volume & Manual Processing','Data Normalisation Across GPs','Portfolio Company Data Management','Inconsistent Reporting Formats','Process Optimisation & Cost Pressure','Data Governance & Audit Trail']
+    },
+    'datahub': {
+      name: 'DataHub',
+      desc: 'A functional data warehouse built for private markets. Centralises data from fund admins, Extractor AI, portco reports, and other sources into a single governed data set.',
+      tags: ['Data', 'Core'],
+      roles: ['gp','fund-admin','lp-fof','asset-owner','aifm','dev-bank','vc'],
+      challenges: ['Data Fragmentation','Data Management Inefficiency','Document Volume & Manual Processing','Portfolio Visibility Across Managers','Centralised Investment Management','Data Governance & Audit Trail','System Integration & Operational Efficiency']
+    },
+    'nav-oversight': {
+      name: 'NAV Oversight',
+      desc: 'Automates NAV validation and sign-off for outsourced fund accounting. Replaces the 0.5bp spreadsheet check with an auditable, regulator-ready workflow. Live in 14 days.',
+      tags: ['Regulatory', 'Oversight'],
+      roles: ['gp','fund-admin','asset-owner','aifm'],
+      challenges: ['NAV Oversight & Validation','Valuation & Oversight Complexity','Regulatory & Compliance Pressure','AIFMD Reporting Obligations','Operational Risk Reduction','Data Governance & Audit Trail']
+    },
+    'analytics': {
+      name: 'Analytics',
+      desc: 'Private markets BI built on your governed DataHub data. Dashboards, performance metrics, portfolio trends, and exception reporting designed around private markets fund structures.',
+      tags: ['BI', 'Reporting'],
+      roles: ['gp','fund-admin','lp-fof','asset-owner','dev-bank','vc'],
+      challenges: ['Insufficient Business Intelligence','Portfolio Monitoring at Scale','Investor Reporting Efficiency','Real-Time Reporting & Portfolio Visibility','Lack of Transparency','LP Reporting & Transparency','Valuation & Performance Tracking']
+    },
+    'look-through': {
+      name: 'Look Through',
+      desc: 'Full ownership and exposure visibility across complex fund structures. See through to underlying assets and holdings across your entire portfolio.',
+      tags: ['Portfolio', 'Transparency'],
+      roles: ['gp','lp-fof','asset-owner','aifm','dev-bank','vc'],
+      challenges: ['Look Through & Exposure Visibility','Portfolio Visibility Across Managers','Lack of Transparency','Transparency & Data Demands','AIFMD Reporting Obligations','IRR & Metrics Calculation']
+    },
+    'compliance': {
+      name: 'Compliance Monitoring',
+      desc: 'Rules-based exposure checking against your regulatory and investor reporting requirements. Keeps you aligned with AIFMD, ILPA, and other evolving obligations without adding headcount.',
+      tags: ['Regulatory', 'Compliance'],
+      roles: ['gp','fund-admin','aifm','dev-bank'],
+      challenges: ['Regulatory & Compliance Pressure','AIFMD Reporting Obligations','Regulatory Change Management','Governance & Compliance','Regulatory & Compliance Demands','Transparency & Data Demands']
+    },
+    'portal': {
+      name: 'Investor Portal',
+      desc: 'A branded, secure document and data exchange portal for fund administrators to deliver reports, statements, and updates to their clients and investors.',
+      tags: ['Client-facing', 'Reporting'],
+      roles: ['fund-admin','gp','dev-bank'],
+      challenges: ['Transparency & Data Demands','Lack of Transparency','LP Reporting & Transparency','Investor Transparency Demands','Enhanced Stakeholder Collaboration','SLA Pressure & Client Satisfaction']
+    },
+    'core': {
+      name: 'daappa Core',
+      desc: 'The proven fund accounting engine for fund administrators. Handles partnership accounting, investor servicing, capital accounting, and regulatory reporting. Particularly well established in Luxembourg and the Channel Islands.',
+      tags: ['Accounting', 'Fund Admin'],
+      roles: ['fund-admin'],
+      challenges: ['Hybrid / Corporate Fund Complexity','Process Optimisation & Cost Pressure','SLA Pressure & Client Satisfaction','Transparency & Data Demands']
+    }
+  }
+};
+
+let selectedRole = null;
+let selectedChallenge = null;
+
+function init() {
+  const rolesGrid = document.getElementById('rolesGrid');
+  DATA.roles.forEach(role => {
+    const btn = document.createElement('button');
+    btn.className = 'role-btn';
+    btn.textContent = role.label;
+    btn.dataset.id = role.id;
+    btn.addEventListener('click', () => selectRole(role.id));
+    rolesGrid.appendChild(btn);
+  });
+}
+
+function selectRole(roleId) {
+  selectedRole = roleId;
+  selectedChallenge = null;
+
+  document.querySelectorAll('.role-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.id === roleId);
+  });
+
+  const persona = DATA.personas[roleId];
+  const challengeSection = document.getElementById('challengeSection');
+  const challengesGrid = document.getElementById('challengesGrid');
+
+  challengesGrid.innerHTML = '';
+
+  const showAll = document.createElement('button');
+  showAll.className = 'challenge-btn show-all active';
+  showAll.textContent = 'Show me everything';
+  showAll.addEventListener('click', () => selectChallenge(null));
+  challengesGrid.appendChild(showAll);
+
+  persona.challenges.forEach(ch => {
+    const btn = document.createElement('button');
+    btn.className = 'challenge-btn';
+    btn.textContent = ch;
+    btn.dataset.challenge = ch;
+    btn.addEventListener('click', () => selectChallenge(ch));
+    challengesGrid.appendChild(btn);
+  });
+
+  challengeSection.style.display = 'block';
+  renderResults();
+}
+
+function selectChallenge(challenge) {
+  selectedChallenge = challenge;
+
+  document.querySelectorAll('.challenge-btn').forEach(b => {
+    if (challenge === null) {
+      b.classList.toggle('active', b.classList.contains('show-all'));
+    } else {
+      b.classList.toggle('active', b.dataset.challenge === challenge);
+    }
+  });
+
+  renderResults();
+}
+
+function renderResults() {
+  const container = document.getElementById('results');
+  const emptyState = document.getElementById('emptyState');
+
+  if (!selectedRole) {
+    container.innerHTML = '';
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  const persona = DATA.personas[selectedRole];
+
+  // Score and sort capabilities
+  const capEntries = Object.entries(DATA.capabilities);
+  const relevant = capEntries
+    .filter(([, cap]) => cap.roles.includes(selectedRole))
+    .map(([id, cap]) => {
+      let score = 1;
+      if (selectedChallenge && cap.challenges.includes(selectedChallenge)) score = 2;
+      return {id, cap, score};
+    })
+    .sort((a,b) => b.score - a.score);
+
+  // Build HTML
+  let html = `<div class="results">`;
+
+  // Persona intro
+  html += `
+    <div class="persona-intro">
+      <div class="persona-intro-eyebrow">${persona.intro}</div>
+      <h2>${persona.headline}</h2>
+      <p>${persona.summary}</p>
+    </div>`;
+
+  // Capabilities
+  const challengeLabel = selectedChallenge ? ` matching "${selectedChallenge}"` : '';
+  html += `<div class="section-title">Key capabilities${challengeLabel}</div>`;
+  html += `<div class="caps-grid">`;
+
+  relevant.forEach(({cap, score}) => {
+    const isPrimary = score === 2;
+    html += `
+      <div class="cap-card${isPrimary ? ' primary' : ''}">
+        <div class="cap-tags">
+          ${cap.tags.map((t,i) => `<span class="cap-tag${i > 0 ? ' secondary' : ''}">${t}</span>`).join('')}
+          ${isPrimary ? `<span class="cap-tag">Best match</span>` : ''}
+        </div>
+        <div class="cap-name">${cap.name}</div>
+        <div class="cap-desc">${cap.desc}</div>
+        <a href="#" class="cap-link">Learn more</a>
+      </div>`;
+  });
+
+  html += `</div>`;
+
+  // Testimonial
+  const t = persona.testimonial;
+  html += `
+    <div class="testimonial-section">
+      <div class="section-title">What clients say</div>
+      <div class="testimonial-card">
+        <div>
+          <div class="testimonial-mark">"</div>
+          <div class="testimonial-body">${t.body}</div>
+          <div class="testimonial-source">${t.source}</div>
+        </div>
+        ${t.metric ? `
+        <div class="testimonial-metric">
+          <div class="t-metric-num">${t.metric.num}</div>
+          <div class="t-metric-label">${t.metric.label}</div>
+        </div>` : ''}
+      </div>
+    </div>`;
+
+  // CTA
+  const cta = persona.cta;
+  const ctaSub = selectedChallenge
+    ? `See how daappa addresses <strong>${selectedChallenge.toLowerCase()}</strong> for ${persona.intro.replace('For ','')}.`
+    : cta.sub;
+
+  html += `
+    <div class="section-title">Next steps</div>
+    <div class="cta-card">
+      <div>
+        <h3>${cta.headline}</h3>
+        <p>${ctaSub}</p>
+      </div>
+      <div class="cta-btns">
+        <a href="#" class="btn-white">${cta.btn}</a>
+        <a href="#" class="btn-ghost-white">${cta.ghost}</a>
+      </div>
+    </div>`;
+
+  html += `</div>`;
+
+  container.innerHTML = html;
+
+  // Scroll to results smoothly
+  container.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+init();
+</script>
+</body>
+</html>

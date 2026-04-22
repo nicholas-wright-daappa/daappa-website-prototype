@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>daappa Studio+ — Private Markets Data and Intelligence Platform | daappa</title>
+<meta name="description" content="daappa Studio+ is the web-based data and intelligence platform for private markets. Extractor AI, DataHub, NAV Oversight, Analytics, Compliance Monitoring, Look Through, and Investor Portal — all connected. Works above your existing fund accounting system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3A;--navy-mid:#142D52;--navy-light:#1E3F6F;
+  --orange:#E8602A;--orange-light:#F07848;--orange-pale:#FDF0EA;--orange-dark:#C04E20;
+  --teal:#1D9E75;--teal-light:#E1F5EE;--teal-mid:#5DCAA5;
+  --white:#FFFFFF;--off-white:#F7F8FA;--stone:#EEF0F4;--border:#DDE2EB;
+  --text-primary:#0B1F3A;--text-secondary:#4A5568;--text-muted:#718096;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text-primary);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-weight:600;font-size:20px;color:var(--white);letter-spacing:-.3px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.btn-ghost-nav{font-family:var(--sans);font-size:14px;font-weight:500;color:rgba(255,255,255,0.8);background:transparent;border:1px solid rgba(255,255,255,0.2);padding:8px 18px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-ghost-nav:hover{color:var(--white);border-color:rgba(255,255,255,0.4)}
+.btn-primary-nav{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s}
+.btn-primary-nav:hover{background:var(--orange-light)}
+
+/* BREADCRUMB */
+.breadcrumb{background:var(--off-white);border-bottom:1px solid var(--border);padding:10px 48px}
+.breadcrumb-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted)}
+.breadcrumb-inner a{color:var(--text-muted);text-decoration:none;transition:color .15s}
+.breadcrumb-inner a:hover{color:var(--navy)}
+.breadcrumb-sep{color:var(--border)}
+
+/* HERO */
+.hero{background:var(--navy);padding:80px 48px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:520px;height:520px;background:radial-gradient(circle,rgba(232,96,42,0.1) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-80px;left:5%;width:400px;height:400px;background:radial-gradient(circle,rgba(29,158,117,0.07) 0%,transparent 65%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.hero-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.hero h1{font-family:var(--serif);font-size:52px;line-height:1.08;color:var(--white);letter-spacing:-.5px;margin-bottom:24px;max-width:800px}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,0.55)}
+.hero-sub{font-size:18px;line-height:1.65;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:40px;max-width:620px}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+.btn-hero-primary{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-hero-primary::after{content:'→';transition:transform .2s}
+.btn-hero-primary:hover{background:var(--orange-light)}
+.btn-hero-primary:hover::after{transform:translateX(3px)}
+.btn-hero-ghost{font-family:var(--sans);font-size:15px;font-weight:400;color:rgba(255,255,255,0.7);background:transparent;border:1px solid rgba(255,255,255,0.15);padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-hero-ghost:hover{color:var(--white);border-color:rgba(255,255,255,0.35)}
+
+/* HERO METRICS ROW */
+.hero-metrics{display:flex;gap:0;border-top:1px solid rgba(255,255,255,0.08);padding-top:40px}
+.hero-metric{flex:1;padding-right:32px;border-right:1px solid rgba(255,255,255,0.08)}
+.hero-metric:last-child{border-right:none;padding-right:0;padding-left:32px}
+.hero-metric:not(:first-child){padding-left:32px}
+.hero-metric-num{font-family:var(--serif);font-size:40px;color:var(--white);line-height:1;margin-bottom:6px}
+.hero-metric-num span{color:var(--orange)}
+.hero-metric-label{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.4;font-weight:300}
+
+/* PROBLEM BANNER */
+.problem{background:var(--off-white);padding:72px 48px;border-bottom:1px solid var(--border)}
+.problem-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.problem-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.problem-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.problem h2{font-family:var(--serif);font-size:36px;color:var(--navy);line-height:1.15;letter-spacing:-.3px;margin-bottom:16px}
+.problem p{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;margin-bottom:14px}
+.problem p strong{color:var(--navy);font-weight:500}
+.problem-pain-list{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.pain-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--white);border:1px solid var(--border);border-radius:6px}
+.pain-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.8}
+.pain-text{font-size:14px;color:var(--text-secondary);line-height:1.55;font-weight:300}
+.pain-text strong{color:var(--navy);font-weight:500}
+
+/* SECTIONS */
+.section{padding:88px 48px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-alt{background:var(--off-white)}
+.section-dark{background:var(--navy)}
+.section-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.section-h2{font-family:var(--serif);font-size:40px;line-height:1.15;color:var(--navy);letter-spacing:-.3px;margin-bottom:14px}
+.section-h2-white{color:var(--white)}
+.section-intro{font-size:17px;color:var(--text-secondary);line-height:1.65;font-weight:300;max-width:640px;margin-bottom:48px}
+.section-intro-white{color:rgba(255,255,255,0.55)}
+
+/* FLOW DIAGRAM (simplified inline) */
+.flow-strip{display:flex;align-items:stretch;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:48px}
+.flow-step{flex:1;padding:24px 20px;position:relative;background:var(--white)}
+.flow-step:not(:last-child){border-right:1px solid var(--border)}
+.flow-step-num{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.flow-step-title{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:6px}
+.flow-step-desc{font-size:13px;color:var(--text-secondary);line-height:1.5;font-weight:300}
+.flow-arrow{position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--orange);font-size:18px;z-index:2;background:var(--white);padding:2px 0}
+
+/* INTERACTIVE DIAGRAM EMBED */
+.diagram-section{background:var(--off-white);padding:88px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.diagram-wrap{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:32px 24px;max-width:1200px;margin:0 auto}
+.diagram-header{margin-bottom:28px}
+.diagram-title{font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:6px}
+.diagram-sub{font-size:14px;color:var(--text-muted);font-weight:300}
+
+/* COMPONENT GRID */
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.comp-card{background:var(--white);padding:32px 28px;transition:background .15s;cursor:pointer}
+.comp-card:hover{background:var(--off-white)}
+.comp-card.featured{position:relative}
+.comp-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--orange)}
+.comp-icon{width:40px;height:40px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.comp-icon svg{width:20px;height:20px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.comp-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:10px}
+.comp-tag-orange{background:var(--orange-pale);color:var(--orange-dark)}
+.comp-tag-navy{background:var(--stone);color:var(--navy)}
+.comp-name{font-family:var(--serif);font-size:19px;color:var(--navy);margin-bottom:8px;line-height:1.2}
+.comp-desc{font-size:14px;color:var(--text-secondary);line-height:1.6;font-weight:300;margin-bottom:14px}
+.comp-link{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:3px;transition:color .15s}
+.comp-link:hover{color:var(--orange)}
+.comp-link::after{content:'→'}
+
+/* HOW IT CONNECTS */
+.connect-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.connect-visual{background:var(--navy);border-radius:8px;padding:36px;position:relative;overflow:hidden}
+.connect-visual::before{content:'';position:absolute;top:0;left:32px;right:32px;height:1px;background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.5}
+.connect-steps{display:flex;flex-direction:column;gap:16px}
+.connect-step{display:flex;align-items:flex-start;gap:14px}
+.connect-step-num{width:28px;height:28px;border-radius:50%;background:rgba(29,158,117,0.2);border:1px solid rgba(29,158,117,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--teal-mid);flex-shrink:0}
+.connect-step-title{font-size:14px;font-weight:500;color:var(--white);margin-bottom:3px}
+.connect-step-desc{font-size:13px;color:rgba(255,255,255,0.4);font-weight:300;line-height:1.5}
+.connect-connector{width:1px;height:16px;background:rgba(255,255,255,0.08);margin-left:14px}
+.connect-right h3{font-family:var(--serif);font-size:28px;color:var(--navy);margin-bottom:14px;line-height:1.2}
+.connect-right p{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;margin-bottom:20px}
+.connect-items{display:flex;flex-direction:column;gap:10px}
+.connect-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-secondary);font-weight:300;line-height:1.5}
+.connect-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8}
+
+/* AUDIENCE */
+.audience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.audience-card{background:var(--white);padding:40px 36px;position:relative}
+.audience-card::before{content:'';position:absolute;top:0;left:36px;width:32px;height:2px;background:var(--orange)}
+.audience-num{font-family:var(--serif);font-size:44px;color:var(--stone);line-height:1;margin-bottom:16px}
+.audience-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:12px;line-height:1.2}
+.audience-desc{font-size:15px;color:var(--text-secondary);line-height:1.65;font-weight:300;margin-bottom:18px}
+.audience-link{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;border-bottom:1px solid var(--border);padding-bottom:2px;transition:all .15s}
+.audience-link:hover{color:var(--orange);border-color:var(--orange)}
+.audience-link::after{content:' →'}
+
+/* ENTRY POINTS */
+.entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:0}
+.entry-card{background:var(--white);padding:32px 28px}
+.entry-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:14px}
+.entry-tag-start{background:var(--teal-light);color:var(--teal)}
+.entry-tag-fast{background:var(--orange-pale);color:var(--orange-dark)}
+.entry-tag-full{background:var(--stone);color:var(--navy)}
+.entry-title{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:10px;line-height:1.2}
+.entry-desc{font-size:14px;color:var(--text-secondary);line-height:1.6;font-weight:300;margin-bottom:16px}
+.entry-items{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.entry-item{font-size:13px;color:var(--text-secondary);font-weight:300;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.entry-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.8}
+.entry-cta{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:color .15s}
+.entry-cta:hover{color:var(--orange)}
+.entry-cta::after{content:'→'}
+
+/* PROOF */
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.proof-card{background:var(--white);padding:36px 32px}
+.proof-mark{font-family:var(--serif);font-size:52px;color:var(--orange);line-height:.7;opacity:.4;margin-bottom:14px;display:block}
+.proof-body{font-size:15px;color:var(--text-secondary);line-height:1.7;font-weight:300;font-style:italic;margin-bottom:20px}
+.proof-source{font-size:12px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding-top:16px;border-top:1px solid var(--border)}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.faq-item{background:var(--white);padding:32px}
+.faq-q{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.4}
+.faq-a{font-size:14px;color:var(--text-secondary);line-height:1.65;font-weight:300}
+
+/* CORE CALLOUT */
+.core-callout{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.core-callout-eyebrow{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.core-callout-eyebrow::before{content:'';width:16px;height:1px;background:rgba(255,255,255,0.25)}
+.core-callout h3{font-family:var(--serif);font-size:26px;color:var(--white);margin-bottom:10px;line-height:1.2}
+.core-callout p{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.65;font-weight:300}
+.btn-core{font-family:var(--sans);font-size:14px;font-weight:500;color:rgba(255,255,255,0.75);background:transparent;border:1px solid rgba(255,255,255,0.2);padding:11px 22px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-core::after{content:'→'}
+.btn-core:hover{color:var(--white);border-color:rgba(255,255,255,.4)}
+
+/* CTA */
+.cta-section{background:var(--orange);padding:80px 48px}
+.cta-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.cta-inner h2{font-family:var(--serif);font-size:36px;color:var(--white);line-height:1.2;margin-bottom:8px}
+.cta-inner p{font-size:16px;color:rgba(255,255,255,0.75);font-weight:300;max-width:560px}
+.cta-btns{display:flex;flex-direction:column;gap:12px;align-items:flex-end;flex-shrink:0}
+.btn-cta-white{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--orange);background:var(--white);border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-cta-white::after{content:'→'}
+.btn-cta-white:hover{opacity:.92}
+.btn-cta-ghost{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s;white-space:nowrap}
+.btn-cta-ghost:hover{color:var(--white)}
+.btn-cta-ghost::after{content:'→'}
+
+/* FOOTER */
+footer{background:#091929;padding:64px 48px 40px;border-top:1px solid rgba(255,255,255,.05)}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,.35);line-height:1.65;font-weight:300;margin-top:14px;max-width:240px}
+.footer-col-title{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:14px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;font-weight:300}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+.footer-legal{font-size:12px;color:rgba(255,255,255,.2)}
+.footer-certs{display:flex;gap:12px}
+.footer-cert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
+
+/* INTERACTIVE DIAGRAM (embedded) */
+.idia-wrap{font-family:var(--sans);color:var(--navy)}
+.idia-stage-row{display:grid;grid-template-columns:140px 1fr 130px 130px 130px 100px;gap:6px;margin-bottom:6px}
+.idia-stage-label{font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);text-align:center;padding:4px 0}
+.idia-stage-label.hi{color:var(--navy);font-weight:600}
+.idia-diagram{display:grid;grid-template-columns:140px 1fr 130px 130px 130px 100px;gap:6px;align-items:start}
+.idia-sources{display:flex;flex-direction:column;gap:4px}
+.idia-src{background:var(--white);border:1px solid var(--border);border-radius:5px;padding:7px 10px;cursor:pointer;transition:all .15s}
+.idia-src:hover,.idia-src.on{border-color:var(--navy);background:var(--stone)}
+.idia-src-name{font-size:11px;font-weight:500;color:var(--navy);margin-bottom:2px}
+.idia-src-sub{font-size:10px;color:var(--text-muted);line-height:1.4}
+.idia-hub-col{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px}
+.idia-hub{width:90px;height:90px;border-radius:50%;border:2px solid var(--teal-mid);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;transition:all .2s;background:var(--teal-light)}
+.idia-hub:hover,.idia-hub.on{border-color:var(--teal);background:#c8f0e2}
+.idia-hub svg{width:36px;height:36px}
+.idia-hub-label{font-size:11px;font-weight:500;color:var(--teal);margin-top:5px;text-align:center}
+.idia-hub-sub{font-size:10px;color:var(--text-muted);text-align:center;margin-top:1px}
+.idia-nodes{display:flex;flex-direction:column;gap:4px}
+.idia-node{background:var(--white);border:1px solid var(--border);border-radius:5px;padding:8px 9px;cursor:pointer;transition:all .15s;text-align:left;width:100%}
+.idia-node:hover,.idia-node.on{border-color:var(--orange);background:var(--orange-pale)}
+.idia-node.on .idia-node-name{color:var(--orange-dark)}
+.idia-node-row{display:flex;align-items:center;gap:7px;margin-bottom:2px}
+.idia-node-ico{width:20px;height:20px;background:var(--navy);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.idia-node-ico svg{width:11px;height:11px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.idia-node-name{font-size:11px;font-weight:500;color:var(--navy);line-height:1.2}
+.idia-node-tag{font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);margin-top:1px}
+.idia-ds{background:var(--stone);border:1px dashed var(--border);border-radius:5px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:110px}
+.idia-ds-title{font-size:9px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);text-align:center;margin-bottom:3px}
+.idia-ds-item{font-size:10px;color:var(--text-secondary);text-align:center}
+.idia-arr-row{display:grid;grid-template-columns:140px 1fr 130px 130px 130px 100px;gap:6px;align-items:center;height:24px;margin-top:4px}
+.idia-arr-cell{display:flex;align-items:center;justify-content:center}
+.idia-arr{height:2px;background:var(--border);position:relative;width:90%;border-radius:1px}
+.idia-arr::after{content:'';position:absolute;right:-1px;top:-4px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid var(--border)}
+.idia-arr.active{background:var(--orange)}
+.idia-arr.active::after{border-left-color:var(--orange)}
+@keyframes idia-flow{0%{background-position:0 0}100%{background-position:24px 0}}
+.idia-arr.flowing{background:repeating-linear-gradient(90deg,var(--orange) 0,var(--orange) 6px,transparent 6px,transparent 12px);background-size:24px 2px;animation:idia-flow .6s linear infinite;border-radius:1px}
+.idia-arr.flowing::after{border-left-color:var(--orange)}
+.idia-detail{margin-top:10px;min-height:100px}
+.idia-detail-inner{background:var(--off-white);border:1px solid var(--border);border-radius:7px;padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.idia-dh{display:flex;align-items:center;gap:9px;grid-column:1/-1;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:2px}
+.idia-d-ico{width:28px;height:28px;background:var(--navy);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.idia-d-ico svg{width:14px;height:14px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.idia-d-title{font-family:var(--serif);font-size:17px;color:var(--navy)}
+.idia-d-desc{font-size:12px;color:var(--text-secondary);line-height:1.55;font-weight:300}
+.idia-d-col-title{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px}
+.idia-d-items{list-style:none;display:flex;flex-direction:column;gap:3px}
+.idia-d-items li{font-size:11px;color:var(--text-secondary);font-weight:300;display:flex;align-items:flex-start;gap:5px;line-height:1.4}
+.idia-d-items li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:4px}
+.idia-d-empty{grid-column:1/-1;display:flex;align-items:center;justify-content:center;min-height:70px;font-size:13px;color:var(--text-muted)}
+.idia-d-stat{background:var(--navy);border-radius:5px;padding:10px 12px;text-align:center}
+.idia-d-stat-num{font-family:var(--serif);font-size:26px;color:var(--white);line-height:1}
+.idia-d-stat-num span{color:var(--orange)}
+.idia-d-stat-label{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;line-height:1.3}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp .6s ease both}
+.hero-inner>*:nth-child(2){animation-delay:.1s}
+.hero-inner>*:nth-child(3){animation-delay:.2s}
+.hero-inner>*:nth-child(4){animation-delay:.3s}
+
+@media(max-width:960px){
+  nav{padding:0 20px}
+  .breadcrumb{padding:10px 20px}
+  .hero{padding:56px 20px}
+  .problem{padding:56px 20px}
+  .problem-inner{grid-template-columns:1fr;gap:40px}
+  .section{padding:64px 20px}
+  .diagram-section{padding:64px 20px}
+  .comp-grid{grid-template-columns:1fr}
+  .audience-grid{grid-template-columns:1fr}
+  .entry-grid{grid-template-columns:1fr}
+  .proof-grid{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .connect-grid{grid-template-columns:1fr}
+  .cta-inner{grid-template-columns:1fr}
+  .cta-btns{align-items:flex-start}
+  .footer-top{grid-template-columns:1fr 1fr}
+  footer{padding:40px 20px}
+  .idia-stage-row,.idia-diagram,.idia-arr-row{display:none}
+  .idia-detail-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/>
+      <path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+      <circle cx="16" cy="16" r="3" fill="#E8602A"/>
+    </svg>
+    <span class="nav-logo-text">daappa</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="daappa-studio-plus.html" class="active">Platform</a></li>
+    <li><a href="daappa-fund-administrators.html">Who we serve</a></li>
+    <li><a href="daappa-clients.html">Clients</a></li>
+    <li><a href="daappa-insights.html">Insights</a></li>
+    <li><a href="daappa-about.html">About</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="daappa-contact.html" class="btn-ghost-nav">Contact</a>
+    <a href="daappa-book-demo.html" class="btn-primary-nav">Book a demo</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">daappa</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>daappa Studio+</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">daappa Studio+</div>
+    <h1>The intelligence layer<br><em>above your fund accounting.</em></h1>
+    <p class="hero-sub">Studio+ is the web-based data and intelligence platform for private markets. It connects to your existing fund accounting system, processes your documents, centralises your data, and delivers the analytics, oversight, and reporting your stakeholders expect -- without replacing what you already run.</p>
+    <div class="hero-actions">
+      <a href="daappa-book-demo.html" class="btn-hero-primary">Book a demo</a>
+      <a href="#how-it-works" class="btn-hero-ghost">See how it works</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <div class="hero-metric-num">98<span>%</span></div>
+        <div class="hero-metric-label">Post-extraction accuracy with Extractor AI on complex PE documents</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-num">75<span>%</span></div>
+        <div class="hero-metric-label">Reduction in document processing time across quarterly reporting cycles</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-num">14</div>
+        <div class="hero-metric-label">Days to go live with NAV Oversight from first conversation to production</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-num">50<span>x</span></div>
+        <div class="hero-metric-label">Operational capacity expansion on document processing workflows</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="problem-inner">
+    <div>
+      <div class="problem-eyebrow">The problem</div>
+      <h2>Fund accounting is solved. The layer above it isn't.</h2>
+      <p>Most private markets firms have fund accounting covered -- whether in-house on daappa Core, or outsourced to an administrator. The problem sits above it.</p>
+      <p><strong>Getting data out of documents. Normalising it. Overseeing outsourced NAVs. Monitoring the portfolio. Reporting to investors.</strong> That entire layer is still running on spreadsheets, email chains, and disconnected manual processes.</p>
+      <p>Studio+ is built for exactly that layer.</p>
+    </div>
+    <div class="problem-pain-list">
+      <div class="pain-item"><span class="pain-dot"></span><span class="pain-text"><strong>Quarterly portco reports arrive as PDFs</strong> and analysts spend days re-keying data into models</span></div>
+      <div class="pain-item"><span class="pain-dot"></span><span class="pain-text"><strong>NAV oversight runs on a spreadsheet</strong> and an email chain that no regulator would call auditable</span></div>
+      <div class="pain-item"><span class="pain-dot"></span><span class="pain-text"><strong>Portfolio monitoring is fragmented</strong> across disconnected Excel models with no single source of truth</span></div>
+      <div class="pain-item"><span class="pain-dot"></span><span class="pain-text"><strong>LP reporting takes weeks</strong> because data has to be assembled manually from multiple systems every quarter</span></div>
+      <div class="pain-item"><span class="pain-dot"></span><span class="pain-text"><strong>Compliance is reactive</strong> because there's no automated way to check exposures against mandates in real time</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-eyebrow">How Studio+ works</div>
+    <h2 class="section-h2">Extract. Manage. Inform.</h2>
+    <p class="section-intro">Studio+ follows a single logical flow. Data comes in from your existing sources. DataHub centralises and governs it. Every module draws from the same governed data set to deliver analytics, oversight, and reporting.</p>
+
+    <div class="flow-strip">
+      <div class="flow-step">
+        <div class="flow-step-num">01 — Ingest</div>
+        <div class="flow-step-title">Data enters Studio+</div>
+        <div class="flow-step-desc">Via Extractor AI from documents, via DataHub Sync from external systems, via direct feed from daappa Core, or via the Excel Import Tool</div>
+        <span class="flow-arrow">›</span>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">02 — Transform and store</div>
+        <div class="flow-step-title">DataHub governs it</div>
+        <div class="flow-step-desc">All data is validated, normalised, and stored in DataHub -- the central private markets data warehouse that powers every downstream module</div>
+        <span class="flow-arrow">›</span>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">03 — Validate and oversee</div>
+        <div class="flow-step-title">Look Through, CAS, NAV</div>
+        <div class="flow-step-desc">Ownership exposure, capital account statements, NAV validation, and portfolio monitoring all draw from the same governed data set</div>
+        <span class="flow-arrow">›</span>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">04 — Analyse and report</div>
+        <div class="flow-step-title">Analytics, Analyser, Portal</div>
+        <div class="flow-step-desc">Business intelligence dashboards, self-service reporting, compliance monitoring, and investor portal distribution -- all from one source of truth</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE DIAGRAM -->
+<section class="diagram-section">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="section-eyebrow" style="margin-bottom:12px">Interactive architecture</div>
+    <h2 class="section-h2" style="margin-bottom:8px">How everything connects</h2>
+    <p style="font-size:15px;color:var(--text-secondary);font-weight:300;margin-bottom:28px;max-width:560px">Click any component to see what it does and how it fits into the Studio+ data flow.</p>
+
+    <div class="diagram-wrap" style="padding:28px 20px">
+      <div class="idia-wrap">
+
+        <div class="idia-stage-row">
+          <div class="idia-stage-label">Data sources</div>
+          <div class="idia-stage-label hi">Ingest and transform</div>
+          <div class="idia-stage-label">Validate</div>
+          <div class="idia-stage-label">Analyse</div>
+          <div class="idia-stage-label">Distribute</div>
+          <div class="idia-stage-label">Downstream</div>
+        </div>
+
+        <div class="idia-diagram">
+          <div class="idia-sources" id="idia-sources">
+            <div class="idia-src" data-id="src-tx" onclick="idiaSelectSrc(this,'src-tx')"><div class="idia-src-name">Transactions and accounting</div><div class="idia-src-sub">GL journals, NAV pack, fees</div></div>
+            <div class="idia-src" data-id="src-static" onclick="idiaSelectSrc(this,'src-static')"><div class="idia-src-name">Static data</div><div class="idia-src-sub">Security master, CRM, investors</div></div>
+            <div class="idia-src" data-id="src-portco" onclick="idiaSelectSrc(this,'src-portco')"><div class="idia-src-name">Portfolio companies</div><div class="idia-src-sub">Financials, ESG, KPIs</div></div>
+            <div class="idia-src" data-id="src-bank" onclick="idiaSelectSrc(this,'src-bank')"><div class="idia-src-name">Banking</div><div class="idia-src-sub">CSV/PDF, Open Banking</div></div>
+            <div class="idia-src" data-id="src-market" onclick="idiaSelectSrc(this,'src-market')"><div class="idia-src-name">Market data</div><div class="idia-src-sub">ESG feeds, pricing, FX</div></div>
+            <div class="idia-src" data-id="src-other" onclick="idiaSelectSrc(this,'src-other')"><div class="idia-src-name">Other</div><div class="idia-src-sub">Valuations, FVP</div></div>
+          </div>
+
+          <div class="idia-hub-col">
+            <div class="idia-hub" id="idia-hub-btn" onclick="idiaSelectNode(this,'datahub')">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="18" stroke="#1D9E75" stroke-width="2"/>
+                <circle cx="24" cy="24" r="9" fill="#1D9E75" opacity=".2"/>
+                <path d="M24 10L24 38M10 24L38 24M14 14L34 34M34 14L14 34" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="24" cy="24" r="4" fill="#1D9E75"/>
+              </svg>
+            </div>
+            <div class="idia-hub-label">DataHub</div>
+            <div class="idia-hub-sub">Central data store</div>
+          </div>
+
+          <div class="idia-nodes">
+            <button class="idia-node" onclick="idiaSelectNode(this,'look-through')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.35-4.35"/></svg></div><div><div class="idia-node-name">Look Through</div><div class="idia-node-tag">Validate</div></div></div></button>
+            <button class="idia-node" onclick="idiaSelectNode(this,'cas')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div><div class="idia-node-name">CAS</div><div class="idia-node-tag">Validate</div></div></div></button>
+            <button class="idia-node" onclick="idiaSelectNode(this,'nav')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div><div><div class="idia-node-name">NAV Oversight</div><div class="idia-node-tag">Validate</div></div></div></button>
+            <button class="idia-node" onclick="idiaSelectNode(this,'monitoring')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="idia-node-name">Monitoring</div><div class="idia-node-tag">Validate</div></div></div></button>
+          </div>
+
+          <div class="idia-nodes">
+            <button class="idia-node" onclick="idiaSelectNode(this,'analytics')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div><div><div class="idia-node-name">Analytics</div><div class="idia-node-tag">Analyse</div></div></div></button>
+            <button class="idia-node" onclick="idiaSelectNode(this,'analyser')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div><div><div class="idia-node-name">Analyser</div><div class="idia-node-tag">Analyse</div></div></div></button>
+            <button class="idia-node" onclick="idiaSelectNode(this,'compliance')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><div><div class="idia-node-name">Compliance</div><div class="idia-node-tag">Analyse</div></div></div></button>
+          </div>
+
+          <div class="idia-nodes">
+            <button class="idia-node" onclick="idiaSelectNode(this,'portal')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div><div class="idia-node-name">Portal</div><div class="idia-node-tag">Distribute</div></div></div></button>
+            <button class="idia-node" onclick="idiaSelectNode(this,'extractor')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div><div class="idia-node-name">Extractor AI</div><div class="idia-node-tag">Ingest</div></div></div></button>
+            <button class="idia-node" onclick="idiaSelectNode(this,'sync')"><div class="idia-node-row"><div class="idia-node-ico"><svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div><div><div class="idia-node-name">DataHub Sync</div><div class="idia-node-tag">Distribute</div></div></div></button>
+          </div>
+
+          <div class="idia-ds">
+            <div class="idia-ds-title">Downstream</div>
+            <div class="idia-ds-item">Excel / CSV</div>
+            <div class="idia-ds-item">API feeds</div>
+            <div class="idia-ds-item">Reporting tools</div>
+            <div class="idia-ds-item">3rd party systems</div>
+          </div>
+        </div>
+
+        <div class="idia-arr-row" style="margin-top:5px">
+          <div class="idia-arr-cell" style="justify-content:flex-end"><div id="idia-a1" class="idia-arr" style="width:88%"></div></div>
+          <div class="idia-arr-cell"></div>
+          <div class="idia-arr-cell"><div id="idia-a2" class="idia-arr" style="width:88%"></div></div>
+          <div class="idia-arr-cell"><div id="idia-a3" class="idia-arr" style="width:88%"></div></div>
+          <div class="idia-arr-cell"><div id="idia-a4" class="idia-arr" style="width:88%"></div></div>
+          <div></div>
+        </div>
+
+        <div class="idia-detail">
+          <div class="idia-detail-inner" id="idia-panel">
+            <div class="idia-d-empty">Click any component above to see what it does</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Studio+ components</div>
+    <h2 class="section-h2">Seven modules. One governed data set.</h2>
+    <p class="section-intro">Every component draws from DataHub. Nothing is siloed. Nothing needs reconciling between modules.</p>
+
+    <div class="comp-grid">
+      <div class="comp-card featured">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <span class="comp-tag comp-tag-orange">AI-powered</span>
+        <div class="comp-name">Extractor AI</div>
+        <div class="comp-desc">Processes quarterly portco reports, LP documents, financial statements, and capital account statements. Combines Computer Vision AI, Generative AI, and parallel LLM validation. 98% post-extraction accuracy with full audit trail to source document.</div>
+        <a href="daappa-extractor-ai.html" class="comp-link">Full product detail</a>
+      </div>
+      <div class="comp-card featured">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg></div>
+        <span class="comp-tag comp-tag-orange">Core component</span>
+        <div class="comp-name">DataHub</div>
+        <div class="comp-desc">The central governed data warehouse for Studio+. Centralises data from fund admins, Extractor AI, portco reports, Core, and external systems into a single validated data set. Every other module draws from DataHub -- there is no other source of truth.</div>
+        <a href="daappa-datahub.html" class="comp-link">Learn more</a>
+      </div>
+      <div class="comp-card featured">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <span class="comp-tag comp-tag-orange">New product</span>
+        <div class="comp-name">NAV Oversight</div>
+        <div class="comp-desc">Replaces the 0.5bp NAV movement check spreadsheet with an automated, auditable workflow. Designed for ManCos, depositaries, and GPs with outsourced fund accounting. Starter tier from £199/month. Live in 14 days.</div>
+        <a href="daappa-nav-oversight.html" class="comp-link">Full product detail</a>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+        <span class="comp-tag comp-tag-navy">Business intelligence</span>
+        <div class="comp-name">Analytics</div>
+        <div class="comp-desc">Private markets BI built on your DataHub data. Fund performance dashboards, portfolio company KPIs, ESG metrics, vintage analysis, and exception reporting. Designed around private markets data structures -- not adapted from a generic BI tool.</div>
+        <a href="daappa-analytics.html" class="comp-link">Learn more</a>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></div>
+        <span class="comp-tag comp-tag-navy">Portfolio</span>
+        <div class="comp-name">Look Through</div>
+        <div class="comp-desc">Full ownership and exposure visibility across complex fund structures. Traces holdings through layers of funds, SPVs, and investments. Calculates each investor's actual exposure to underlying assets and produces graphical structure representations.</div>
+        <a href="daappa-look-through.html" class="comp-link">Learn more</a>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <span class="comp-tag comp-tag-navy">Regulatory</span>
+        <div class="comp-name">Compliance Monitoring</div>
+        <div class="comp-desc">Rules-based exposure checking against your investment mandates, AIFMD limits, and regulatory obligations. Flags breaches before they become regulatory events. Covers AIFMD Annex IV, ILPA, FATCA, CRS, BCL, INREV, and ESG/SFDR requirements.</div>
+        <a href="daappa-compliance.html" class="comp-link">Learn more</a>
+      </div>
+      <div class="comp-card" style="grid-column:1/3">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+        <span class="comp-tag comp-tag-navy">Client-facing</span>
+        <div class="comp-name">Investor Portal</div>
+        <div class="comp-desc">Branded, secure document and data exchange portal. Fund administrators use it to deliver capital account statements, performance reports, and fund documents to their clients and investors. Built on DataHub data. Granular per-investor access controls. AML/KYC document collection. SWIFT bank instruction formatting.</div>
+        <a href="daappa-portal.html" class="comp-link">Learn more</a>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon"><svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+        <span class="comp-tag comp-tag-navy">Self-service</span>
+        <div class="comp-name">Analyser</div>
+        <div class="comp-desc">Self-service data extract and report builder. Query, sort, and filter across any DataHub data combination. Respond to ad hoc LP requests without involving technical teams. Export to CSV, XLSX, PDF, RTF, or HTML. Schedule recurring runs.</div>
+        <a href="daappa-analytics.html" class="comp-link">Learn more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT CONNECTS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-eyebrow">Data connections</div>
+    <h2 class="section-h2">Works with your existing systems</h2>
+    <p class="section-intro">Studio+ doesn't ask you to replace your fund accounting. It connects above it. The data flow is one-way on ingestion and bidirectional on output.</p>
+
+    <div class="connect-grid">
+      <div class="connect-visual">
+        <div class="connect-steps">
+          <div class="connect-step">
+            <div class="connect-step-num">1</div>
+            <div>
+              <div class="connect-step-title">Data sources connect to Studio+</div>
+              <div class="connect-step-desc">daappa Core, external fund admins, portco documents, banking feeds, and market data all route into DataHub via Extractor AI, DataHub Sync, or direct API</div>
+            </div>
+          </div>
+          <div class="connect-connector"></div>
+          <div class="connect-step">
+            <div class="connect-step-num">2</div>
+            <div>
+              <div class="connect-step-title">DataHub validates and stores</div>
+              <div class="connect-step-desc">All incoming data is validated, normalised, and governed before entering DataHub. One data set. One source of truth. Fully auditable.</div>
+            </div>
+          </div>
+          <div class="connect-connector"></div>
+          <div class="connect-step">
+            <div class="connect-step-num">3</div>
+            <div>
+              <div class="connect-step-title">Modules draw from DataHub</div>
+              <div class="connect-step-desc">Analytics, NAV Oversight, Look Through, Compliance, Portal, and Analyser all read from the same governed data set. No reconciliation. No silos.</div>
+            </div>
+          </div>
+          <div class="connect-connector"></div>
+          <div class="connect-step">
+            <div class="connect-step-num">4</div>
+            <div>
+              <div class="connect-step-title">Outputs reach downstream systems</div>
+              <div class="connect-step-desc">DataHub Sync pushes clean, governed data to external reporting tools, third-party systems, and custom integrations via API, CSV, or XLSX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connect-right">
+        <h3>What Studio+ connects to</h3>
+        <p>Studio+ is designed to fit your existing operating model. You don't need to change how your fund accounting works on day one.</p>
+        <div class="connect-items">
+          <div class="connect-item">daappa Core as a direct data source (if running both products)</div>
+          <div class="connect-item">External fund administrators via document upload or API</div>
+          <div class="connect-item">Portfolio company reporting portals and data rooms</div>
+          <div class="connect-item">Banking systems via CSV export or Open Banking API</div>
+          <div class="connect-item">Market data providers for pricing, FX, and ESG feeds</div>
+          <div class="connect-item">External accounting systems via DataHub Sync</div>
+          <div class="connect-item">Downstream reporting tools, Excel, and third-party platforms</div>
+        </div>
+        <div style="margin-top:24px;padding:16px 18px;background:var(--white);border:1px solid var(--border);border-radius:6px">
+          <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px">Cloud-hosted. ISO 27001 certified.</div>
+          <div style="font-size:13px;color:var(--text-secondary);font-weight:300;line-height:1.55">Studio+ runs on Microsoft Azure infrastructure with full encryption at rest and in transit. All data stays within your governed environment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Who Studio+ is for</div>
+    <h2 class="section-h2">The firms above the accounting layer</h2>
+    <p class="section-intro">Studio+ is for anyone who has fund accounting covered but needs the intelligence, oversight, and reporting layer above it.</p>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-num">01</div>
+        <div class="audience-title">GPs and Asset Managers</div>
+        <div class="audience-desc">You've outsourced fund accounting or run it on daappa Core. The challenge is everything above it -- portfolio monitoring, NAV oversight, investor reporting, and compliance. Studio+ solves that layer without touching your existing fund admin arrangements.</div>
+        <a href="daappa-general-partners.html" class="audience-link">GPs and asset managers</a>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">02</div>
+        <div class="audience-title">Fund Administrators</div>
+        <div class="audience-desc">Studio+ extends what you deliver to your clients -- real-time data visibility, a branded investor portal, and AI-powered document processing that reduces the manual effort in processing incoming documents. Connects directly to daappa Core where clients run both.</div>
+        <a href="daappa-fund-administrators.html" class="audience-link">Fund administrators</a>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">03</div>
+        <div class="audience-title">LPs and Fund of Funds</div>
+        <div class="audience-desc">You receive hundreds of quarterly reports, capital account statements, and financial documents every cycle. Extractor AI processes them automatically into your schemas and feeds DataHub for portfolio monitoring. What took weeks takes days.</div>
+        <a href="daappa-lps-fof.html" class="audience-link">LPs and fund of funds</a>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">04</div>
+        <div class="audience-title">AIFMs and ManCos</div>
+        <div class="audience-desc">NAV oversight, AIFMD compliance, and regulatory transparency obligations are intensifying. Studio+ -- and NAV Oversight specifically -- gives you the auditable, regulator-ready workflows to meet those obligations without building them manually in spreadsheets.</div>
+        <a href="daappa-aifms.html" class="audience-link">AIFMs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTRY POINTS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-eyebrow">How to start</div>
+    <h2 class="section-h2">Three ways into Studio+</h2>
+    <p class="section-intro">You don't need to implement the full platform on day one. Every component works standalone and integrates as you grow.</p>
+
+    <div class="entry-grid">
+      <div class="entry-card">
+        <span class="entry-tag entry-tag-fast">Fastest start</span>
+        <div class="entry-title">Start with NAV Oversight</div>
+        <div class="entry-desc">The most immediate entry point. Addresses a specific regulatory pain point without any dependency on other Studio+ components.</div>
+        <div class="entry-items">
+          <div class="entry-item">Starter tier from £199 per month</div>
+          <div class="entry-item">Live within 14 days</div>
+          <div class="entry-item">No implementation project required</div>
+          <div class="entry-item">Natural upgrade path to full Studio+</div>
+        </div>
+        <a href="daappa-nav-oversight.html" class="entry-cta">See NAV Oversight</a>
+      </div>
+      <div class="entry-card">
+        <span class="entry-tag entry-tag-start">Recommended start</span>
+        <div class="entry-title">Start with Extractor AI</div>
+        <div class="entry-desc">The highest-impact starting point for firms with document processing bottlenecks. A five-week proof of concept against your actual documents.</div>
+        <div class="entry-items">
+          <div class="entry-item">Five-week PoC: configure, pilot, review</div>
+          <div class="entry-item">Works with your existing schemas and models</div>
+          <div class="entry-item">Outputs to Excel, CSV, or directly to DataHub</div>
+          <div class="entry-item">Expands to Tier 2 and Tier 3 as needed</div>
+        </div>
+        <a href="daappa-extractor-ai.html" class="entry-cta">See Extractor AI</a>
+      </div>
+      <div class="entry-card">
+        <span class="entry-tag entry-tag-full">Full platform</span>
+        <div class="entry-title">Full Studio+ implementation</div>
+        <div class="entry-desc">For firms that want to solve the full data, oversight, and reporting layer in one move. Scoped to your specific operating model.</div>
+        <div class="entry-items">
+          <div class="entry-item">Full DataHub configuration and data migration</div>
+          <div class="entry-item">All modules configured to your requirements</div>
+          <div class="entry-item">Integration with existing systems and data sources</div>
+          <div class="entry-item">Delivered by senior daappa implementation staff</div>
+        </div>
+        <a href="daappa-book-demo.html" class="entry-cta">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">What clients say</div>
+    <h2 class="section-h2" style="margin-bottom:40px">Trusted across European private markets</h2>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <span class="proof-mark">"</span>
+        <div class="proof-body">We use daappa to capture, store, consolidate, analyse and extract data. With daappa we are capable of calculating IRR on FoF, GP and portfolio company levels, and we are able to deliver high quality reports to our investors with more transparency compared to our competitors.</div>
+        <div class="proof-source">Director of Investor Relations &nbsp;·&nbsp; Global VC</div>
+      </div>
+      <div class="proof-card">
+        <span class="proof-mark">"</span>
+        <div class="proof-body">With increasingly complex client needs including mandate management, and evolving regulatory pressure on administration, governance and risk management, we found in daappa a powerful yet flexible solution that allows us to scale our operations on demand while maintaining a high level of control and transparency.</div>
+        <div class="proof-source">Managing Director &nbsp;·&nbsp; European Fund Administrator</div>
+      </div>
+      <div class="proof-card">
+        <span class="proof-mark">"</span>
+        <div class="proof-body">As our investment portfolios have grown, our business found that its infrastructure was a series of tools with minimal integration. Working with the daappa team has provided us a means to continue developing our investment portfolio and grow.</div>
+        <div class="proof-source">CEO &nbsp;·&nbsp; European General Partner</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-eyebrow">Common questions</div>
+    <h2 class="section-h2" style="margin-bottom:40px">Studio+ -- frequently asked</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">What is daappa Studio+?</div>
+        <div class="faq-a">daappa Studio+ is a web-based data and intelligence platform for private markets. It includes Extractor AI, DataHub, NAV Oversight, Analytics, Compliance Monitoring, Look Through, Analyser, and an Investor Portal. It is designed to sit above your existing fund accounting system and connect to it -- not replace it.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does Studio+ replace our fund accounting system?</div>
+        <div class="faq-a">No. Studio+ connects above your existing fund accounting system. It ingests data from it, governs it in DataHub, and delivers analytics, oversight, and reporting outputs. daappa Core is available separately for firms that need integrated fund accounting, and the two connect directly where clients run both.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What data sources does Studio+ connect to?</div>
+        <div class="faq-a">Studio+ ingests data via Extractor AI from PDF and CSV documents, via DataHub Sync from external systems and APIs, directly from daappa Core where clients run both, via the Excel Import Tool, and via Open Banking API for bank data. The onboarding process maps your current data flows and configures the appropriate ingestion routes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can we start with just one component?</div>
+        <div class="faq-a">Yes. NAV Oversight and Extractor AI both work as standalone products. NAV Oversight can be live in 14 days with no dependency on other components. Extractor AI runs a five-week proof of concept. Both have a natural expansion path into the full Studio+ platform.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is Studio+ cloud-hosted?</div>
+        <div class="faq-a">Yes. Studio+ is a web-based, cloud-hosted platform running on Microsoft Azure infrastructure. ISO 27001 and ISO 9001 certified. Full encryption at rest and in transit. Granular user access controls and complete audit trail across all workflows.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long does a full Studio+ implementation take?</div>
+        <div class="faq-a">Full Studio+ implementation is scoped to your specific data volumes, sources, and requirements. A typical mid-sized implementation takes 8 to 16 weeks from scoping to go-live. Extractor AI and NAV Oversight are available as faster entry points -- five weeks and 14 days respectively.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE CALLOUT -->
+<section class="section section-dark">
+  <div class="section-inner">
+    <div class="core-callout">
+      <div>
+        <div class="core-callout-eyebrow">Also need fund accounting?</div>
+        <h3>daappa Core -- the proven accounting engine</h3>
+        <p>For fund administrators and in-house managers who need integrated back-office fund accounting alongside Studio+, daappa Core handles partnership accounting, investor servicing, capital accounting, and regulatory reporting. Particularly well established in Luxembourg, the Channel Islands, and with development banks globally. Studio+ connects directly to Core where clients run both.</p>
+      </div>
+      <a href="daappa-core-page.html" class="btn-core">Learn about Core</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div>
+      <h2>See Studio+ working for your operating model</h2>
+      <p>Tell us about your current setup -- the fund accounting system you run, the documents you process, and the reporting you need to deliver. We'll show you exactly how Studio+ fits and where to start.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="daappa-book-demo.html" class="btn-cta-white">Book a demo</a>
+      <a href="daappa-explorer.html" class="btn-cta-ghost">Not sure where to start?</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/>
+            <path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+            <circle cx="16" cy="16" r="3" fill="#E8602A"/>
+          </svg>
+          <span class="nav-logo-text">daappa</span>
+        </a>
+        <p>The data, accounting and administration platform for private assets.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Studio+</div>
+        <ul class="footer-links">
+          <li><a href="daappa-studio-plus.html">Platform overview</a></li>
+          <li><a href="daappa-extractor-ai.html">Extractor AI</a></li>
+          <li><a href="daappa-nav-oversight.html">NAV Oversight</a></li>
+          <li><a href="daappa-analytics.html">Analytics</a></li>
+          <li><a href="daappa-datahub.html">DataHub</a></li>
+          <li><a href="daappa-core-page.html">daappa Core</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Who we serve</div>
+        <ul class="footer-links">
+          <li><a href="daappa-fund-administrators.html">Fund Administrators</a></li>
+          <li><a href="daappa-general-partners.html">General Partners</a></li>
+          <li><a href="daappa-lps-fof.html">LPs and FoF</a></li>
+          <li><a href="daappa-development-banks.html">Development Banks</a></li>
+          <li><a href="daappa-aifms.html">AIFMs</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="daappa-about.html">About us</a></li>
+          <li><a href="daappa-clients.html">Clients</a></li>
+          <li><a href="daappa-insights.html">Insights</a></li>
+          <li><a href="daappa-explorer.html">Find your fit</a></li>
+          <li><a href="daappa-contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© daappa Limited 2025. All rights reserved. &nbsp;·&nbsp; <a href="#" style="color:inherit;text-decoration:none">Privacy Policy</a> &nbsp;·&nbsp; <a href="#" style="color:inherit;text-decoration:none">Terms</a></div>
+      <div class="footer-certs">
+        <span class="footer-cert">ISO 27001</span>
+        <span class="footer-cert">ISO 9001</span>
+        <span class="footer-cert">Azure hosted</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const IDIA_NODES={
+  datahub:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13"/></svg>',title:'DataHub',desc:'The central governed data warehouse. All data from every source lands here, validated, and becomes the single source of truth for every downstream output.',cols:[{t:'What it stores',i:['Structured transaction and accounting data','Extracted document data from Extractor AI','Portfolio company KPIs and financials','Market data: pricing, FX, ESG feeds','Investor and CRM data']},{t:'How data gets in',i:['Direct from daappa Core via integration','Via Extractor AI from PDFs and CSVs','Via DataHub Sync from external systems','Excel Import Tool for manual data','Open Banking API for bank data']}],stat:null},
+  'look-through':{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.35-4.35"/></svg>',title:'Look Through',desc:'Full ownership and exposure visibility across complex fund structures. Traces holdings through layers of funds, SPVs, and investments to identify each investor\'s actual exposure.',cols:[{t:'What it does',i:['Multi-level ownership structure traversal','Exposure calculation at investor level','Cross-fund position consolidation','Graphical fund structure representation','Look-through to underlying portfolio companies']},{t:'Used by',i:['Fund administrators for LP reporting','GPs managing complex co-investment structures','Compliance teams for mandate monitoring','Investor relations for exposure queries']}],stat:null},
+  cas:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>',title:'CAS — Capital Account Statements',desc:'Automated generation and validation of capital account statements for investors. Draws on DataHub transaction data to produce accurate, auditable statements.',cols:[{t:'What it produces',i:['Per-investor capital account statements','Drawdown and distribution history','Carried interest and fee allocations','Multi-currency capital account views','Audit-ready statement outputs']},{t:'Formats',i:['PDF for investor distribution via Portal','XLSX for downstream model integration','Structured data feed to DataHub','CSV export for third-party systems']}],stat:null},
+  nav:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>',title:'NAV Oversight',desc:'Automated NAV validation and sign-off. Replaces the manual 0.5bp spreadsheet check with an auditable, regulator-ready workflow.',cols:[{t:'What it automates',i:['Daily 0.5bp NAV movement check','Automated data ingestion from fund admins','Validation rules with exception flagging','Maker-checker sign-off workflow','Full audit trail for regulators']},{t:'Who needs it',i:['ManCos overseeing outsourced fund admin','Depositaries with NAV validation obligations','GPs with AIFMD oversight requirements','AIFMs managing regulatory compliance']}],stat:{n:'14',u:' days',l:'to go live'}},
+  monitoring:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',title:'Portfolio Monitoring',desc:'Structured collection and validation of portfolio company data. Automates receipt, accuracy checking, and approval before data enters DataHub.',cols:[{t:'What it collects',i:['Quarterly portco financial statements','KPI data at any defined frequency','ESG and SFDR metrics','Impact and non-financial data','Budget vs actual comparisons']},{t:'What it validates',i:['Data completeness checks on submission','Variance alerts against prior periods','Approval workflow before DataHub entry','Exception reporting for missing data']}],stat:null},
+  analytics:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',title:'Analytics',desc:'Private markets BI built on your DataHub data. Dashboards and performance metrics designed around private markets fund structures.',cols:[{t:'What it shows',i:['Fund performance: IRR, TVPI, DPI, RVPI','Portfolio company KPI dashboards','ESG and impact metrics','Cash flow and liquidity analysis','Vintage year benchmarking']},{t:'Why different',i:['Built on private markets data model','Understands fund hierarchies and look-through','No generic BI configuration required','Consistent with Portal and Analyser outputs']}],stat:null},
+  analyser:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',title:'Analyser',desc:'Self-service data extract and report builder. Query any DataHub data combination. Respond to ad hoc LP requests without technical support.',cols:[{t:'What you can do',i:['Drag-and-drop report building','Custom calculations and formula support','Define your own metrics and ratios','Schedule recurring report runs','Export to CSV, XLSX, PDF, RTF, HTML']},{t:'Typical uses',i:['Ad hoc LP information requests','Regulatory reporting preparation','Internal performance reviews','Audit support and evidence packs']}],stat:null},
+  compliance:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>',title:'Compliance Monitoring',desc:'Rules-based exposure checking against mandates, regulatory requirements, and investor covenants. Flags breaches before they become events.',cols:[{t:'What it monitors',i:['Investment mandate breach checking','AIFMD exposure limit monitoring','Concentration and diversification limits','ESG and exclusion screens']},{t:'Standards covered',i:['AIFMD Annex IV reporting','ILPA reporting standards','FATCA and CRS obligations','BCL and INREV market reporting','ESG / SFDR Article 8 and 9']}],stat:null},
+  portal:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',title:'Investor Portal',desc:'Branded, secure document and data exchange portal. Fund administrators deliver reports, statements, and updates to clients and investors.',cols:[{t:'What investors see',i:['Capital account statements on demand','Performance reports and IRR data','Fund documents and notices','KYC and AML document collection','Secure encrypted document exchange']},{t:'What admins control',i:['Branded with client firm identity','Granular per-investor access controls','Automated report distribution scheduling','Document version and audit tracking']}],stat:null},
+  extractor:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',title:'Extractor AI',desc:'Automated document data extraction combining Computer Vision AI, Generative AI, and parallel LLM validation. 98% accuracy on complex private markets PDFs.',cols:[{t:'What it processes',i:['Quarterly portco reports and financials','Capital account statements from GPs','LP documents and side letters','Financial statements and audit packs','Banking statements in PDF or CSV']},{t:'How it works',i:['Document type detection on ingestion','Computer Vision table and layout analysis','Generative AI contextual extraction','Parallel LLM hallucination validation','Human-in-the-loop review and sign-off']}],stat:{n:'98',u:'%',l:'post-extraction accuracy'}},
+  sync:{ico:'<svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>',title:'DataHub Sync',desc:'Bidirectional data synchronisation between DataHub and external systems. Feeds clean governed data to downstream tools and integrations.',cols:[{t:'What it connects',i:['External accounting and ERP systems','Third-party reporting tools','Custom client applications via API','Excel and CSV for legacy workflows','Open Banking APIs for bank data']},{t:'How it works',i:['API-first integration architecture','Scheduled and event-driven sync','Data mapping and transformation rules','Error handling and retry logic','Full sync audit trail in DataHub']}],stat:null}
+};
+const IDIA_SRCS={
+  'src-tx':{t:'Transactions and accounting',d:'Direct feed from daappa Core or external accounting systems. GL journals, NAV packs, transaction fees, and capital accounting data enter DataHub automatically via DataHub Sync or direct integration.'},
+  'src-static':{t:'Static data',d:'Security master records, CRM contacts, investor profiles, and fund structures. Usually loaded via the Excel Import Tool or API on initial setup, then maintained within the platform.'},
+  'src-portco':{t:'Portfolio company data',d:'Quarterly financial statements, ESG metrics, KPIs, and non-financial data collected from portfolio companies. Arrives as PDF or structured data and is processed by Extractor AI before entering DataHub.'},
+  'src-bank':{t:'Banking data',d:'Bank statements in CSV or PDF format, and direct bank feeds via Open Banking API. Used for cash reconciliation and NAV oversight workflows.'},
+  'src-market':{t:'Market data',d:'ESG data feeds, pricing data for quoted investments, and FX rates. Loaded automatically on a scheduled basis for use in valuations, compliance monitoring, and analytics.'},
+  'src-other':{t:'Valuations and FVP',d:'Fair value pricing and valuation data from external providers or internal models. Enters DataHub directly and is used by Analytics, Compliance, and the Portal.'}
+};
+function idiaArrows(id){
+  const a=[document.getElementById('idia-a1'),document.getElementById('idia-a2'),document.getElementById('idia-a3'),document.getElementById('idia-a4')];
+  a.forEach(x=>{x.className='idia-arr'});
+  if(id==='datahub'){a.forEach(x=>{x.className='idia-arr flowing'})}
+  else if(['look-through','cas','nav','monitoring'].includes(id)){a[0].className='idia-arr active';a[1].className='idia-arr flowing'}
+  else if(['analytics','analyser','compliance'].includes(id)){a[0].className='idia-arr active';a[1].className='idia-arr active';a[2].className='idia-arr flowing'}
+  else if(['portal','sync'].includes(id)){a[0].className='idia-arr active';a[1].className='idia-arr active';a[2].className='idia-arr active';a[3].className='idia-arr flowing'}
+  else if(id==='extractor'){a[0].className='idia-arr flowing'}
+}
+function idiaSelectNode(el,id){
+  document.querySelectorAll('.idia-node,.idia-hub').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  idiaArrows(id);
+  const n=IDIA_NODES[id];
+  if(!n)return;
+  const p=document.getElementById('idia-panel');
+  let h=`<div class="idia-dh"><div class="idia-d-ico">${n.ico}</div><div><div class="idia-d-title">${n.title}</div><div class="idia-d-desc">${n.desc}</div></div></div>`;
+  n.cols.forEach(c=>{h+=`<div><div class="idia-d-col-title">${c.t}</div><ul class="idia-d-items">${c.i.map(i=>`<li>${i}</li>`).join('')}</ul></div>`});
+  if(n.stat){h+=`<div><div class="idia-d-stat"><div class="idia-d-stat-num">${n.stat.n}<span>${n.stat.u}</span></div><div class="idia-d-stat-label">${n.stat.l}</div></div></div>`}
+  p.className='idia-detail-inner';p.innerHTML=h;
+}
+function idiaSelectSrc(el,id){
+  document.querySelectorAll('.idia-src').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.idia-node,.idia-hub').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  const a=[document.getElementById('idia-a1'),document.getElementById('idia-a2'),document.getElementById('idia-a3'),document.getElementById('idia-a4')];
+  a.forEach(x=>{x.className='idia-arr'});a[0].className='idia-arr flowing';
+  const s=IDIA_SRCS[id];
+  if(!s)return;
+  const p=document.getElementById('idia-panel');
+  p.className='idia-detail-inner';
+  p.innerHTML=`<div class="idia-dh" style="grid-column:1/-1"><div class="idia-d-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#E8602A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg></div><div><div class="idia-d-title">${s.t}</div><div class="idia-d-desc">${s.d}</div></div></div><div style="grid-column:1/-1;font-size:11px;color:var(--text-muted);padding-top:6px;border-top:1px solid var(--stone)">Routes through Extractor AI or DataHub Sync into DataHub</div>`;
+}
+</script>
+</body>
+</html>

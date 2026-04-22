@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extractor AI — Private Markets Document Data Extraction | daappa Studio+</title>
+<meta name="description" content="Extractor AI automates data extraction from private markets documents. Quarterly portco reports, LP statements, financial documents. 98% accuracy. Three-tier model with managed validation. Connects to DataHub for portfolio analytics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3A;--navy-mid:#142D52;--navy-light:#1E3F6F;
+  --orange:#E8602A;--orange-light:#F07848;--orange-pale:#FDF0EA;--orange-dark:#C04E20;
+  --teal:#1D9E75;--teal-light:#E1F5EE;--teal-mid:#5DCAA5;
+  --white:#FFFFFF;--off-white:#F7F8FA;--stone:#EEF0F4;--border:#DDE2EB;
+  --text-primary:#0B1F3A;--text-secondary:#4A5568;--text-muted:#718096;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text-primary);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-weight:600;font-size:20px;color:var(--white);letter-spacing:-.3px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.btn-ghost-nav{font-family:var(--sans);font-size:14px;font-weight:500;color:rgba(255,255,255,0.8);background:transparent;border:1px solid rgba(255,255,255,0.2);padding:8px 18px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-ghost-nav:hover{color:var(--white);border-color:rgba(255,255,255,0.4)}
+.btn-primary-nav{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s}
+.btn-primary-nav:hover{background:var(--orange-light)}
+
+.breadcrumb{background:var(--off-white);border-bottom:1px solid var(--border);padding:10px 48px}
+.breadcrumb-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted)}
+.breadcrumb-inner a{color:var(--text-muted);text-decoration:none;transition:color .15s}
+.breadcrumb-inner a:hover{color:var(--navy)}
+.breadcrumb-sep{color:var(--border)}
+
+/* HERO */
+.hero{background:var(--navy);padding:80px 48px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,96,42,0.11) 0%,transparent 65%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr 360px;gap:72px;align-items:center}
+.hero-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.hero h1{font-family:var(--serif);font-size:48px;line-height:1.08;color:var(--white);letter-spacing:-.5px;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,0.55)}
+.hero-sub{font-size:17px;line-height:1.65;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:36px;max-width:520px}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn-hero-primary{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-hero-primary::after{content:'→';transition:transform .2s}
+.btn-hero-primary:hover{background:var(--orange-light)}
+.btn-hero-primary:hover::after{transform:translateX(3px)}
+.btn-hero-ghost{font-family:var(--sans);font-size:15px;font-weight:400;color:rgba(255,255,255,0.7);background:transparent;border:1px solid rgba(255,255,255,0.15);padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-hero-ghost:hover{color:var(--white);border-color:rgba(255,255,255,0.35)}
+
+/* HERO PANEL */
+.hero-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:32px;position:relative}
+.hero-panel::before{content:'';position:absolute;top:0;left:24px;right:24px;height:1px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:.5}
+.hero-panel-label{font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:20px}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.hero-stat-num{font-family:var(--serif);font-size:38px;color:var(--white);line-height:1;margin-bottom:4px}
+.hero-stat-num span{color:var(--orange)}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.4;font-weight:300}
+.hero-panel-divider{height:1px;background:rgba(255,255,255,0.06);margin-bottom:20px}
+.hero-feature{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.4}
+.hero-feature::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:4px;opacity:.8}
+
+/* SECTIONS */
+.section{padding:88px 48px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-alt{background:var(--off-white)}
+.section-dark{background:var(--navy)}
+.section-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.section-h2{font-family:var(--serif);font-size:40px;line-height:1.15;color:var(--navy);letter-spacing:-.3px;margin-bottom:14px}
+.section-h2-white{color:var(--white)}
+.section-intro{font-size:17px;color:var(--text-secondary);line-height:1.65;font-weight:300;max-width:640px;margin-bottom:48px}
+
+/* THE PROBLEM */
+.challenge-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px}
+.challenge-card{background:var(--white);padding:24px 20px}
+.challenge-name{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.challenge-example{font-size:13px;color:var(--text-secondary);line-height:1.55;font-weight:300}
+
+.implication-box{background:var(--navy);border-radius:8px;padding:28px 32px;display:flex;align-items:flex-start;gap:20px}
+.implication-icon{width:40px;height:40px;background:rgba(232,96,42,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.implication-icon svg{width:20px;height:20px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.implication-title{font-size:14px;font-weight:500;color:var(--white);margin-bottom:6px}
+.implication-text{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.65;font-weight:300}
+.implication-text strong{color:rgba(255,255,255,0.8);font-weight:500}
+
+/* EVOLUTION */
+.evolution-stack{display:flex;flex-direction:column;gap:0;margin-bottom:32px}
+.evo-bar{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-radius:4px;margin-bottom:4px}
+.evo-bar-label{font-size:15px;font-weight:400;color:var(--white)}
+.evo-bar-tag{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.evo-1{background:var(--navy-light);width:85%}
+.evo-2{background:var(--teal-mid);width:90%;margin-left:auto}
+.evo-3{background:var(--teal);width:95%;margin-left:auto}
+.evo-bar-tag-old{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+.evo-bar-tag-attempt{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+.evo-bar-tag-daappa{background:rgba(255,255,255,0.2);color:var(--white)}
+.evo-arrow{width:20px;height:20px;margin:2px auto;opacity:.4;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--navy)}
+
+/* WORKFLOW STEPPER */
+.workflow-steps{display:flex;flex-direction:column;gap:2px}
+.workflow-step{background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.workflow-step-header{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;transition:background .15s}
+.workflow-step-header:hover{background:var(--off-white)}
+.workflow-step.open .workflow-step-header{background:var(--navy);border-radius:6px 6px 0 0}
+.workflow-step-num{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--text-muted);flex-shrink:0;transition:all .2s}
+.workflow-step.open .workflow-step-num{background:var(--orange);border-color:var(--orange);color:var(--white)}
+.workflow-step-title{font-size:15px;font-weight:500;color:var(--navy);flex:1}
+.workflow-step.open .workflow-step-title{color:var(--white)}
+.workflow-step-sub{font-size:12px;color:var(--text-muted);font-weight:400}
+.workflow-step.open .workflow-step-sub{color:rgba(255,255,255,0.5)}
+.workflow-step-chevron{font-size:14px;color:var(--text-muted);transition:transform .2s}
+.workflow-step.open .workflow-step-chevron{transform:rotate(180deg);color:rgba(255,255,255,0.5)}
+.workflow-step-body{display:none;padding:24px 24px 24px 72px;border-top:1px solid var(--stone);background:var(--off-white)}
+.workflow-step.open .workflow-step-body{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.workflow-body-col-title{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
+.workflow-body-items{list-style:none;display:flex;flex-direction:column;gap:6px}
+.workflow-body-items li{font-size:13px;color:var(--text-secondary);font-weight:300;display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+.workflow-body-items li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.8}
+
+/* THREE TIERS */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.tier-card{background:var(--white);padding:36px 30px;position:relative}
+.tier-card.recommended{position:relative}
+.tier-card.recommended::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange)}
+.tier-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:3px;margin-bottom:14px}
+.tier-badge-start{background:var(--teal-light);color:var(--teal)}
+.tier-badge-managed{background:var(--orange-pale);color:var(--orange-dark)}
+.tier-badge-full{background:var(--stone);color:var(--navy)}
+.tier-name{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:8px;line-height:1.2}
+.tier-sub{font-size:14px;color:var(--text-muted);margin-bottom:16px;font-weight:300}
+.tier-desc{font-size:14px;color:var(--text-secondary);line-height:1.6;font-weight:300;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--stone)}
+.tier-items{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:24px}
+.tier-items li{font-size:13px;color:var(--text-secondary);font-weight:300;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.tier-items li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.8}
+.tier-link{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:3px;transition:color .15s}
+.tier-link:hover{color:var(--orange)}
+.tier-link::after{content:'→'}
+
+/* AUDIT TRAIL */
+.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.audit-card{background:var(--white);padding:32px 28px}
+.audit-card-title{font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+.audit-card h3{font-size:18px;font-weight:500;color:var(--navy);margin-bottom:12px;line-height:1.3}
+.audit-card p{font-size:14px;color:var(--text-secondary);line-height:1.65;font-weight:300;margin-bottom:14px}
+.audit-stages{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.audit-stage{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--off-white);border-radius:4px}
+.audit-stage-name{font-size:13px;font-weight:500;color:var(--navy);min-width:160px}
+.audit-stage-desc{font-size:12px;color:var(--text-muted);font-weight:300}
+
+/* LAYERS TABLE */
+.layers-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.layer-card{background:var(--white);padding:28px 24px}
+.layer-card.active{background:var(--navy)}
+.layer-num{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.layer-name{font-size:17px;font-weight:500;color:var(--navy);margin-bottom:8px}
+.layer-card.active .layer-name{color:var(--white)}
+.layer-role{font-size:14px;color:var(--text-secondary);font-weight:300;margin-bottom:14px;line-height:1.5}
+.layer-card.active .layer-role{color:rgba(255,255,255,0.5)}
+.layer-examples{font-size:12px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.layer-card.active .layer-examples{color:rgba(255,255,255,0.3)}
+.layer-items{list-style:none;display:flex;flex-direction:column;gap:5px}
+.layer-items li{font-size:12px;color:var(--text-muted);font-weight:300;display:flex;align-items:flex-start;gap:7px;line-height:1.4}
+.layer-items li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:4px;opacity:.8}
+.layer-card.active .layer-items li{color:rgba(255,255,255,0.45)}
+
+/* ONBOARDING */
+.onboarding-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.ob-step{position:relative;padding-left:18px;border-left:2px solid var(--orange)}
+.ob-num{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.ob-title{font-size:17px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.3}
+.ob-desc{font-size:14px;color:var(--text-secondary);line-height:1.65;font-weight:300}
+.ob-detail{margin-top:12px;display:flex;flex-direction:column;gap:5px}
+.ob-detail-item{font-size:13px;color:var(--text-muted);font-weight:300;display:flex;align-items:flex-start;gap:7px;line-height:1.4}
+.ob-detail-item::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.7}
+
+/* POC BANNER */
+.poc-banner{background:var(--navy);border-radius:8px;padding:40px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;position:relative;overflow:hidden}
+.poc-banner::before{content:'';position:absolute;top:0;left:40px;right:40px;height:1px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:.4}
+.poc-banner-eyebrow{font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.poc-banner-eyebrow::before{content:'';width:16px;height:1px;background:var(--orange)}
+.poc-banner h3{font-family:var(--serif);font-size:28px;color:var(--white);margin-bottom:12px;line-height:1.2}
+.poc-banner p{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.65;font-weight:300}
+.poc-timeline{display:flex;flex-direction:column;gap:12px}
+.poc-week{display:flex;align-items:flex-start;gap:14px}
+.poc-week-label{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--orange);min-width:72px;margin-top:2px}
+.poc-week-title{font-size:14px;font-weight:500;color:var(--white);margin-bottom:3px}
+.poc-week-desc{font-size:13px;color:rgba(255,255,255,0.4);font-weight:300;line-height:1.4}
+.poc-connector{width:1px;height:12px;background:rgba(255,255,255,0.08);margin-left:36px}
+
+/* TESTIMONIAL */
+.testimonial-block{background:var(--stone);border-radius:8px;padding:48px}
+.testimonial-mark{font-family:var(--serif);font-size:56px;color:var(--orange);line-height:.7;opacity:.4;margin-bottom:16px;display:block}
+.testimonial-body{font-family:var(--serif);font-size:22px;color:var(--navy);line-height:1.5;margin-bottom:24px;max-width:680px;font-style:italic}
+.testimonial-source{font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding-top:20px;border-top:1px solid var(--border)}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.faq-item{background:var(--white);padding:32px}
+.faq-q{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.4}
+.faq-a{font-size:14px;color:var(--text-secondary);line-height:1.65;font-weight:300}
+
+/* SLA PANEL */
+.sla-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.sla-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:24px 28px;text-align:center}
+.sla-num{font-family:var(--serif);font-size:48px;color:var(--white);line-height:1;margin-bottom:4px}
+.sla-num span{color:var(--orange)}
+.sla-label{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.4;font-weight:300}
+
+/* CTA */
+.cta-section{background:var(--orange);padding:80px 48px}
+.cta-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.cta-inner h2{font-family:var(--serif);font-size:36px;color:var(--white);line-height:1.2;margin-bottom:8px}
+.cta-inner p{font-size:16px;color:rgba(255,255,255,0.75);font-weight:300;max-width:560px}
+.cta-btns{display:flex;flex-direction:column;gap:12px;align-items:flex-end;flex-shrink:0}
+.btn-cta-white{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--orange);background:var(--white);border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-cta-white::after{content:'→'}
+.btn-cta-white:hover{opacity:.92}
+.btn-cta-ghost{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s;white-space:nowrap}
+.btn-cta-ghost:hover{color:var(--white)}
+.btn-cta-ghost::after{content:'→'}
+
+footer{background:#091929;padding:64px 48px 40px;border-top:1px solid rgba(255,255,255,.05)}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,.35);line-height:1.65;font-weight:300;margin-top:14px;max-width:240px}
+.footer-col-title{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:14px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;font-weight:300}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+.footer-legal{font-size:12px;color:rgba(255,255,255,.2)}
+.footer-certs{display:flex;gap:12px}
+.footer-cert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp .6s ease both}
+.hero-inner>*:nth-child(2){animation-delay:.15s}
+
+@media(max-width:960px){
+  nav{padding:0 20px}.breadcrumb{padding:10px 20px}.hero{padding:56px 20px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}.hero-panel{display:none}
+  .section{padding:64px 20px}.challenge-grid{grid-template-columns:1fr 1fr}
+  .tier-grid,.layers-grid,.audit-grid,.faq-grid{grid-template-columns:1fr}
+  .onboarding-grid{grid-template-columns:1fr}.poc-banner{grid-template-columns:1fr;gap:32px}
+  .sla-grid{grid-template-columns:1fr}.cta-inner{grid-template-columns:1fr}
+  .cta-btns{align-items:flex-start}.footer-top{grid-template-columns:1fr 1fr}
+  footer{padding:40px 20px}.workflow-step.open .workflow-step-body{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/>
+      <path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+      <circle cx="16" cy="16" r="3" fill="#E8602A"/>
+    </svg>
+    <span class="nav-logo-text">daappa</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="daappa-studio-plus.html">Platform</a></li>
+    <li><a href="daappa-fund-administrators.html">Who we serve</a></li>
+    <li><a href="daappa-clients.html">Clients</a></li>
+    <li><a href="daappa-insights.html">Insights</a></li>
+    <li><a href="daappa-about.html">About</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="daappa-contact.html" class="btn-ghost-nav">Contact</a>
+    <a href="daappa-book-demo.html" class="btn-primary-nav">Book a demo</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">daappa</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="daappa-studio-plus.html">Studio+</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>Extractor AI</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Extractor AI</div>
+      <h1>Private markets documents.<br><em>Structured data, automatically.</em></h1>
+      <p class="hero-sub">Extractor AI turns quarterly portco reports, capital account statements, financial documents, and LP letters into structured, validated, analytics-ready data. No re-keying. No spreadsheet bridges. Full audit trail back to the source document.</p>
+      <div class="hero-actions">
+        <a href="daappa-book-demo.html" class="btn-hero-primary">Start a proof of concept</a>
+        <a href="#how-it-works" class="btn-hero-ghost">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-panel-label">Live metrics</div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">98<span>%</span></div>
+          <div class="hero-stat-label">Post-extraction accuracy on complex PE documents</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">75<span>%</span></div>
+          <div class="hero-stat-label">Reduction in document processing time</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">50<span>x</span></div>
+          <div class="hero-stat-label">Operational capacity expansion</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">5</div>
+          <div class="hero-stat-label">Week proof of concept to go-live</div>
+        </div>
+      </div>
+      <div class="hero-panel-divider"></div>
+      <div class="hero-feature">Computer Vision AI, Generative AI, search, and programming combined</div>
+      <div class="hero-feature">Parallel LLM validation catches hallucinations before human review</div>
+      <div class="hero-feature">Three tiers: extraction only, managed validation, or full BI</div>
+      <div class="hero-feature">Works with your existing schemas -- outputs to Excel, CSV, or DataHub</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-eyebrow">The problem</div>
+    <h2 class="section-h2">Private markets reporting resists standardisation</h2>
+    <p class="section-intro">Every GP structures their quarterly report differently. Every financial statement uses different table formats, calculation conventions, and terminology. Extraction alone cannot solve this -- data must be structured, reconciled, and calculated consistently before it can be used.</p>
+
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <div class="challenge-name">Inconsistent reporting formats</div>
+        <div class="challenge-example">Quarterly reports, financial statements, and investment schedules all differ by manager</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-name">Narrative-heavy documents</div>
+        <div class="challenge-example">Most reports contain large volumes of commentary with limited structured data</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-name">Mixed fund and asset level data</div>
+        <div class="challenge-example">Cash, bridging loans, and GP carry often appear at fund level but affect portfolio exposure</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-name">Different calculation logic</div>
+        <div class="challenge-example">Valuation metrics and multiples vary across managers and need normalisation</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-name">Reconciliation requirements</div>
+        <div class="challenge-example">Portfolio data must reconcile to fund NAV before it can feed analytics</div>
+      </div>
+    </div>
+
+    <div class="implication-box">
+      <div class="implication-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <div>
+        <div class="implication-title">The implication for any extraction tool</div>
+        <div class="implication-text">Extraction alone is not sufficient. Data must be <strong>structured, reconciled, and calculated consistently</strong> before portfolio analytics can be applied. This is why Extractor AI separates extraction, DataHub calculations, and analytics into three distinct controlled layers -- rather than treating them as a single black box.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVOLUTION -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Technology approach</div>
+    <h2 class="section-h2">Why single-model extraction doesn't work for private markets</h2>
+    <p class="section-intro">Most AI extraction tools rely on a single large language model. That works for simple, consistent documents. It doesn't work for the messy, inconsistent, narrative-heavy documents that private markets produces.</p>
+
+    <div style="max-width:800px">
+      <div class="evolution-stack">
+        <div class="evo-bar evo-1">
+          <span class="evo-bar-label">Manual or semi-automated extraction</span>
+          <span class="evo-bar-tag evo-bar-tag-old">Traditional</span>
+        </div>
+        <div class="evo-arrow">▼</div>
+        <div class="evo-bar evo-2">
+          <span class="evo-bar-label">Single extraction model (OCR, Generative AI LLMs)</span>
+          <span class="evo-bar-tag evo-bar-tag-attempt">Partial solution</span>
+        </div>
+        <div class="evo-arrow">▼</div>
+        <div class="evo-bar evo-3" style="background:var(--teal)">
+          <span class="evo-bar-label">Computer Vision AI + Generative AI + Search + Programming + Human-in-the-loop</span>
+          <span class="evo-bar-tag evo-bar-tag-daappa">Extractor AI</span>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;padding:20px 24px;background:var(--off-white);border:1px solid var(--border);border-radius:6px">
+        <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:6px">Why the combination matters</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300">Computer Vision AI handles document layout, table detection, and structure recognition. Generative AI extracts meaning from context. Search and programming handle normalisation and standardisation. Parallel LLM models run alongside each other to validate outputs and flag potential errors before any human sees the data. The result is accuracy that single-model approaches cannot achieve on private markets documents.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW STEPPER -->
+<section class="section section-alt" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-eyebrow">Processing workflow</div>
+    <h2 class="section-h2">Ingestion. Extraction. Validation. Enrichment.</h2>
+    <p class="section-intro">Four stages. Every document moves through the same controlled pipeline. Click a stage to see what happens at each step.</p>
+
+    <div class="workflow-steps" id="workflow">
+
+      <div class="workflow-step open" onclick="toggleStep(this)">
+        <div class="workflow-step-header">
+          <div class="workflow-step-num">1</div>
+          <div style="flex:1">
+            <div class="workflow-step-title">Document ingestion</div>
+            <div class="workflow-step-sub">Email, folder upload, or API</div>
+          </div>
+          <div class="workflow-step-chevron">▾</div>
+        </div>
+        <div class="workflow-step-body">
+          <div>
+            <div class="workflow-body-col-title">Input formats</div>
+            <ul class="workflow-body-items">
+              <li>Scanned PDFs and native PDFs</li>
+              <li>Multi-industry and multi-language documents</li>
+              <li>XLS and CSV files via API</li>
+              <li>Documents loaded via the daappa portal, email, or folder sync</li>
+            </ul>
+          </div>
+          <div>
+            <div class="workflow-body-col-title">What happens</div>
+            <ul class="workflow-body-items">
+              <li>Document type is automatically detected and classified</li>
+              <li>Pack structure is identified (single document vs multi-document pack)</li>
+              <li>Document is queued for extraction engine processing</li>
+              <li>Ingestion is timestamped and logged in the audit trail</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step" onclick="toggleStep(this)">
+        <div class="workflow-step-header">
+          <div class="workflow-step-num">2</div>
+          <div style="flex:1">
+            <div class="workflow-step-title">Extraction engine</div>
+            <div class="workflow-step-sub">Asset level and fund level extraction in parallel</div>
+          </div>
+          <div class="workflow-step-chevron">▾</div>
+        </div>
+        <div class="workflow-step-body">
+          <div>
+            <div class="workflow-body-col-title">Document analysis</div>
+            <ul class="workflow-body-items">
+              <li>Layout analysis and page structure mapping</li>
+              <li>Table detection and table recognition</li>
+              <li>Section analysis and classification</li>
+              <li>Entity labelling across the document</li>
+              <li>Document decomposition into extractable units</li>
+            </ul>
+          </div>
+          <div>
+            <div class="workflow-body-col-title">Extraction and processing</div>
+            <ul class="workflow-body-items">
+              <li>Table cell, key-value pair, and in-text data extraction</li>
+              <li>Metrics and KPI standardisation against your schemas</li>
+              <li>Data normalisation across inconsistent formats</li>
+              <li>Search and extract across document sections</li>
+              <li>Parallel LLM validation to identify and correct potential errors</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step" onclick="toggleStep(this)">
+        <div class="workflow-step-header">
+          <div class="workflow-step-num">3</div>
+          <div style="flex:1">
+            <div class="workflow-step-title">Human-in-the-loop validation</div>
+            <div class="workflow-step-sub">Review, override, and approve</div>
+          </div>
+          <div class="workflow-step-chevron">▾</div>
+        </div>
+        <div class="workflow-step-body">
+          <div>
+            <div class="workflow-body-col-title">Validation interface</div>
+            <ul class="workflow-body-items">
+              <li>Every extracted value linked back to its exact location in the source document</li>
+              <li>Preview in context -- see the extracted value alongside the original table or text</li>
+              <li>Edit or override individual values with commentary</li>
+              <li>Flag exceptions for escalation to a second reviewer</li>
+              <li>Accept or reject the full extracted file</li>
+            </ul>
+          </div>
+          <div>
+            <div class="workflow-body-col-title">What gets recorded</div>
+            <ul class="workflow-body-items">
+              <li>All user validation decisions and timestamps</li>
+              <li>Every edit and override with before/after values</li>
+              <li>Escalation to second reviewer with reason</li>
+              <li>Inline comments and validation notes</li>
+              <li>Full user activity log throughout the workflow</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step" onclick="toggleStep(this)">
+        <div class="workflow-step-header">
+          <div class="workflow-step-num">4</div>
+          <div style="flex:1">
+            <div class="workflow-step-title">Enrichment and output</div>
+            <div class="workflow-step-sub">Approved data flows to DataHub and downstream systems</div>
+          </div>
+          <div class="workflow-step-chevron">▾</div>
+        </div>
+        <div class="workflow-step-body">
+          <div>
+            <div class="workflow-body-col-title">What gets produced</div>
+            <ul class="workflow-body-items">
+              <li>Structured data exactly to your schema in Excel or CSV</li>
+              <li>JSON output for API integration</li>
+              <li>Direct DataHub import for Studio+ analytics</li>
+              <li>Ready to load into your existing models and templates</li>
+            </ul>
+          </div>
+          <div>
+            <div class="workflow-body-col-title">What happens in DataHub</div>
+            <ul class="workflow-body-items">
+              <li>Reconciled dataset: fund and portfolio data consolidated</li>
+              <li>Core calculations performed: hold period, realised and unrealised values</li>
+              <li>Derived metrics calculated: EV/EBITDA, multiples, IRR</li>
+              <li>Analytics layer unlocked for dashboards and portfolio reporting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- THREE LAYERS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Controlled architecture</div>
+    <h2 class="section-h2">Extraction, calculations, and analytics are separated by design</h2>
+    <p class="section-intro">To ensure consistency and auditability, Extractor AI separates three distinct layers. Each layer has its own controlled logic. Nothing bleeds between them.</p>
+
+    <div class="layers-grid">
+      <div class="layer-card">
+        <div class="layer-num">Layer 01</div>
+        <div class="layer-name">Extraction</div>
+        <div class="layer-role">Extracts structured inputs from source documents. Raw data exactly as it appears in the document, validated against source location.</div>
+        <div class="layer-examples">What it handles</div>
+        <ul class="layer-items">
+          <li>Table cells and key-value pairs</li>
+          <li>Data in narrative text sections</li>
+          <li>Document-level metadata and classifications</li>
+          <li>Multi-language and multi-format documents</li>
+        </ul>
+      </div>
+      <div class="layer-card active">
+        <div class="layer-num">Layer 02</div>
+        <div class="layer-name">DataHub</div>
+        <div class="layer-role">Performs core portfolio calculations on validated extracted data. Reconciles fund and portfolio company datasets into a single source of truth.</div>
+        <div class="layer-examples">Calculations performed</div>
+        <ul class="layer-items">
+          <li>Hold period calculation</li>
+          <li>Realised and unrealised investment values</li>
+          <li>Other net assets reconciliation</li>
+          <li>Fund-level and portfolio-level consolidation</li>
+        </ul>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">Layer 03</div>
+        <div class="layer-name">Analytics</div>
+        <div class="layer-role">Generates derived metrics and portfolio analytics from the consolidated DataHub dataset. Analytics calculations use controlled MDX logic maintained by the daappa support team.</div>
+        <div class="layer-examples">Metrics produced</div>
+        <ul class="layer-items">
+          <li>EV / EBITDA multiples</li>
+          <li>Total equity value by investment</li>
+          <li>Unrealised value / ownership percentage</li>
+          <li>Portfolio performance dashboards and IRR</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE TIERS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-eyebrow">Three ways to use Extractor AI</div>
+    <h2 class="section-h2">Start where you are. Scale as you need.</h2>
+    <p class="section-intro">Extractor AI offers three service tiers. You can start with extraction only and upgrade as your confidence and requirements grow.</p>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <span class="tier-badge tier-badge-start">Tier 1</span>
+        <div class="tier-name">Extraction only</div>
+        <div class="tier-sub">Automated extraction into your existing workflow</div>
+        <div class="tier-desc">Extractor AI processes your documents and delivers structured data in your schemas. Your team handles the validation and your existing models receive the output. Minimal disruption to current processes on day one.</div>
+        <ul class="tier-items">
+          <li>Automated extraction from PDFs into your schemas</li>
+          <li>Validation interface for your team to review and override</li>
+          <li>Output to Excel or CSV, ready for existing models</li>
+          <li>Powered by Zanran extraction engine, operated by daappa</li>
+          <li>Full audit trail from value to source document location</li>
+        </ul>
+        <a href="daappa-book-demo.html" class="tier-link">Start a PoC</a>
+      </div>
+
+      <div class="tier-card recommended">
+        <span class="tier-badge tier-badge-managed">Tier 2</span>
+        <div class="tier-name">Extraction with managed validation</div>
+        <div class="tier-sub">Human-in-the-loop service with agreed SLAs</div>
+        <div class="tier-desc">Everything in Tier 1, plus daappa's operations team performs first-level validation, data enrichment, exception handling, and approval prior to DataHub ingestion. Agreed turnaround times ensure your quarterly cycle is met.</div>
+        <ul class="tier-items">
+          <li>Everything in Tier 1</li>
+          <li>daappa team performs first-level review and quality checks</li>
+          <li>Data enrichment where fields are missing from documents</li>
+          <li>Exception handling and reconciliation before approval</li>
+          <li>Standard SLA: 72-hour turnaround. Priority: 48-hour</li>
+          <li>Optional on-the-ground support for complex mandates</li>
+          <li>Client retains full visibility through validation workflow tracking</li>
+        </ul>
+        <a href="daappa-book-demo.html" class="tier-link">Talk to us about Tier 2</a>
+      </div>
+
+      <div class="tier-card">
+        <span class="tier-badge tier-badge-full">Tier 3</span>
+        <div class="tier-name">Extraction plus business intelligence</div>
+        <div class="tier-sub">Full Studio+ integration with analytics and dashboards</div>
+        <div class="tier-desc">Everything in Tier 2, plus validated data flows directly into daappa Studio+ for analytics, dashboards, portfolio trends, and oversight reporting. The full Extract-Transform-Inform pipeline operating as a single managed workflow.</div>
+        <ul class="tier-items">
+          <li>Everything in Tier 2</li>
+          <li>Data persisted into Studio+ DataHub</li>
+          <li>Portfolio calculations and derived metrics in DataHub</li>
+          <li>Analytics dashboards for performance, KPIs, and portfolio trends</li>
+          <li>Compliance monitoring and Look Through access</li>
+          <li>Integration feeds into your wider reporting stack if required</li>
+        </ul>
+        <a href="daappa-book-demo.html" class="tier-link">See the full platform</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA LINEAGE AND AUDIT -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Data lineage and auditability</div>
+    <h2 class="section-h2">Every value traceable to its source</h2>
+    <p class="section-intro">Extractor AI preserves four distinct stages of the data pipeline. At any point you can trace any value back to the exact location in the original document.</p>
+
+    <div class="audit-grid" style="margin-bottom:32px">
+      <div class="audit-card">
+        <div class="audit-card-title">Document-level traceability</div>
+        <h3>Every extracted value links back to its source location</h3>
+        <p>Every data point extracted by Extractor AI is linked directly to the source location in the original document. Users can view the extracted value in context, trace the field back to the source table or text section, and verify the original document reference.</p>
+        <p>This is not a summary or a reference number. It is a direct visual link between the value in your dataset and the cell, row, or paragraph it came from.</p>
+      </div>
+      <div class="audit-card">
+        <div class="audit-card-title">Dataset transparency</div>
+        <h3>Four preserved stages from document to analytics</h3>
+        <div class="audit-stages">
+          <div class="audit-stage">
+            <div class="audit-stage-name">Raw extraction</div>
+            <div class="audit-stage-desc">Data captured directly from the document</div>
+          </div>
+          <div class="audit-stage">
+            <div class="audit-stage-name">Validated dataset</div>
+            <div class="audit-stage-desc">Confirmed and enriched data following review</div>
+          </div>
+          <div class="audit-stage">
+            <div class="audit-stage-name">Consolidated dataset</div>
+            <div class="audit-stage-desc">Fund and portfolio data consolidated in DataHub</div>
+          </div>
+          <div class="audit-stage">
+            <div class="audit-stage-name">Final dataset</div>
+            <div class="audit-stage-desc">Single source of truth in Analytics with calculated metrics and KPIs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:20px 24px;background:var(--off-white);border:1px solid var(--border);border-radius:6px">
+      <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:6px">Why this matters for audit and regulatory oversight</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300">Investment committees, external auditors, and regulators increasingly require evidence of data lineage -- not just the number, but where it came from and who approved it. Extractor AI provides that evidence automatically, without any additional work from your team. The audit trail is built into the workflow, not added afterwards.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MANAGED SERVICE SLAs -->
+<section class="section section-dark">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+      <div>
+        <div style="font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px"><span style="width:20px;height:1px;background:var(--orange);display:inline-block"></span>Tier 2 managed service</div>
+        <h2 style="font-family:var(--serif);font-size:36px;color:var(--white);line-height:1.15;margin-bottom:16px;letter-spacing:-.3px">Operational support with agreed service levels</h2>
+        <p style="font-size:16px;color:rgba(255,255,255,0.55);line-height:1.7;font-weight:300;margin-bottom:24px">For firms that want daappa's operations team to handle first-level validation, enrichment, and exception handling, Tier 2 provides a managed service with agreed turnaround times and full client visibility throughout.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.5"><span style="width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8"></span>Extraction validation against source PDFs</div>
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.5"><span style="width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8"></span>Data enrichment where fields are missing from documents</div>
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.5"><span style="width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8"></span>Exception handling and reconciliation</div>
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.5"><span style="width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8"></span>Approval prior to DataHub ingestion</div>
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.5"><span style="width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8"></span>Validation workflow tracking, inline commentary, user activity logs, audit trail</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:16px">Operational SLAs</div>
+        <div class="sla-grid">
+          <div class="sla-card">
+            <div class="sla-num">72<span>h</span></div>
+            <div class="sla-label">Standard validation turnaround from document ingestion to approved dataset</div>
+          </div>
+          <div class="sla-card">
+            <div class="sla-num">48<span>h</span></div>
+            <div class="sla-label">Priority validation turnaround for time-sensitive reporting cycles</div>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding:18px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px">
+          <div style="font-size:13px;font-weight:500;color:var(--white);margin-bottom:6px">Client oversight throughout</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.65;font-weight:300">You retain full visibility through the platform at every stage: validation workflow tracking, inline commentary, user activity logs, and audit trail of all changes. The managed service operates transparently -- you see everything the daappa team does.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONBOARDING / POC -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Getting started</div>
+    <h2 class="section-h2">Five weeks from first conversation to go-live</h2>
+    <p class="section-intro">The Extractor AI proof of concept is designed to deliver results against your actual documents -- not a generic demo. You test on your real reports, with your real schemas, and measure against your current process.</p>
+
+    <div class="onboarding-grid" style="margin-bottom:40px">
+      <div class="ob-step">
+        <div class="ob-num">Weeks 1 to 2</div>
+        <div class="ob-title">Discover and configure</div>
+        <div class="ob-desc">Joint workshops to map your current document processing workflow and configure Extractor AI to your schemas.</div>
+        <div class="ob-detail">
+          <div class="ob-detail-item">Map how documents arrive, where they are stored, and who extracts what</div>
+          <div class="ob-detail-item">Identify your key schemas, metrics, and quality checks</div>
+          <div class="ob-detail-item">Configure extraction templates for each document type</div>
+          <div class="ob-detail-item">Define validation rules and exception categories</div>
+          <div class="ob-detail-item">Agree the target operating model and sign-off owners</div>
+        </div>
+      </div>
+      <div class="ob-step">
+        <div class="ob-num">Weeks 3 to 4</div>
+        <div class="ob-title">Live proof of concept</div>
+        <div class="ob-desc">Extractor AI runs alongside your current manual process on a defined set of funds and documents.</div>
+        <div class="ob-detail">
+          <div class="ob-detail-item">A defined set of funds and document types</div>
+          <div class="ob-detail-item">Mix of portco reports, financial statements, and capital account statements</div>
+          <div class="ob-detail-item">Your schemas and data points as configured today</div>
+          <div class="ob-detail-item">Compare time, effort, and accuracy against current process</div>
+          <div class="ob-detail-item">Analyst feedback on the validation interface</div>
+        </div>
+      </div>
+      <div class="ob-step">
+        <div class="ob-num">Week 5</div>
+        <div class="ob-title">Review and rollout</div>
+        <div class="ob-desc">Review results against agreed success measures and confirm the production rollout scope.</div>
+        <div class="ob-detail">
+          <div class="ob-detail-item">Percentage of schema fields populated correctly</div>
+          <div class="ob-detail-item">Time and effort saved per document pack</div>
+          <div class="ob-detail-item">Ease of review and sign-off in the validation interface</div>
+          <div class="ob-detail-item">Agree production rollout for Tier 1 (or Tier 2 / 3 if required)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="poc-banner">
+      <div>
+        <div class="poc-banner-eyebrow">Proof of concept</div>
+        <h3>Test on your actual documents</h3>
+        <p>The PoC uses your real quarterly reports, financial statements, and capital account statements -- not synthetic data. You measure against your current process and decide based on real results. If Extractor AI doesn't deliver, you haven't committed to anything.</p>
+      </div>
+      <div class="poc-timeline">
+        <div class="poc-week">
+          <div class="poc-week-label">Weeks 1-2</div>
+          <div>
+            <div class="poc-week-title">Onboarding and configuration</div>
+            <div class="poc-week-desc">Workshops, schema configuration, validation rule setup</div>
+          </div>
+        </div>
+        <div class="poc-connector"></div>
+        <div class="poc-week">
+          <div class="poc-week-label">Weeks 3-4</div>
+          <div>
+            <div class="poc-week-title">Live PoC on your documents</div>
+            <div class="poc-week-desc">Parallel run against current process, analyst feedback</div>
+          </div>
+        </div>
+        <div class="poc-connector"></div>
+        <div class="poc-week">
+          <div class="poc-week-label">Week 5</div>
+          <div>
+            <div class="poc-week-title">Review and agree rollout</div>
+            <div class="poc-week-desc">Results review, production scope confirmation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="section section-alt" style="padding-top:0">
+  <div class="section-inner">
+    <div class="testimonial-block">
+      <span class="testimonial-mark">"</span>
+      <div class="testimonial-body">We use daappa to capture, store, consolidate, analyse and extract data. With daappa we are capable of calculating IRR on FoF, GP and portfolio company levels, and we are able to deliver high quality reports to our investors with more transparency compared to our competitors.</div>
+      <div class="testimonial-source">Director of Investor Relations &nbsp;·&nbsp; Global VC</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Common questions</div>
+    <h2 class="section-h2" style="margin-bottom:40px">Extractor AI -- frequently asked</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">What types of documents does Extractor AI process?</div>
+        <div class="faq-a">Extractor AI is designed for private markets documents: quarterly portco reports, GP financial statements, capital account statements, LP letters, investment schedules, audited financials, and banking statements in PDF or CSV format. It handles scanned PDFs, native PDFs, multi-language documents, and multi-industry formats.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How is Extractor AI different from other extraction tools?</div>
+        <div class="faq-a">Most extraction tools rely on a single large language model. Extractor AI combines Computer Vision AI, Generative AI, search, and programming, with parallel LLM models running alongside each other to validate outputs and flag potential errors before human review. It also separates extraction, DataHub calculations, and analytics into three distinct controlled layers -- ensuring consistency and auditability that single-model approaches cannot provide.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What does 98% post-extraction accuracy mean in practice?</div>
+        <div class="faq-a">It means that 98% of schema fields extracted from complex PE documents are populated correctly before the human validation step. The remaining 2% are flagged for human review -- they are not silently wrong. The validation interface shows analysts exactly which values need attention and links each one back to its source location in the original document.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does it work with our existing schemas and models?</div>
+        <div class="faq-a">Yes. Tier 1 extraction uses your existing schemas and data points as configured today. Outputs arrive in Excel or CSV ready to load into your existing models. You do not need to change your downstream workflow on day one. Schema configuration is part of the onboarding workshops in weeks 1 and 2 of the proof of concept.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the Tier 2 managed validation service?</div>
+        <div class="faq-a">Tier 2 means daappa's operations team performs first-level validation, data enrichment where fields are missing, exception handling, and approval prior to DataHub ingestion. Agreed service levels are 72-hour standard turnaround and 48-hour priority. You retain full visibility through validation workflow tracking, inline commentary, user activity logs, and a complete audit trail. You do not lose control -- the managed service operates transparently through the platform.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens after extraction -- does the data connect to analytics?</div>
+        <div class="faq-a">Tier 3 connects validated extracted data directly to daappa Studio+ DataHub for portfolio calculations and analytics. DataHub performs core calculations (hold period, realised and unrealised values), and the Analytics layer generates derived metrics (EV/EBITDA, multiples, IRR) using controlled MDX logic. This is the full Extract-Transform-Inform pipeline in a single managed workflow.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div>
+      <h2>Test Extractor AI on your documents</h2>
+      <p>Tell us about the documents you process, the schemas you use, and what the current process costs you in time. We will design a proof of concept around your actual quarterly cycle.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="daappa-book-demo.html" class="btn-cta-white">Start a proof of concept</a>
+      <a href="daappa-studio-plus.html" class="btn-cta-ghost">Back to Studio+</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/>
+            <path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+            <circle cx="16" cy="16" r="3" fill="#E8602A"/>
+          </svg>
+          <span class="nav-logo-text">daappa</span>
+        </a>
+        <p>The data, accounting and administration platform for private assets.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Studio+</div>
+        <ul class="footer-links">
+          <li><a href="daappa-studio-plus.html">Platform overview</a></li>
+          <li><a href="daappa-extractor-ai.html">Extractor AI</a></li>
+          <li><a href="daappa-nav-oversight.html">NAV Oversight</a></li>
+          <li><a href="daappa-analytics.html">Analytics</a></li>
+          <li><a href="daappa-core-page.html">daappa Core</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Who we serve</div>
+        <ul class="footer-links">
+          <li><a href="daappa-fund-administrators.html">Fund Administrators</a></li>
+          <li><a href="daappa-general-partners.html">General Partners</a></li>
+          <li><a href="daappa-lps-fof.html">LPs and FoF</a></li>
+          <li><a href="daappa-development-banks.html">Development Banks</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="daappa-about.html">About us</a></li>
+          <li><a href="daappa-clients.html">Clients</a></li>
+          <li><a href="daappa-insights.html">Insights</a></li>
+          <li><a href="daappa-contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© daappa Limited 2025. All rights reserved. &nbsp;·&nbsp; <a href="#" style="color:inherit;text-decoration:none">Privacy Policy</a></div>
+      <div class="footer-certs">
+        <span class="footer-cert">ISO 27001</span>
+        <span class="footer-cert">ISO 9001</span>
+        <span class="footer-cert">Azure hosted</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleStep(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.workflow-step').forEach(s=>s.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+</script>
+</body>
+</html>

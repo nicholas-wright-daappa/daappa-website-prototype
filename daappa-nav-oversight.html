@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV Oversight — Automated NAV Validation for Private Markets | daappa Studio+</title>
+<meta name="description" content="daappa NAV Oversight replaces the NAV oversight spreadsheet with an automated, auditable workflow. Purpose-built for UK and EU micro-managers with 1-10 funds. Starter tier from £199/month. Live in 14 days. Meets CSSF Circular 24/856 and FCA governance expectations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3A;--navy-mid:#142D52;--navy-light:#1E3F6F;
+  --orange:#E8602A;--orange-light:#F07848;--orange-pale:#FDF0EA;--orange-dark:#C04E20;
+  --teal:#1D9E75;--teal-light:#E1F5EE;--teal-mid:#5DCAA5;
+  --white:#FFFFFF;--off-white:#F7F8FA;--stone:#EEF0F4;--border:#DDE2EB;
+  --text-primary:#0B1F3A;--text-secondary:#4A5568;--text-muted:#718096;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text-primary);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-weight:600;font-size:20px;color:var(--white);letter-spacing:-.3px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.btn-ghost-nav{font-family:var(--sans);font-size:14px;font-weight:500;color:rgba(255,255,255,0.8);background:transparent;border:1px solid rgba(255,255,255,0.2);padding:8px 18px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-ghost-nav:hover{color:var(--white);border-color:rgba(255,255,255,0.4)}
+.btn-primary-nav{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s}
+.btn-primary-nav:hover{background:var(--orange-light)}
+
+.breadcrumb{background:var(--off-white);border-bottom:1px solid var(--border);padding:10px 48px}
+.breadcrumb-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted)}
+.breadcrumb-inner a{color:var(--text-muted);text-decoration:none;transition:color .15s}
+.breadcrumb-inner a:hover{color:var(--navy)}
+.breadcrumb-sep{color:var(--border)}
+
+/* HERO */
+.hero{background:var(--navy);padding:80px 48px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,96,42,0.1) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-100px;left:0;width:400px;height:400px;background:radial-gradient(circle,rgba(29,158,117,0.07) 0%,transparent 65%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr 380px;gap:72px;align-items:start}
+.hero-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.hero h1{font-family:var(--serif);font-size:48px;line-height:1.08;color:var(--white);letter-spacing:-.5px;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,0.55)}
+.hero-sub{font-size:17px;line-height:1.65;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:36px;max-width:520px}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.btn-hero-primary{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-hero-primary::after{content:'→';transition:transform .2s}
+.btn-hero-primary:hover{background:var(--orange-light)}
+.btn-hero-primary:hover::after{transform:translateX(3px)}
+.btn-hero-ghost{font-family:var(--sans);font-size:15px;font-weight:400;color:rgba(255,255,255,0.7);background:transparent;border:1px solid rgba(255,255,255,0.15);padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-hero-ghost:hover{color:var(--white);border-color:rgba(255,255,255,0.35)}
+.hero-reg-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(29,158,117,0.15);border:1px solid rgba(29,158,117,0.3);border-radius:4px;padding:8px 14px;font-size:13px;color:var(--teal-mid)}
+.hero-reg-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--teal-mid)}
+
+/* HERO RIGHT PANEL */
+.pricing-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;overflow:hidden;position:relative}
+.pricing-panel::before{content:'';position:absolute;top:0;left:24px;right:24px;height:1px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:.5}
+.pricing-panel-header{padding:24px 28px 20px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.pricing-panel-label{font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px}
+.pricing-panel-title{font-family:var(--serif);font-size:20px;color:var(--white);margin-bottom:4px}
+.pricing-panel-sub{font-size:13px;color:rgba(255,255,255,0.4);font-weight:300}
+.pricing-tiers{display:flex;flex-direction:column;gap:0}
+.pricing-tier{padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.pricing-tier:last-child{border-bottom:none}
+.pricing-tier-info{}
+.pricing-tier-name{font-size:14px;font-weight:500;color:var(--white);margin-bottom:2px}
+.pricing-tier-detail{font-size:12px;color:rgba(255,255,255,0.35);font-weight:300}
+.pricing-tier-price{text-align:right;flex-shrink:0}
+.pricing-tier-amount{font-family:var(--serif);font-size:22px;color:var(--white);line-height:1}
+.pricing-tier-amount span{font-family:var(--sans);font-size:12px;color:rgba(255,255,255,0.4);font-weight:300}
+.pricing-tier-setup{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px}
+.pricing-panel-footer{padding:16px 28px;background:rgba(255,255,255,0.02)}
+.pricing-go-live{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--teal-mid)}
+.pricing-go-live-dot{width:6px;height:6px;border-radius:50%;background:var(--teal-mid)}
+
+/* SECTIONS */
+.section{padding:88px 48px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-alt{background:var(--off-white)}
+.section-dark{background:var(--navy)}
+.section-eyebrow{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.section-h2{font-family:var(--serif);font-size:40px;line-height:1.15;color:var(--navy);letter-spacing:-.3px;margin-bottom:14px}
+.section-h2-white{color:var(--white)}
+.section-intro{font-size:17px;color:var(--text-secondary);line-height:1.65;font-weight:300;max-width:640px;margin-bottom:48px}
+
+/* PROBLEM */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.problem-pains{display:flex;flex-direction:column;gap:12px}
+.pain{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:var(--white);border:1px solid var(--border);border-radius:6px}
+.pain-icon{width:32px;height:32px;border-radius:50%;background:var(--orange-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pain-icon svg{width:16px;height:16px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.pain-title{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.pain-desc{font-size:13px;color:var(--text-secondary);font-weight:300;line-height:1.5}
+.problem-right h3{font-family:var(--serif);font-size:28px;color:var(--navy);margin-bottom:14px;line-height:1.2}
+.problem-right p{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;margin-bottom:16px}
+.reg-callout{background:var(--navy);border-radius:6px;padding:20px 22px;margin-top:24px}
+.reg-callout-title{font-size:13px;font-weight:500;color:var(--white);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.reg-callout-title::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal-mid);flex-shrink:0}
+.reg-callout-body{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;font-weight:300}
+
+/* WHO IT'S FOR */
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.audience-card{background:var(--white);padding:32px 26px;position:relative}
+.audience-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--stone)}
+.audience-card.primary::before{background:var(--orange)}
+.audience-label{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:12px}
+.audience-label-primary{background:var(--orange-pale);color:var(--orange-dark)}
+.audience-label-secondary{background:var(--stone);color:var(--text-muted)}
+.audience-title{font-size:16px;font-weight:500;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.audience-desc{font-size:14px;color:var(--text-secondary);line-height:1.6;font-weight:300}
+
+/* HOW IT WORKS */
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px}
+.how-step{background:var(--white);padding:28px 22px;position:relative}
+.how-step:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:28px;color:var(--orange);font-size:16px;z-index:2;background:var(--white);padding:2px 0;line-height:1}
+.how-step-num{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.how-step-title{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.how-step-desc{font-size:13px;color:var(--text-secondary);line-height:1.55;font-weight:300}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.pricing-card{background:var(--white);padding:36px 30px;position:relative}
+.pricing-card.featured{background:var(--navy)}
+.pricing-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--orange)}
+.pricing-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.pricing-badge-starter{background:var(--teal-light);color:var(--teal)}
+.pricing-badge-pro{background:var(--orange-pale);color:var(--orange-dark)}
+.pricing-badge-enterprise{background:var(--stone);color:var(--navy)}
+.pricing-name{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:4px}
+.pricing-card.featured .pricing-name{color:var(--white)}
+.pricing-funds{font-size:13px;color:var(--text-muted);margin-bottom:16px;font-weight:300}
+.pricing-card.featured .pricing-funds{color:rgba(255,255,255,0.4)}
+.pricing-amount-row{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.pricing-amount{font-family:var(--serif);font-size:40px;color:var(--navy);line-height:1}
+.pricing-card.featured .pricing-amount{color:var(--white)}
+.pricing-period{font-size:14px;color:var(--text-muted);font-weight:300}
+.pricing-card.featured .pricing-period{color:rgba(255,255,255,0.4)}
+.pricing-setup{font-size:13px;color:var(--text-muted);margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--stone)}
+.pricing-card.featured .pricing-setup{color:rgba(255,255,255,0.35);border-bottom-color:rgba(255,255,255,0.08)}
+.pricing-items{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.pricing-items li{font-size:13px;color:var(--text-secondary);font-weight:300;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.pricing-card.featured .pricing-items li{color:rgba(255,255,255,0.5)}
+.pricing-items li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.8}
+.pricing-cta{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--white);background:var(--orange);border:none;padding:11px 22px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s;display:inline-flex;align-items:center;gap:6px}
+.pricing-cta::after{content:'→'}
+.pricing-cta:hover{background:var(--orange-light)}
+.pricing-cta-outline{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--navy);background:transparent;border:1px solid var(--border);padding:11px 22px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.pricing-cta-outline::after{content:'→'}
+.pricing-cta-outline:hover{border-color:var(--navy)}
+
+/* UPSELL TRIGGERS */
+.upsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.upsell-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 20px;display:flex;align-items:flex-start;gap:14px}
+.upsell-icon{width:32px;height:32px;background:var(--orange-pale);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.upsell-icon svg{width:16px;height:16px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.upsell-title{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.upsell-desc{font-size:13px;color:var(--text-secondary);font-weight:300;line-height:1.5}
+
+/* COMPETITOR COMPARISON */
+.comp-table-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px}
+.comp-table{width:100%;border-collapse:collapse}
+.comp-table th{background:var(--navy);color:rgba(255,255,255,0.7);font-size:12px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:14px 18px;text-align:left}
+.comp-table th:first-child{color:rgba(255,255,255,0.4)}
+.comp-table td{padding:14px 18px;font-size:13px;border-bottom:1px solid var(--stone);vertical-align:top;line-height:1.5}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr:nth-child(even) td{background:var(--off-white)}
+.comp-table .vendor-name{font-weight:500;color:var(--navy)}
+.comp-table .daappa-row td{background:var(--orange-pale)}
+.comp-table .daappa-row .vendor-name{color:var(--orange-dark)}
+.tag-enterprise{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;background:var(--stone);color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase}
+.tag-daappa{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;background:var(--orange-pale);color:var(--orange-dark);letter-spacing:.5px;text-transform:uppercase}
+
+/* REGULATORY */
+.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.reg-card{background:var(--white);padding:32px 28px}
+.reg-card-flag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--teal);background:var(--teal-light);padding:4px 10px;border-radius:3px;margin-bottom:14px}
+.reg-card-flag-dot{width:5px;height:5px;border-radius:50%;background:var(--teal)}
+.reg-card h3{font-size:17px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.3}
+.reg-card p{font-size:14px;color:var(--text-secondary);line-height:1.65;font-weight:300;margin-bottom:12px}
+.reg-card-items{list-style:none;display:flex;flex-direction:column;gap:6px}
+.reg-card-items li{font-size:13px;color:var(--text-secondary);font-weight:300;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.reg-card-items li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.8}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.faq-item{background:var(--white);padding:32px}
+.faq-q{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.4}
+.faq-a{font-size:14px;color:var(--text-secondary);line-height:1.65;font-weight:300}
+
+/* CTA */
+.cta-section{background:var(--orange);padding:80px 48px}
+.cta-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.cta-inner h2{font-family:var(--serif);font-size:36px;color:var(--white);line-height:1.2;margin-bottom:8px}
+.cta-inner p{font-size:16px;color:rgba(255,255,255,0.75);font-weight:300;max-width:560px}
+.cta-btns{display:flex;flex-direction:column;gap:12px;align-items:flex-end;flex-shrink:0}
+.btn-cta-white{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--orange);background:var(--white);border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-cta-white::after{content:'→'}
+.btn-cta-white:hover{opacity:.92}
+.btn-cta-ghost{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s;white-space:nowrap}
+.btn-cta-ghost:hover{color:var(--white)}
+.btn-cta-ghost::after{content:'→'}
+
+footer{background:#091929;padding:64px 48px 40px;border-top:1px solid rgba(255,255,255,.05)}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,.35);line-height:1.65;font-weight:300;margin-top:14px;max-width:240px}
+.footer-col-title{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:14px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;font-weight:300}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+.footer-legal{font-size:12px;color:rgba(255,255,255,.2)}
+.footer-certs{display:flex;gap:12px}
+.footer-cert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp .6s ease both}
+.hero-inner>*:nth-child(2){animation-delay:.15s}
+
+@media(max-width:960px){
+  nav{padding:0 20px}.breadcrumb{padding:10px 20px}.hero{padding:56px 20px}
+  .hero-inner{grid-template-columns:1fr}.pricing-panel{display:none}
+  .section{padding:64px 20px}.problem-grid{grid-template-columns:1fr;gap:32px}
+  .how-steps{grid-template-columns:1fr 1fr}.audience-grid,.pricing-grid,.reg-grid,.faq-grid{grid-template-columns:1fr}
+  .upsell-grid{grid-template-columns:1fr}.cta-inner{grid-template-columns:1fr}
+  .cta-btns{align-items:flex-start}.footer-top{grid-template-columns:1fr 1fr}
+  footer{padding:40px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/>
+      <path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+      <circle cx="16" cy="16" r="3" fill="#E8602A"/>
+    </svg>
+    <span class="nav-logo-text">daappa</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="daappa-studio-plus.html">Platform</a></li>
+    <li><a href="daappa-fund-administrators.html">Who we serve</a></li>
+    <li><a href="daappa-clients.html">Clients</a></li>
+    <li><a href="daappa-insights.html">Insights</a></li>
+    <li><a href="daappa-about.html">About</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="daappa-contact.html" class="btn-ghost-nav">Contact</a>
+    <a href="daappa-book-demo.html" class="btn-primary-nav">Book a demo</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">daappa</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="daappa-studio-plus.html">Studio+</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>NAV Oversight</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">NAV Oversight</div>
+      <h1>Replace the spreadsheet.<br><em>Own your NAV oversight.</em></h1>
+      <p class="hero-sub">daappa NAV Oversight is purpose-built for UK and EU asset managers with outsourced fund accounting. Automated data ingestion, the 0.5bp NAV movement check, and sign-off workflow in a single auditable environment. Live in 14 days.</p>
+      <div class="hero-actions">
+        <a href="daappa-book-demo.html" class="btn-hero-primary">Start in 14 days</a>
+        <a href="#pricing" class="btn-hero-ghost">See pricing</a>
+      </div>
+      <div class="hero-reg-pill">
+        <span class="hero-reg-pill-dot"></span>
+        Aligned with CSSF Circular 24/856 and FCA governance expectations
+      </div>
+    </div>
+
+    <div class="pricing-panel">
+      <div class="pricing-panel-header">
+        <div class="pricing-panel-label">Pricing from</div>
+        <div class="pricing-panel-title">daappa NAV Oversight</div>
+        <div class="pricing-panel-sub">No large implementation. No enterprise contract.</div>
+      </div>
+      <div class="pricing-tiers">
+        <div class="pricing-tier">
+          <div class="pricing-tier-info">
+            <div class="pricing-tier-name">Starter</div>
+            <div class="pricing-tier-detail">Up to 2 funds</div>
+          </div>
+          <div class="pricing-tier-price">
+            <div class="pricing-tier-amount">£199<span>/mo</span></div>
+            <div class="pricing-tier-setup">+ £500 one-off setup</div>
+          </div>
+        </div>
+        <div class="pricing-tier" style="background:rgba(232,96,42,0.06);border-left:2px solid var(--orange)">
+          <div class="pricing-tier-info">
+            <div class="pricing-tier-name">Professional</div>
+            <div class="pricing-tier-detail">Up to 10 funds</div>
+          </div>
+          <div class="pricing-tier-price">
+            <div class="pricing-tier-amount">£349<span>/mo</span></div>
+            <div class="pricing-tier-setup">+ £750 one-off setup</div>
+          </div>
+        </div>
+        <div class="pricing-tier">
+          <div class="pricing-tier-info">
+            <div class="pricing-tier-name">Enterprise</div>
+            <div class="pricing-tier-detail">10+ funds, bespoke SLA</div>
+          </div>
+          <div class="pricing-tier-price">
+            <div class="pricing-tier-amount" style="font-size:18px">From £800<span>/mo</span></div>
+            <div class="pricing-tier-setup">Bespoke setup</div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-panel-footer">
+        <div class="pricing-go-live">
+          <span class="pricing-go-live-dot"></span>
+          Live within 14 days of first conversation
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="problem-grid">
+      <div>
+        <div class="section-eyebrow">The problem</div>
+        <h2 class="section-h2" style="margin-bottom:16px">NAV oversight on a spreadsheet is no longer acceptable</h2>
+        <p style="font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;margin-bottom:16px">For asset managers who have outsourced their fund accounting, NAV oversight is a regulatory obligation. The 0.5bp NAV movement check, validation against prior periods, and a documented sign-off process are requirements -- not best practice.</p>
+        <p style="font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;margin-bottom:24px">Most firms are still running this process on spreadsheets and email chains. Regulators and auditors increasingly treat that as inadequate.</p>
+        <div class="reg-callout">
+          <div class="reg-callout-title">Regulatory context</div>
+          <div class="reg-callout-body">CSSF Circular 24/856 raises the bar for Luxembourg funds -- scope expansion, lower thresholds, and more rigorous governance expectations. UK regulators expect strong controls and oversight aligned with operational resilience and data governance requirements. For both markets, the business case for investment in a dedicated oversight platform is now regulatory, not just operational.</div>
+        </div>
+      </div>
+      <div class="problem-pains">
+        <div class="pain">
+          <div class="pain-icon"><svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+          <div>
+            <div class="pain-title">The NAV pack arrives as a spreadsheet</div>
+            <div class="pain-desc">Your administrator sends NAV data in inconsistent formats. Ingesting it manually into your oversight model takes hours and introduces transcription errors.</div>
+          </div>
+        </div>
+        <div class="pain">
+          <div class="pain-icon"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+          <div>
+            <div class="pain-title">The tolerance check lives in Excel</div>
+            <div class="pain-desc">The 0.5bp movement check is a formula in a spreadsheet with no version control, no audit trail, and no formal sign-off workflow that stands up to scrutiny.</div>
+          </div>
+        </div>
+        <div class="pain">
+          <div class="pain-icon"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+          <div>
+            <div class="pain-title">Sign-off happens by email</div>
+            <div class="pain-desc">Approval is an email thread. There is no documented workflow showing who reviewed what, when, and on what basis. That is not an audit trail a regulator will accept.</div>
+          </div>
+        </div>
+        <div class="pain">
+          <div class="pain-icon"><svg viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
+          <div>
+            <div class="pain-title">Errors surface late</div>
+            <div class="pain-desc">Without automated exception flagging, NAV discrepancies are found during month-end review rather than at the point they occur. Late discovery means investor impact.</div>
+          </div>
+        </div>
+        <div class="pain">
+          <div class="pain-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+          <div>
+            <div class="pain-title">Regulatory exposure is growing</div>
+            <div class="pain-desc">CSSF Circular 24/856 and equivalent UK expectations mean the current approach is increasingly difficult to defend to regulators, boards, and investors.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Who it's for</div>
+    <h2 class="section-h2">Built for the firms everyone else ignores</h2>
+    <p class="section-intro">Every enterprise NAV oversight platform is built for mid and large managers. daappa NAV Oversight is built for the firms priced out of those platforms -- the micro-managers and ManCos managing 1 to 10 funds who have outsourced their fund accounting and need a direct path to compliance.</p>
+
+    <div class="audience-grid">
+      <div class="audience-card primary">
+        <span class="audience-label audience-label-primary">Primary</span>
+        <div class="audience-title">UK and EU micro-managers</div>
+        <div class="audience-desc">Asset managers with 1 to 10 funds, fund accounting outsourced to an administrator, and an obligation to perform independent NAV oversight. Currently using spreadsheets. Need the shortest path to a documented, auditable process.</div>
+      </div>
+      <div class="audience-card primary">
+        <span class="audience-label audience-label-primary">Primary</span>
+        <div class="audience-title">ManCos and AIFMs</div>
+        <div class="audience-desc">Management companies with depositary oversight obligations under AIFMD. CSSF Circular 24/856 makes the existing spreadsheet approach increasingly difficult to defend. Need a regulator-ready workflow without an enterprise implementation project.</div>
+      </div>
+      <div class="audience-card">
+        <span class="audience-label audience-label-secondary">Also relevant</span>
+        <div class="audience-title">Depositaries</div>
+        <div class="audience-desc">Firms performing depositary oversight duties across multiple fund managers and administrators. NAV Oversight provides a single governed environment for multi-fund, multi-admin oversight without building bespoke infrastructure.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding:20px 24px;background:var(--off-white);border:1px solid var(--border);border-radius:6px;display:flex;align-items:flex-start;gap:16px">
+      <div style="width:40px;height:40px;background:var(--teal-light);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:500;color:var(--navy);margin-bottom:4px">Total addressable market</div>
+        <div style="font-size:14px;color:var(--text-secondary);font-weight:300;line-height:1.6">There are 4,600+ asset management firms across the UK and EU. The initial target is 1,500 to 2,200 micro-manager firms that fit this profile. These firms are currently underserved -- enterprise platforms are too expensive and too complex, and no purpose-built solution exists for this segment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section-alt" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-h2">Automated. Auditable. Straightforward.</h2>
+    <p class="section-intro">Four steps from NAV pack receipt to approved oversight record. The workflow replaces the spreadsheet, the email chain, and the manual check -- all in one place.</p>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">01 — Ingest</div>
+        <div class="how-step-title">NAV data arrives automatically</div>
+        <div class="how-step-desc">Daily email alert or portal upload. NAV data from your administrator is ingested, standardised, and normalised regardless of format. No manual re-keying.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">02 — Validate</div>
+        <div class="how-step-title">Automated tolerance checks run</div>
+        <div class="how-step-desc">The 0.5bp NAV movement check runs automatically. Configurable tolerance thresholds flag exceptions for review. High-risk items are surfaced immediately with the reason for the flag.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">03 — Review</div>
+        <div class="how-step-title">Exceptions routed for human review</div>
+        <div class="how-step-desc">Flagged items are routed to reviewers with full context. Maker-checker workflow. Inline commentary and escalation to second reviewer where required. Every action timestamped.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">04 — Approve</div>
+        <div class="how-step-title">Formal sign-off recorded</div>
+        <div class="how-step-desc">Approved sign-off is recorded in the system with full audit trail. 12-month history dashboard. Regulatory-ready evidence pack at any point. Nothing lives in a spreadsheet or an email thread.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px">
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">Daily email alert</div>
+        <div style="font-size:14px;color:var(--text-secondary);font-weight:300;line-height:1.55">Starter and Professional tiers include a daily email alert showing NAV movement status across your funds. See at a glance whether everything is within tolerance without logging into the platform.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">12-month history dashboard</div>
+        <div style="font-size:14px;color:var(--text-secondary);font-weight:300;line-height:1.55">Every NAV cycle, every check result, every exception, and every sign-off is retained in the dashboard. Ready for annual audit, regulatory inspection, or board reporting at any point.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">CSV and API output</div>
+        <div style="font-size:14px;color:var(--text-secondary);font-weight:300;line-height:1.55">Professional and Enterprise tiers include CSV export and API connectivity for integration with downstream reporting tools, portfolio management systems, or DataHub for Studio+ analytics.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-inner">
+    <div class="section-eyebrow">Pricing</div>
+    <h2 class="section-h2">Straightforward pricing. No implementation project.</h2>
+    <p class="section-intro">Three tiers. Every tier includes a mandatory one-off guided setup fee -- this ensures your data import templates are correctly configured and you get a successful start, not just a login.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <span class="pricing-badge pricing-badge-starter">Starter</span>
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-funds">Up to 2 funds</div>
+        <div class="pricing-amount-row">
+          <div class="pricing-amount">£199</div>
+          <div class="pricing-period">/month</div>
+        </div>
+        <div class="pricing-setup">+ £500 one-off guided setup fee</div>
+        <ul class="pricing-items">
+          <li>Daily email alert for NAV movement status</li>
+          <li>Automated 0.5bp tolerance check</li>
+          <li>Exception dashboard with flagged items</li>
+          <li>Maker-checker sign-off workflow</li>
+          <li>12-month history and audit trail</li>
+          <li>Guided setup included in setup fee</li>
+        </ul>
+        <a href="daappa-book-demo.html" class="pricing-cta-outline">Get started</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <span class="pricing-badge pricing-badge-pro">Professional</span>
+        <div class="pricing-name">Professional</div>
+        <div class="pricing-funds">Up to 10 funds</div>
+        <div class="pricing-amount-row">
+          <div class="pricing-amount">£349</div>
+          <div class="pricing-period">/month</div>
+        </div>
+        <div class="pricing-setup">+ £750 one-off guided setup fee</div>
+        <ul class="pricing-items">
+          <li>Everything in Starter</li>
+          <li>CSV export and API connectivity</li>
+          <li>Maker-checker approval workflow</li>
+          <li>Configurable tolerance thresholds per fund</li>
+          <li>Advanced exception alerts and SLA tracking</li>
+          <li>Multi-fund dashboard view</li>
+        </ul>
+        <a href="daappa-book-demo.html" class="pricing-cta">Get started</a>
+      </div>
+
+      <div class="pricing-card">
+        <span class="pricing-badge pricing-badge-enterprise">Enterprise</span>
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-funds">10+ funds</div>
+        <div class="pricing-amount-row">
+          <div class="pricing-amount" style="font-size:32px">From £800</div>
+          <div class="pricing-period">/month</div>
+        </div>
+        <div class="pricing-setup">Bespoke setup fee</div>
+        <ul class="pricing-items">
+          <li>Everything in Professional</li>
+          <li>Advanced alerting and bespoke thresholds</li>
+          <li>Bespoke support SLA</li>
+          <li>Custom data integration and onboarding</li>
+          <li>Natural upgrade path to full Studio+</li>
+          <li>DataHub integration for portfolio analytics</li>
+        </ul>
+        <a href="daappa-book-demo.html" class="pricing-cta-outline">Talk to us</a>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;padding:16px 20px;background:var(--off-white);border:1px solid var(--border);border-radius:6px;font-size:13px;color:var(--text-secondary);font-weight:300;line-height:1.6">
+      All prices shown in GBP excluding VAT. EUR pricing available. The one-off setup fee covers a guided onboarding session where daappa configures your data import templates, defines your tolerance thresholds, and ensures the workflow reflects your sign-off process. This is mandatory for all tiers -- it ensures a successful start rather than a slow-burn setup that never gets used properly.
+    </div>
+  </div>
+</section>
+
+<!-- UPSELL / EXPANSION -->
+<section class="section section-alt" style="padding-top:56px;padding-bottom:56px;border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div style="font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:20px">Natural upgrade path to Studio+</div>
+    <div class="upsell-grid">
+      <div class="upsell-card">
+        <div class="upsell-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <div>
+          <div class="upsell-title">Add Extractor AI</div>
+          <div class="upsell-desc">When you hit your fund limit or want to automate NAV pack ingestion from PDF documents, Extractor AI connects directly to NAV Oversight via DataHub.</div>
+        </div>
+      </div>
+      <div class="upsell-card">
+        <div class="upsell-icon"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+        <div>
+          <div class="upsell-title">Unlock Analytics</div>
+          <div class="upsell-desc">Heavy API usage and high activity on NAV data signals readiness for portfolio analytics. DataHub sits between NAV Oversight and the full Analytics layer.</div>
+        </div>
+      </div>
+      <div class="upsell-card">
+        <div class="upsell-icon"><svg viewBox="0 0 24 24"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg></div>
+        <div>
+          <div class="upsell-title">Move to Studio+</div>
+          <div class="upsell-desc">NAV Oversight is the fastest entry point into the daappa ecosystem. When your needs grow beyond oversight, the full Studio+ platform is a natural next step -- not a new implementation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITOR CONTEXT -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Where daappa fits</div>
+    <h2 class="section-h2">Purpose-built for the segment enterprise platforms ignore</h2>
+    <p class="section-intro">The four main NAV oversight competitors -- FundRecs, Next Gate Tech, HUB, and FundGuard -- all position as enterprise-grade platforms. Their clients are mid and large managers, fund administrators, and institutional depositaries. Their implementations take months and their pricing reflects it.</p>
+
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Vendor</th>
+            <th>Target audience</th>
+            <th>Approach</th>
+            <th>Fit for micro-managers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="vendor-name">FundRecs</span></td>
+            <td>Fund admins, depositaries, asset managers</td>
+            <td>Rules-based controls library, exception-first workflows, modular NAV and position checks</td>
+            <td><span class="tag-enterprise">Enterprise</span> Heavy library approach, positioned for admins at scale</td>
+          </tr>
+          <tr>
+            <td><span class="vendor-name">Next Gate Tech</span></td>
+            <td>Asset managers, ManCos, service providers</td>
+            <td>AI-driven oversight platform, real-time validation, predictive analytics, CSSF 24/856 aligned</td>
+            <td><span class="tag-enterprise">Enterprise</span> BNP Paribas and Amundi are reference clients</td>
+          </tr>
+          <tr>
+            <td><span class="vendor-name">HUB</span></td>
+            <td>Alternative asset managers and institutional investors</td>
+            <td>Post-trade ops automation, data standardisation, exception-based dashboards, fast PoV</td>
+            <td><span class="tag-enterprise">Enterprise</span> DigitalBridge and Acer Tree as reference clients</td>
+          </tr>
+          <tr>
+            <td><span class="vendor-name">FundGuard</span></td>
+            <td>Fund admins, custodians, large managers</td>
+            <td>ABOR/IBOR accounting platform with contingent NAV as an overlay, multi-book architecture</td>
+            <td><span class="tag-enterprise">Enterprise</span> Ultimus and State Street as reference clients</td>
+          </tr>
+          <tr class="daappa-row">
+            <td><span class="vendor-name">daappa NAV Oversight</span></td>
+            <td>UK/EU micro-managers, ManCos with 1-10 funds</td>
+            <td>Purpose-built SaaS for the 0.5bp check. Automated ingestion, tolerance check, maker-checker sign-off, audit trail. Starter from £199/month.</td>
+            <td><span class="tag-daappa">Purpose-built</span> The shortest path to compliance for this segment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding:20px 24px;background:var(--off-white);border:1px solid var(--border);border-radius:6px">
+      <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:6px">daappa's position in one sentence</div>
+      <div style="font-size:14px;color:var(--text-secondary);font-weight:300;line-height:1.65">Fast, auditable NAV tolerance checks for UK and EU micro-managers currently using spreadsheets -- the shortest path to confidence and compliance, at a price point the enterprise platforms cannot match.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGULATORY -->
+<section class="section section-dark">
+  <div class="section-inner">
+    <div style="font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px"><span style="width:20px;height:1px;background:var(--orange);display:inline-block"></span>Regulatory context</div>
+    <h2 class="section-h2 section-h2-white" style="margin-bottom:14px">The regulatory backdrop is getting stricter</h2>
+    <p class="section-intro-white section-intro" style="color:rgba(255,255,255,0.55)">Two distinct regulatory environments. Both moving in the same direction.</p>
+
+    <div class="reg-grid">
+      <div class="reg-card">
+        <div class="reg-card-flag"><span class="reg-card-flag-dot"></span>Luxembourg / EU</div>
+        <h3>CSSF Circular 24/856</h3>
+        <p>The CSSF's updated circular explicitly elevates expectations for NAV oversight in Luxembourg. Scope expansion, lower tolerance thresholds, and more rigorous governance expectations mean the previous approach is increasingly difficult to defend.</p>
+        <ul class="reg-card-items">
+          <li>Expanded scope for NAV error detection and correction</li>
+          <li>Lower materiality thresholds for reporting obligations</li>
+          <li>Stronger governance and board-level oversight requirements</li>
+          <li>Enhanced documentation and audit trail expectations</li>
+          <li>Applies to ManCos, AIFMs, and depositaries operating in Luxembourg</li>
+        </ul>
+      </div>
+      <div class="reg-card">
+        <div class="reg-card-flag"><span class="reg-card-flag-dot"></span>United Kingdom</div>
+        <h3>FCA governance expectations</h3>
+        <p>The UK regulatory trend is proportionality plus operational resilience plus data and governance rather than prescriptive rule sets. The expectation for strong controls and oversight is high and growing -- particularly for outsourced operating models.</p>
+        <ul class="reg-card-items">
+          <li>Operational resilience obligations under the FCA sourcebook</li>
+          <li>Data governance and accuracy expectations for authorised managers</li>
+          <li>Investor protection requirements for NAV accuracy and oversight</li>
+          <li>Audit and board reporting requirements for oversight processes</li>
+          <li>Applies to UK-authorised AIFMs and regulated fund managers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding:20px 24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px">
+      <div style="font-size:13px;font-weight:500;color:var(--white);margin-bottom:6px">What daappa NAV Oversight provides as evidence</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300">A complete audit trail of every NAV pack received, every tolerance check run, every exception flagged, every reviewer action, and every sign-off -- with timestamps and user attribution throughout. 12-month history available at any point for regulatory inspection, annual audit, or board reporting.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-eyebrow">Common questions</div>
+    <h2 class="section-h2" style="margin-bottom:40px">NAV Oversight -- frequently asked</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">What is the 0.5bp NAV movement check?</div>
+        <div class="faq-a">The 0.5bp NAV movement check is the standard regulatory tolerance for NAV variation between calculation periods. If a fund's NAV moves by more than 0.5 basis points from one period to the next without explanation, it must be flagged, investigated, and documented. Most firms currently perform this check manually in a spreadsheet -- daappa automates it and records the result with a full audit trail.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I really be live in 14 days?</div>
+        <div class="faq-a">Yes. The guided setup session (included in the one-off setup fee) configures your data import templates, defines your tolerance thresholds, and tests the workflow against your actual NAV packs. For a Starter or Professional client with 1 to 10 funds and a straightforward administrator setup, 14 days from first conversation to live operation is typical.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does it replace our fund administrator?</div>
+        <div class="faq-a">No. daappa NAV Oversight sits above your fund administrator and provides independent oversight of the NAVs they produce. It does not replace fund accounting or administration. It validates the output and gives you the documented evidence that you have performed independent oversight -- which is what regulators and auditors look for.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What format does the NAV data need to be in?</div>
+        <div class="faq-a">NAV Oversight ingests data via the portal (upload) or daily email. It handles CSV and XLSX formats from your administrator. The setup process configures the import templates to match your administrator's specific format -- you do not need to ask your administrator to change anything.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is it aligned with CSSF Circular 24/856?</div>
+        <div class="faq-a">Yes. The platform provides the automated tolerance checking, documented sign-off workflow, and full audit trail that CSSF Circular 24/856 expects. For Luxembourg-domiciled funds, the platform supports the governance and documentation requirements of the circular. We recommend confirming alignment with your legal counsel for your specific fund structure.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens when I hit my fund limit?</div>
+        <div class="faq-a">The platform includes automated prompts when you approach your plan limit. A Customer Success Manager will contact you proactively to discuss upgrading your plan or expanding into the broader Studio+ platform. There is no penalty for growing -- upgrading between tiers is straightforward and your historical data and configuration carry over.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div>
+      <h2>Replace your NAV oversight spreadsheet in 14 days</h2>
+      <p>Tell us how many funds you oversee, who your administrator is, and what your current process looks like. We will show you how NAV Oversight fits and get you live before your next quarterly cycle.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="daappa-book-demo.html" class="btn-cta-white">Start in 14 days</a>
+      <a href="daappa-studio-plus.html" class="btn-cta-ghost">See the full Studio+ platform</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/>
+            <path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+            <circle cx="16" cy="16" r="3" fill="#E8602A"/>
+          </svg>
+          <span class="nav-logo-text">daappa</span>
+        </a>
+        <p>The data, accounting and administration platform for private assets.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Studio+</div>
+        <ul class="footer-links">
+          <li><a href="daappa-studio-plus.html">Platform overview</a></li>
+          <li><a href="daappa-extractor-ai.html">Extractor AI</a></li>
+          <li><a href="daappa-nav-oversight.html">NAV Oversight</a></li>
+          <li><a href="daappa-analytics.html">Analytics</a></li>
+          <li><a href="daappa-core-page.html">daappa Core</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Who we serve</div>
+        <ul class="footer-links">
+          <li><a href="daappa-fund-administrators.html">Fund Administrators</a></li>
+          <li><a href="daappa-general-partners.html">General Partners</a></li>
+          <li><a href="daappa-lps-fof.html">LPs and FoF</a></li>
+          <li><a href="daappa-aifms.html">AIFMs</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="daappa-about.html">About us</a></li>
+          <li><a href="daappa-clients.html">Clients</a></li>
+          <li><a href="daappa-insights.html">Insights</a></li>
+          <li><a href="daappa-contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© daappa Limited 2025. All rights reserved. &nbsp;·&nbsp; <a href="#" style="color:inherit;text-decoration:none">Privacy Policy</a></div>
+      <div class="footer-certs">
+        <span class="footer-cert">ISO 27001</span>
+        <span class="footer-cert">ISO 9001</span>
+        <span class="footer-cert">Azure hosted</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

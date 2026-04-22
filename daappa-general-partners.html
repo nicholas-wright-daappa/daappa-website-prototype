@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>daappa for General Partners — Private Markets Technology for GPs | daappa</title>
+<meta name="description" content="daappa gives GPs the data, oversight, and reporting layer above their fund accounting. Portfolio monitoring, Extractor AI for portco documents, Analytics, and Investor Portal. Works above your existing fund admin or alongside daappa Core.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3A;--navy-mid:#142D52;--orange:#E8602A;--orange-light:#F07848;--orange-pale:#FDF0EA;--orange-dark:#C04E20;--teal:#1D9E75;--teal-light:#E1F5EE;--teal-mid:#5DCAA5;--white:#fff;--off:#F7F8FA;--stone:#EEF0F4;--border:#DDE2EB;--ts:#4A5568;--tm:#718096;--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+html{scroll-behavior:smooth}body{font-family:var(--sans);color:var(--navy);background:var(--white);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none}.nl-t{font-weight:600;font-size:20px;color:#fff;letter-spacing:-.3px}
+.nlinks{display:flex;align-items:center;gap:28px;list-style:none}.nlinks a{font-size:14px;color:rgba(255,255,255,.7);text-decoration:none;transition:color .2s}.nlinks a:hover{color:#fff}
+.ncta{display:flex;align-items:center;gap:12px}
+.btn-gn{font-family:var(--sans);font-size:14px;font-weight:500;color:rgba(255,255,255,.8);background:transparent;border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}.btn-gn:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.btn-pn{font-family:var(--sans);font-size:14px;font-weight:500;color:#fff;background:var(--orange);border:none;padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s}.btn-pn:hover{background:var(--orange-light)}
+.bc{background:var(--off);border-bottom:1px solid var(--border);padding:10px 48px}.bci{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tm)}.bci a{color:var(--tm);text-decoration:none}.bci a:hover{color:var(--navy)}
+
+/* HERO */
+.hero{background:var(--navy);padding:80px 48px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,96,42,.1) 0%,transparent 65%);pointer-events:none}
+.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.hi{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.ey{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:flex;align-items:center;gap:8px}.ey::before{content:'';width:20px;height:1px;background:var(--orange)}
+h1{font-family:var(--serif);font-size:52px;line-height:1.08;color:#fff;letter-spacing:-.5px;margin-bottom:24px;max-width:800px}h1 em{font-style:italic;color:rgba(255,255,255,.5)}
+.hs{font-size:18px;line-height:1.65;color:rgba(255,255,255,.6);font-weight:300;margin-bottom:40px;max-width:620px}
+.ha{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+.bhp{font-family:var(--sans);font-size:15px;font-weight:500;color:#fff;background:var(--orange);border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:background .2s;display:inline-flex;align-items:center;gap:8px}.bhp::after{content:'→';transition:transform .2s}.bhp:hover{background:var(--orange-light)}.bhp:hover::after{transform:translateX(3px)}
+.bhg{font-family:var(--sans);font-size:15px;font-weight:400;color:rgba(255,255,255,.7);background:transparent;border:1px solid rgba(255,255,255,.15);padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s}.bhg:hover{color:#fff;border-color:rgba(255,255,255,.35)}
+.hm{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.08);padding-top:40px}
+.hmi{flex:1;padding-right:32px;border-right:1px solid rgba(255,255,255,.08)}.hmi:last-child{border-right:none;padding-right:0;padding-left:32px}.hmi:not(:first-child){padding-left:32px}
+.hmn{font-size:12px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px}
+.hmv{font-size:15px;color:rgba(255,255,255,.65);line-height:1.4}
+
+/* GENERIC SECTION STYLES */
+.s{padding:88px 48px}.si{max-width:1200px;margin:0 auto}.sa{background:var(--off)}.sd{background:var(--navy)}
+.se{font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}.se::before{content:'';width:20px;height:1px;background:var(--orange)}
+h2{font-family:var(--serif);font-size:40px;line-height:1.15;color:var(--navy);letter-spacing:-.3px;margin-bottom:14px}
+.si p.intro{font-size:17px;color:var(--ts);line-height:1.65;font-weight:300;max-width:640px;margin-bottom:48px}
+
+/* CHALLENGES */
+.ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ch{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 20px;display:flex;align-items:flex-start;gap:14px}
+.ch-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8}
+.ch-t{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.ch-d{font-size:13px;color:var(--ts);font-weight:300;line-height:1.5}
+
+/* USE CASES */
+.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.uc{background:var(--white);padding:32px 26px}
+.uc-icon{width:40px;height:40px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.uc-icon svg{width:20px;height:20px;stroke:var(--orange);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.uc-name{font-family:var(--serif);font-size:19px;color:var(--navy);margin-bottom:8px;line-height:1.2}
+.uc-desc{font-size:14px;color:var(--ts);line-height:1.6;font-weight:300;margin-bottom:14px}
+.uc-link{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:3px;transition:color .15s}.uc-link:hover{color:var(--orange)}.uc-link::after{content:'→'}
+
+/* PRODUCT FIT */
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.pf{background:var(--white);padding:36px 32px}
+.pf.dark{background:var(--navy)}
+.pf-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.pf-tag-a{background:var(--teal-light);color:var(--teal)}
+.pf-tag-b{background:rgba(232,96,42,.15);color:var(--orange-light)}
+.pf-name{font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:10px}.pf.dark .pf-name{color:#fff}
+.pf-desc{font-size:14px;color:var(--ts);line-height:1.65;font-weight:300;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--stone)}.pf.dark .pf-desc{color:rgba(255,255,255,.45);border-bottom-color:rgba(255,255,255,.08)}
+.pf-items{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.pf-items li{font-size:13px;color:var(--ts);font-weight:300;display:flex;align-items:flex-start;gap:8px;line-height:1.4}.pf.dark .pf-items li{color:rgba(255,255,255,.45)}
+.pf-items li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;opacity:.8}
+.pf-link{font-size:13px;font-weight:500;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:color .15s}.pf-link:hover{color:var(--orange)}.pf-link::after{content:'→'}
+.pf-link-w{color:rgba(255,255,255,.65)}.pf-link-w:hover{color:#fff}
+
+/* GENERIC LIST */
+.gl{list-style:none;display:flex;flex-direction:column;gap:8px}
+.gl li{font-size:14px;color:var(--ts);font-weight:300;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.gl li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px;opacity:.8}
+
+/* TESTIMONIAL */
+.tq{background:var(--stone);border-radius:8px;padding:48px}
+.tq-mark{font-family:var(--serif);font-size:56px;color:var(--orange);line-height:.7;opacity:.4;margin-bottom:14px;display:block}
+.tq-body{font-family:var(--serif);font-size:22px;color:var(--navy);line-height:1.5;margin-bottom:20px;max-width:680px;font-style:italic}
+.tq-src{font-size:12px;font-weight:500;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;padding-top:18px;border-top:1px solid var(--border)}
+
+/* FAQ */
+.fq{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.fq-i{background:var(--white);padding:32px}.fq-q{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.4}.fq-a{font-size:14px;color:var(--ts);line-height:1.65;font-weight:300}
+
+/* CTA */
+.cta{background:var(--orange);padding:80px 48px}
+.cta-i{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.cta-i h2{font-family:var(--serif);font-size:36px;color:#fff;line-height:1.2;margin-bottom:8px}
+.cta-i p{font-size:16px;color:rgba(255,255,255,.75);font-weight:300;max-width:560px}
+.cta-b{display:flex;flex-direction:column;gap:12px;align-items:flex-end;flex-shrink:0}
+.bcw{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--orange);background:#fff;border:none;padding:13px 28px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}.bcw::after{content:'→'}.bcw:hover{opacity:.92}
+.bcg{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s;white-space:nowrap}.bcg:hover{color:#fff}.bcg::after{content:'→'}
+
+footer{background:#091929;padding:64px 48px 40px;border-top:1px solid rgba(255,255,255,.05)}
+.fi{max-width:1200px;margin:0 auto}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fp p{font-size:14px;color:rgba(255,255,255,.35);line-height:1.65;font-weight:300;margin-top:14px;max-width:240px}
+.fct{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:10px}.fl a{font-size:14px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;font-weight:300}.fl a:hover{color:rgba(255,255,255,.8)}
+.fb{padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+.fleg{font-size:12px;color:rgba(255,255,255,.2)}
+.fcerts{display:flex;gap:12px}.fcert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
+
+@media(max-width:960px){nav{padding:0 20px}.bc{padding:10px 20px}.hero{padding:56px 20px}.s{padding:64px 20px}.ch-grid,.uc-grid,.pf-grid,.fq{grid-template-columns:1fr}.cta-i{grid-template-columns:1fr}.cta-b{align-items:flex-start}.ft{grid-template-columns:1fr 1fr}footer{padding:40px 20px}.hm{flex-wrap:wrap;gap:20px}.hmi{flex:1 0 40%;border-right:none;padding:0}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nl"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/><path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><circle cx="16" cy="16" r="3" fill="#E8602A"/></svg><span class="nl-t">daappa</span></a>
+  <ul class="nlinks"><li><a href="daappa-studio-plus.html">Platform</a></li><li><a href="daappa-fund-administrators.html">Who we serve</a></li><li><a href="daappa-clients.html">Clients</a></li><li><a href="daappa-insights.html">Insights</a></li><li><a href="daappa-about.html">About</a></li></ul>
+  <div class="ncta"><a href="daappa-contact.html" class="btn-gn">Contact</a><a href="daappa-book-demo.html" class="btn-pn">Book a demo</a></div>
+</nav>
+<div class="bc"><div class="bci"><a href="index.html">daappa</a><span style="color:var(--border)">/</span><a href="daappa-fund-administrators.html">Who we serve</a><span style="color:var(--border)">/</span><span>General Partners</span></div></div>
+
+<section class="hero">
+  <div class="hg"></div>
+  <div class="hi">
+    <div class="ey">General Partners</div>
+    <h1>Stop re-keying portco reports.<br><em>Start running the portfolio.</em></h1>
+    <p class="hs">daappa gives GPs the intelligence layer above their fund accounting. Extractor AI processes your quarterly portco documents. DataHub centralises the data. Analytics and Portfolio Monitoring give you the oversight your investors expect -- without building it all in Excel.</p>
+    <div class="ha"><a href="daappa-book-demo.html" class="bhp">Book a demo</a><a href="#use-cases" class="bhg">See what it covers</a></div>
+    <div class="hm">
+      <div class="hmi"><div class="hmn">Document extraction</div><div class="hmv">98% accuracy on quarterly portco reports, financial statements, LP documents</div></div>
+      <div class="hmi"><div class="hmn">Portfolio oversight</div><div class="hmv">Single dashboard across all portfolio companies and fund structures</div></div>
+      <div class="hmi"><div class="hmn">Fund accounting</div><div class="hmv">daappa Core available for GPs who want to bring accounting in-house</div></div>
+      <div class="hmi"><div class="hmn">Investor reporting</div><div class="hmv">Branded LP portal for document and performance data distribution</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGES -->
+<section class="s sa">
+  <div class="si">
+    <div class="se">The GP challenge</div>
+    <h2>What eats your team's time each quarter</h2>
+    <p class="intro">Every GP knows the cycle. Portco reports arrive. Analysts spend three days extracting data. Somebody builds a consolidated model. The model breaks. The update is late. LP queries come in. The cycle repeats.</p>
+    <div class="ch-grid">
+      <div class="ch"><span class="ch-dot"></span><div><div class="ch-t">Document processing is the biggest bottleneck</div><div class="ch-d">Quarterly portco reports, financial statements, and capital account statements arrive as PDFs. Re-keying data manually takes days and introduces errors that compound downstream.</div></div></div>
+      <div class="ch"><span class="ch-dot"></span><div><div class="ch-t">No single source of truth across the portfolio</div><div class="ch-d">Data lives in separate models per portco, in different formats, with different calculation conventions. Building a consolidated portfolio view requires weeks of work each quarter.</div></div></div>
+      <div class="ch"><span class="ch-dot"></span><div><div class="ch-t">LP reporting takes too long and is too manual</div><div class="ch-d">Capital account statements, performance updates, and investor letters are assembled manually from multiple sources. Distribution is an email chain. There is no self-service for investors.</div></div></div>
+      <div class="ch"><span class="ch-dot"></span><div><div class="ch-t">NAV oversight is a spreadsheet nobody trusts</div><div class="ch-d">For GPs who have outsourced fund accounting, NAV oversight is a regulatory obligation. The spreadsheet approach is increasingly difficult to defend to auditors and regulators.</div></div></div>
+      <div class="ch"><span class="ch-dot"></span><div><div class="ch-t">Compliance monitoring happens retrospectively</div><div class="ch-d">Investment mandate checks, concentration limits, and ESG screens are reviewed at month-end rather than in real time. Breaches surface late.</div></div></div>
+      <div class="ch"><span class="ch-dot"></span><div><div class="ch-t">Technology investment is hard to justify at fund scale</div><div class="ch-d">Enterprise platforms are priced for large managers. Most GPs with 2-10 funds cannot access institutional-quality technology at a cost that makes commercial sense.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="s" id="use-cases">
+  <div class="si">
+    <div class="se">What daappa does for GPs</div>
+    <h2>The six things that change first</h2>
+    <p class="intro">Studio+ components can be implemented individually or as a connected platform. Most GPs start with the highest-pain point and expand from there.</p>
+    <div class="uc-grid">
+      <div class="uc">
+        <div class="uc-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <div class="uc-name">Document extraction</div>
+        <div class="uc-desc">Extractor AI processes quarterly portco reports, financial statements, and LP documents automatically. 98% accuracy. Full audit trail to source document. Works with your existing schemas and models.</div>
+        <a href="daappa-extractor-ai.html" class="uc-link">See Extractor AI</a>
+      </div>
+      <div class="uc">
+        <div class="uc-icon"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+        <div class="uc-name">Portfolio analytics</div>
+        <div class="uc-desc">Private markets BI dashboards built on your DataHub data. Fund performance metrics, portco KPI trends, vintage analysis, and exception reporting. No generic BI configuration required.</div>
+        <a href="daappa-analytics.html" class="uc-link">See Analytics</a>
+      </div>
+      <div class="uc">
+        <div class="uc-icon"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+        <div class="uc-name">LP reporting and portal</div>
+        <div class="uc-desc">Branded investor portal for capital account statements, fund documents, and performance data. Investors access their information directly. No more quarterly email attachments.</div>
+        <a href="daappa-studio-plus.html" class="uc-link">See Portal</a>
+      </div>
+      <div class="uc">
+        <div class="uc-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <div class="uc-name">NAV oversight</div>
+        <div class="uc-desc">For GPs with outsourced fund accounting, NAV Oversight replaces the 0.5bp check spreadsheet with an automated, auditable workflow. Starter from £199/month. Live in 14 days.</div>
+        <a href="daappa-nav-oversight.html" class="uc-link">See NAV Oversight</a>
+      </div>
+      <div class="uc">
+        <div class="uc-icon"><svg viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></div>
+        <div class="uc-name">Look Through</div>
+        <div class="uc-desc">Full ownership and exposure visibility across fund structures, SPVs, and co-investments. Traces each LP's exposure to underlying portfolio companies through layers of the fund hierarchy.</div>
+        <a href="daappa-studio-plus.html" class="uc-link">See Look Through</a>
+      </div>
+      <div class="uc">
+        <div class="uc-icon"><svg viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div>
+        <div class="uc-name">Fund accounting (Core)</div>
+        <div class="uc-desc">For GPs who want to bring fund accounting in-house or move from a legacy system, daappa Core provides end-to-end fund accounting, investor servicing, and regulatory reporting.</div>
+        <a href="daappa-core-page.html" class="uc-link">See daappa Core</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT FIT -->
+<section class="s sa">
+  <div class="si">
+    <div class="se">Which product fits?</div>
+    <h2>Outsourced accounting or in-house?</h2>
+    <p class="intro">Where you start with daappa depends on whether your fund accounting is outsourced or in-house. Both paths lead to the same platform.</p>
+    <div class="pf-grid">
+      <div class="pf">
+        <span class="pf-tag pf-tag-a">Fund accounting outsourced</span>
+        <div class="pf-name">Start with Studio+</div>
+        <div class="pf-desc">Your fund admin handles the accounting. daappa Studio+ connects above it to provide document extraction, data centralisation, oversight, analytics, and LP reporting. You don't change your fund admin arrangements on day one.</div>
+        <ul class="pf-items">
+          <li>Extractor AI processes incoming documents from your admin and portcos</li>
+          <li>DataHub centralises everything into one governed data set</li>
+          <li>NAV Oversight automates your 0.5bp check and sign-off</li>
+          <li>Analytics and Portal deliver reporting to your team and LPs</li>
+          <li>No change to your existing fund admin relationship</li>
+        </ul>
+        <a href="daappa-studio-plus.html" class="pf-link">See Studio+</a>
+      </div>
+      <div class="pf dark">
+        <span class="pf-tag pf-tag-b">Fund accounting in-house</span>
+        <div class="pf-name">Start with Core + Studio+</div>
+        <div class="pf-desc">You want end-to-end control. daappa Core handles fund accounting, investor servicing, and regulatory reporting. Studio+ connects above it for data, analytics, and LP portal. The two products share data directly.</div>
+        <ul class="pf-items">
+          <li>Core for partnership accounting, GL, valuations, and reporting</li>
+          <li>Studio+ DataHub draws directly from Core as the data source</li>
+          <li>One system from transaction entry to LP report distribution</li>
+          <li>No reconciliation between accounting and analytics data</li>
+          <li>Suitable for GPs building a fund admin capability in-house</li>
+        </ul>
+        <a href="daappa-core-page.html" class="pf-link pf-link-w">See daappa Core</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="s" style="padding-top:0">
+  <div class="si">
+    <div class="tq">
+      <span class="tq-mark">"</span>
+      <div class="tq-body">We use daappa to capture, store, consolidate, analyse and extract data. With daappa we are capable of calculating IRR on FoF, GP and portfolio company levels, and we are able to deliver high quality reports to our investors with more transparency compared to our competitors.</div>
+      <div class="tq-src">Director of Investor Relations · Global VC</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="s sa">
+  <div class="si">
+    <div class="se">Common questions</div>
+    <h2 style="margin-bottom:40px">GPs — frequently asked</h2>
+    <div class="fq">
+      <div class="fq-i"><div class="fq-q">Do we need to change our fund administrator to use daappa?</div><div class="fq-a">No. daappa Studio+ connects above your existing fund administrator and processes the data they produce. You don't need to change your fund admin arrangements to start. If you later want to bring accounting in-house, daappa Core is available alongside Studio+.</div></div>
+      <div class="fq-i"><div class="fq-q">Where do most GPs start?</div><div class="fq-a">The most common starting point is either Extractor AI (for GPs with document processing bottlenecks) or NAV Oversight (for GPs who need to replace their 0.5bp spreadsheet quickly). Both can be live within weeks and have a natural expansion path to the full Studio+ platform.</div></div>
+      <div class="fq-i"><div class="fq-q">Does Extractor AI work with our existing portco reporting templates?</div><div class="fq-a">Yes. The Extractor AI proof of concept configures extraction templates to your existing schemas and data points. You don't need to ask your portfolio companies to change how they report. The platform adapts to the formats that arrive.</div></div>
+      <div class="fq-i"><div class="fq-q">Can our LPs access reporting through a portal?</div><div class="fq-a">Yes. The daappa Studio+ Investor Portal is deployed branded to your fund identity. Your LPs access capital account statements, performance reports, and fund documents directly. You control what each investor can see and when.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-i">
+    <div><h2>See daappa working for your fund</h2><p>Tell us about your fund structure, your current document process, and what your analysts spend most of their time on. We'll show you where daappa fits.</p></div>
+    <div class="cta-b"><a href="daappa-book-demo.html" class="bcw">Book a demo</a><a href="daappa-studio-plus.html" class="bcg">See Studio+</a></div>
+  </div>
+</section>
+
+<footer><div class="fi">
+  <div class="ft">
+    <div class="fp"><a href="index.html" class="nl"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/><path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><circle cx="16" cy="16" r="3" fill="#E8602A"/></svg><span class="nl-t">daappa</span></a><p>The data, accounting and administration platform for private assets.</p></div>
+    <div><div class="fct">Platform</div><ul class="fl"><li><a href="daappa-studio-plus.html">Studio+</a></li><li><a href="daappa-extractor-ai.html">Extractor AI</a></li><li><a href="daappa-nav-oversight.html">NAV Oversight</a></li><li><a href="daappa-core-page.html">daappa Core</a></li></ul></div>
+    <div><div class="fct">Who we serve</div><ul class="fl"><li><a href="daappa-fund-administrators.html">Fund Administrators</a></li><li><a href="daappa-general-partners.html">General Partners</a></li><li><a href="daappa-lps-fof.html">LPs and FoF</a></li><li><a href="daappa-development-banks.html">Development Banks</a></li></ul></div>
+    <div><div class="fct">Company</div><ul class="fl"><li><a href="daappa-about.html">About us</a></li><li><a href="daappa-clients.html">Clients</a></li><li><a href="daappa-insights.html">Insights</a></li><li><a href="daappa-contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="fb"><div class="fleg">© daappa Limited 2025. All rights reserved.</div><div class="fcerts"><span class="fcert">ISO 27001</span><span class="fcert">ISO 9001</span><span class="fcert">Azure hosted</span></div></div>
+</div></footer>
+</body>
+</html>
