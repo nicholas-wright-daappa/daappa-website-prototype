@@ -74,12 +74,88 @@ footer{background:#091929;padding:64px 48px 40px;border-top:1px solid rgba(255,2
 .fb{padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
 .fleg{font-size:12px;color:rgba(255,255,255,.2)}.fcerts{display:flex;gap:12px}.fcert{font-size:11px;font-weight:500;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:3px}
 @media(max-width:960px){nav{padding:0 20px}.bc,.hero,.s{padding-left:20px;padding-right:20px}.hero{padding-top:56px}.s{padding-top:64px;padding-bottom:64px}.team-grid{grid-template-columns:1fr 1fr}.values-row{grid-template-columns:1fr}.cta-i{grid-template-columns:1fr}.cta-b{align-items:flex-start}.ft{grid-template-columns:1fr 1fr}footer{padding:40px 20px}}
+
+/* ── SOLUTIONS DROPDOWN ─────────────────────────────────── */
+.has-dropdown{position:relative}
+.has-dropdown>a{display:flex;align-items:center;gap:4px}
+.nav-arrow{font-size:10px;transition:transform .2s;display:inline-block;opacity:.6}
+.has-dropdown:hover .nav-arrow{transform:rotate(180deg);opacity:1}
+.nav-dropdown{position:absolute;top:calc(100% + 8px);left:-20px;min-width:380px;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,.16);padding:20px 20px 16px;display:none;z-index:200}
+.has-dropdown:hover .nav-dropdown{display:block}
+.nav-dropdown-inner{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.nav-dropdown-label{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#718096;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #EEF0F4}
+.nav-dropdown-item{display:block;padding:7px 8px;border-radius:4px;text-decoration:none;color:#0B1F3A;font-size:13px;transition:background .15s;margin-bottom:2px}
+.nav-dropdown-item:hover{background:#F7F8FA;color:#E8602A}
+.ndi-name{font-weight:500;font-size:14px;color:#0B1F3A;margin-bottom:2px}
+.ndi-desc{font-size:12px;color:#718096;font-weight:300}
+.nav-dropdown-item:hover .ndi-name{color:#E8602A}
+
+/* ── HAMBURGER BUTTON ───────────────────────────────────── */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px;margin-left:auto;flex-shrink:0}
+.nav-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,.8);border-radius:2px;transition:all .28s ease}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ── MOBILE NAV ─────────────────────────────────────────── */
+@media(max-width:800px){
+  nav{flex-wrap:wrap;height:auto;min-height:64px;padding:0 20px\!important;position:sticky;top:0;z-index:100}
+  .nav-hamburger{display:flex}
+  .nlinks{display:none;width:100%;flex-direction:column;gap:0;padding:8px 0 16px;border-top:1px solid rgba(255,255,255,.08);order:3}
+  .nlinks.open{display:flex}
+  .nlinks li{width:100%}
+  .nlinks>li>a{font-size:15px;padding:11px 4px;display:block;color:rgba(255,255,255,.85)\!important;border-bottom:1px solid rgba(255,255,255,.06)}
+  .nlinks li:last-child>a{border-bottom:none}
+  .ncta{display:none\!important}
+  .has-dropdown .nav-dropdown{display:none\!important}
+  .nav-arrow{display:none}
+}
+@media(max-width:600px){
+  h1{font-size:36px\!important}
+  h2{font-size:28px\!important}
+  .proof-bar{grid-template-columns:1fr 1fr\!important}
+  .cta-i{grid-template-columns:1fr\!important}
+  .ft{grid-template-columns:1fr\!important}
+  .two{grid-template-columns:1fr\!important}
+  .prod-grid{grid-template-columns:1fr\!important}
+  .who-grid{grid-template-columns:1fr 1fr\!important}
+  .caps-grid{grid-template-columns:1fr\!important}
+  footer{padding:40px 20px\!important}
+}
 </style>
 </head>
 <body>
 <nav>
   <a href="index.html" class="nl"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8602A" stroke-width="1.5"/><path d="M16 4L28 22L4 22Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><circle cx="16" cy="16" r="3" fill="#E8602A"/></svg><span class="nl-t">daappa</span></a>
-  <ul class="nlinks"><li><a href="daappa-solutions.html">Solutions</a></li><li><a href="daappa-who-we-serve.html">Who we serve</a></li><li><a href="daappa-clients.html">Clients</a></li><li><a href="daappa-insights.html">Insights</a></li><li><a href="daappa-about.html">About</a></li></ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <ul class="nlinks" id="navLinks">
+    <li class="has-dropdown"><a href="daappa-solutions.html">Solutions <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-inner">
+          <div class="nav-dropdown-group">
+            <div class="nav-dropdown-label">Products</div>
+            <a href="daappa-core-page.html" class="nav-dropdown-item"><div class="ndi-name">daappa Core</div><div class="ndi-desc">Fund accounting engine</div></a>
+            <a href="daappa-studio-plus.html" class="nav-dropdown-item"><div class="ndi-name">Studio+</div><div class="ndi-desc">Intelligence &amp; reporting layer</div></a>
+          </div>
+          <div class="nav-dropdown-group">
+            <div class="nav-dropdown-label">Capabilities</div>
+            <a href="daappa-extractor-ai.html" class="nav-dropdown-item">Extractor AI</a>
+            <a href="daappa-datahub.html" class="nav-dropdown-item">DataHub</a>
+            <a href="daappa-nav-oversight.html" class="nav-dropdown-item">NAV Oversight</a>
+            <a href="daappa-analytics.html" class="nav-dropdown-item">Analytics</a>
+            <a href="daappa-look-through.html" class="nav-dropdown-item">Look Through</a>
+            <a href="daappa-compliance.html" class="nav-dropdown-item">Compliance</a>
+            <a href="daappa-portal.html" class="nav-dropdown-item">Investor Portal</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li><a href="daappa-who-we-serve.html">Who we serve</a></li>
+    <li><a href="daappa-clients.html">Clients</a></li>
+    <li><a href="daappa-insights.html">Insights</a></li>
+    <li><a href="daappa-explorer.html">Find your fit</a></li>
+    <li><a href="daappa-about.html" class="active">About</a></li>
+  </ul>
   <div class="ncta"><a href="daappa-contact.html" class="btn-gn">Contact</a><a href="daappa-book-demo.html" class="btn-pn">Book a demo</a></div>
 </nav>
 <div class="bc"><div class="bci"><a href="index.html">daappa</a><span style="color:var(--border)">/</span><a href="daappa-about.html">About</a><span style="color:var(--border)">/</span><span>Meet the team</span></div></div>
